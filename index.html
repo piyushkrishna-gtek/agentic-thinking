@@ -527,16 +527,19 @@
         }
 
         .step-group-optional::before {
-            content: 'Skip if you already have a use case';
+            content: 'Skip if you already have a use case →';
             position: absolute;
-            top: -10px;
+            top: -14px;
             right: 16px;
-            font-size: 0.7rem;
-            color: var(--color-text-muted);
-            background: var(--color-bg-elevated);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-style: italic;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            background: var(--color-bg-page);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--color-primary);
+            box-shadow: 0 0 16px rgba(0, 212, 255, 0.25);
+            letter-spacing: 0.02em;
         }
 
         .step-group-header {
