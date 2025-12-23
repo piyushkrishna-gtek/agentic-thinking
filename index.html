@@ -211,10 +211,23 @@
             animation: fadeIn 0.3s ease;
         }
 
-        .view-toggle-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 1rem;
+        /* Responsive View Switching */
+        .diagram-view {
+            display: block;
+        }
+
+        .list-view {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-view {
+                display: none;
+            }
+
+            .list-view {
+                display: block;
+            }
         }
 
         /* Roles Grid */
@@ -378,35 +391,6 @@
             font-family: var(--font-display);
             font-size: 1.5rem;
             font-weight: 700;
-        }
-
-        .view-toggle {
-            display: flex;
-            gap: 0.25rem;
-            background: var(--color-bg-surface);
-            padding: 4px;
-            border-radius: 10px;
-        }
-
-        .view-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            border: none;
-            background: transparent;
-            color: var(--color-text-secondary);
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-family: var(--font-sans);
-            transition: var(--transition-fast);
-        }
-
-        .view-btn.active {
-            background: var(--color-bg-elevated);
-            color: var(--color-text-primary);
-        }
-
-        .view-btn:hover:not(.active) {
-            color: var(--color-text-primary);
         }
 
         /* Process Flow Diagram */
@@ -1086,6 +1070,89 @@
             max-width: 900px;
         }
 
+        /* Modal Pagination */
+        .modal-pages-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-pages {
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .modal-page {
+            min-width: 100%;
+            padding: 0 0.5rem;
+            box-sizing: border-box;
+        }
+
+        .modal-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            border-top: 1px solid var(--color-border-subtle);
+            background: var(--color-bg-surface);
+        }
+
+        .pagination-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .pagination-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border-default);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .pagination-dot.active {
+            background: var(--color-primary);
+            transform: scale(1.25);
+        }
+
+        .pagination-dot:hover:not(.active) {
+            background: var(--color-text-muted);
+        }
+
+        .pagination-arrow {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border-subtle);
+            background: var(--color-bg-elevated);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .pagination-arrow:hover:not(:disabled) {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .pagination-arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination-label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            font-family: var(--font-mono);
+            min-width: 60px;
+            text-align: center;
+        }
+
         .role-modal-header {
             padding: 1.5rem 2rem;
             border-bottom: 1px solid var(--color-border-subtle);
@@ -1273,13 +1340,6 @@
         }
 
         /* List view styles */
-        .list-view {
-            display: none;
-        }
-
-        .list-view.active {
-            display: block;
-        }
 
         .diagram-view {
             display: block;
@@ -1459,12 +1519,6 @@
 
             <!-- Process Tab Content -->
             <section class="tab-content active" id="processTab">
-                <div class="view-toggle-container">
-                    <div class="view-toggle">
-                        <button class="view-btn active" data-view="diagram">Diagram</button>
-                        <button class="view-btn" data-view="list">List</button>
-                    </div>
-                </div>
 
                 <!-- Diagram View -->
                 <div class="diagram-view" id="diagramView">
@@ -2112,9 +2166,6 @@
         const mainTabs = document.querySelectorAll('.main-tab');
         const tabContents = document.querySelectorAll('.tab-content');
         const phaseNodes = document.querySelectorAll('.phase-node');
-        const viewBtns = document.querySelectorAll('.view-btn');
-        const diagramView = document.getElementById('diagramView');
-        const listView = document.getElementById('listView');
         const roleCardsLarge = document.querySelectorAll('.role-card-large');
         const phaseListItems = document.querySelectorAll('.phase-list-item');
 
@@ -2181,24 +2232,6 @@
             }
         });
 
-        // View Toggle
-        viewBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                viewBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const view = btn.dataset.view;
-                if (view === 'list') {
-                    diagramView.classList.add('hidden');
-                    listView.classList.add('active');
-                    populateListView();
-                } else {
-                    diagramView.classList.remove('hidden');
-                    listView.classList.remove('active');
-                }
-            });
-        });
-
         // Phase Node Click
         phaseNodes.forEach(node => {
             node.addEventListener('click', () => {
@@ -2226,108 +2259,100 @@
                 continuousLoop?.classList.remove('visible');
             }
 
-            let sectionsHTML = '';
-            let previousWasEntryPoint = false;
+            // Build pages array - each section becomes a page
+            const pages = [];
+
+            // Group entry points A and B together on one page
+            let entryPointsPage = '';
+            let regularSections = [];
 
             data.sections.forEach((section, index) => {
-                // Check if we need an OR divider between entry points
-                if (section.entryPoint === 'B' && previousWasEntryPoint) {
-                    sectionsHTML += `
-                        <div class="entry-point-divider">
-                            <div class="divider-line"></div>
-                            <div class="divider-text">OR</div>
-                            <div class="divider-line"></div>
-                        </div>
-                    `;
+                if (section.entryPoint) {
+                    if (section.entryPoint === 'B') {
+                        entryPointsPage += `
+                            <div class="entry-point-divider">
+                                <div class="divider-line"></div>
+                                <div class="divider-text">OR</div>
+                                <div class="divider-line"></div>
+                            </div>
+                        `;
+                    }
+                    const isOptional = section.optional;
+                    entryPointsPage += buildSectionHTML(section, isOptional);
+                } else {
+                    regularSections.push(section);
                 }
-
-                const isOptional = section.optional;
-                const isEntryPoint = section.entryPoint;
-
-                sectionsHTML += `
-                    <div class="step-group ${isOptional ? 'step-group-optional' : ''} ${isEntryPoint ? 'step-group-entry-point' : ''}">
-                        <div class="step-group-header">
-                            <div class="step-group-title">
-                                ${isEntryPoint ? `<span class="entry-point-badge">${section.entryPoint}</span>` : ''}
-                                ${section.title}
-                            </div>
-                            ${isOptional ? '<span class="optional-badge">OPTIONAL</span>' : ''}
-                        </div>
-                        <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${section.description}</p>
-                        ${section.steps.map(step => `
-                            <div class="step-item">
-                                <div class="step-header" onclick="this.parentElement.classList.toggle('expanded')">
-                                    <div class="step-number">${step.number}</div>
-                                    <div class="step-title">${step.title}</div>
-                                    <div class="step-roles">
-                                        ${step.roles.map(role => `<span class="role-tag ${roleMap[role].class}">${roleMap[role].name}</span>`).join('')}
-                                    </div>
-                                    <i class="ph ph-caret-down step-expand-icon"></i>
-                                </div>
-                                <div class="step-content">
-                                    <div class="step-description">${step.description}</div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-
-                previousWasEntryPoint = !!section.entryPoint;
             });
 
-            // Add Parallel Exploration for Phase 1
-            if (data.parallelExploration) {
-                sectionsHTML += `
-                    <div class="step-group">
-                        <div class="step-group-title">${data.parallelExploration.title}</div>
-                        <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${data.parallelExploration.description}</p>
-                        <div class="parallel-grid">
-                            ${data.parallelExploration.items.map(item => `
-                                <div class="parallel-item" onclick="this.classList.toggle('expanded')">
-                                    <div class="parallel-header">
-                                        <div class="parallel-icon"><i class="ph ${item.icon}"></i></div>
-                                        <div class="parallel-title">${item.title}</div>
-                                    </div>
-                                    <div class="parallel-roles">
-                                        ${item.roles.map(role => `<span class="role-tag ${roleMap[role].class}">${roleMap[role].name}</span>`).join('')}
-                                    </div>
-                                    <div class="parallel-description">${item.description}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
+            // Add entry points as first page if exists
+            if (entryPointsPage) {
+                pages.push({ title: 'Entry Points', content: entryPointsPage });
             }
 
-            // Add continuous loop explanation for phases 4 and 5
+            // Add regular sections as separate pages
+            regularSections.forEach(section => {
+                pages.push({ title: section.title, content: buildSectionHTML(section, false) });
+            });
+
+            // Add Parallel Exploration as its own page
+            if (data.parallelExploration) {
+                pages.push({
+                    title: data.parallelExploration.title,
+                    content: `
+                        <div class="step-group">
+                            <div class="step-group-title">${data.parallelExploration.title}</div>
+                            <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${data.parallelExploration.description}</p>
+                            <div class="parallel-grid">
+                                ${data.parallelExploration.items.map(item => `
+                                    <div class="parallel-item" onclick="this.classList.toggle('expanded')">
+                                        <div class="parallel-header">
+                                            <div class="parallel-icon"><i class="ph ${item.icon}"></i></div>
+                                            <div class="parallel-title">${item.title}</div>
+                                        </div>
+                                        <div class="parallel-roles">
+                                            ${item.roles.map(role => `<span class="role-tag ${roleMap[role].class}">${roleMap[role].name}</span>`).join('')}
+                                        </div>
+                                        <div class="parallel-description">${item.description}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `
+                });
+            }
+
+            // Add continuous loop as its own page for phases 4 and 5
             if (phaseNum === '4' || phaseNum === '5' || phaseNum === 4 || phaseNum === 5) {
-                sectionsHTML += `
-                    <div class="loop-explanation-inline">
-                        <div class="loop-explanation-header">
-                            <div class="loop-explanation-icon">
-                                <i class="ph ph-arrows-clockwise"></i>
+                pages.push({
+                    title: 'Continuous Loop',
+                    content: `
+                        <div class="loop-explanation-inline">
+                            <div class="loop-explanation-header">
+                                <div class="loop-explanation-icon">
+                                    <i class="ph ph-arrows-clockwise"></i>
+                                </div>
+                                <div>
+                                    <h3 class="loop-explanation-title">The Continuous Loop</h3>
+                                    <p class="loop-explanation-subtitle">Phases 4 & 5 run in parallel, feeding each other continuously</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="loop-explanation-title">The Continuous Loop</h3>
-                                <p class="loop-explanation-subtitle">Phases 4 & 5 run in parallel, feeding each other continuously</p>
+                            <div class="loop-points">
+                                <div class="loop-point">
+                                    <span class="loop-point-icon" style="color: var(--color-accent);"><i class="ph ph-trend-up"></i></span>
+                                    <div class="loop-point-text"><strong>Improvement drives adoption:</strong> Better agents attract more users</div>
+                                </div>
+                                <div class="loop-point">
+                                    <span class="loop-point-icon" style="color: var(--color-success);"><i class="ph ph-chat-centered-text"></i></span>
+                                    <div class="loop-point-text"><strong>Adoption generates feedback:</strong> More users reveal more gaps</div>
+                                </div>
+                                <div class="loop-point">
+                                    <span class="loop-point-icon" style="color: var(--color-primary);"><i class="ph ph-wrench"></i></span>
+                                    <div class="loop-point-text"><strong>Feedback drives improvement:</strong> Gaps become addressable</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="loop-points">
-                            <div class="loop-point">
-                                <span class="loop-point-icon" style="color: var(--color-accent);"><i class="ph ph-trend-up"></i></span>
-                                <div class="loop-point-text"><strong>Improvement drives adoption:</strong> Better agents attract more users</div>
-                            </div>
-                            <div class="loop-point">
-                                <span class="loop-point-icon" style="color: var(--color-success);"><i class="ph ph-chat-centered-text"></i></span>
-                                <div class="loop-point-text"><strong>Adoption generates feedback:</strong> More users reveal more gaps</div>
-                            </div>
-                            <div class="loop-point">
-                                <span class="loop-point-icon" style="color: var(--color-primary);"><i class="ph ph-wrench"></i></span>
-                                <div class="loop-point-text"><strong>Feedback drives improvement:</strong> Gaps become addressable</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                    `
+                });
             }
 
             const phaseModalHeader = document.getElementById('phaseModalHeader');
@@ -2346,13 +2371,130 @@
                 </button>
             `;
 
+            // Generate paginated content
+            const pagesHTML = pages.map((page, i) => `
+                <div class="modal-page" data-page="${i}">
+                    <div class="steps-container">${page.content}</div>
+                </div>
+            `).join('');
+
+            const dotsHTML = pages.map((_, i) => `
+                <div class="pagination-dot ${i === 0 ? 'active' : ''}" data-page="${i}"></div>
+            `).join('');
+
             phaseModalContent.innerHTML = `
-                <div class="steps-container">
-                    ${sectionsHTML}
+                <div class="modal-pages-container">
+                    <div class="modal-pages" id="phaseModalPages" style="transform: translateX(0%);">
+                        ${pagesHTML}
+                    </div>
+                </div>
+                <div class="modal-pagination">
+                    <button class="pagination-arrow" id="phasePrevBtn" disabled>
+                        <i class="ph ph-caret-left"></i>
+                    </button>
+                    <div class="pagination-dots" id="phasePageDots">
+                        ${dotsHTML}
+                    </div>
+                    <span class="pagination-label" id="phasePageLabel">1 / ${pages.length}</span>
+                    <button class="pagination-arrow" id="phaseNextBtn" ${pages.length <= 1 ? 'disabled' : ''}>
+                        <i class="ph ph-caret-right"></i>
+                    </button>
                 </div>
             `;
 
+            // Initialize pagination
+            initModalPagination('phaseDetailModal', pages.length);
             openModal('phaseDetailModal');
+        }
+
+        // Helper function to build section HTML
+        function buildSectionHTML(section, isOptional) {
+            const isEntryPoint = section.entryPoint;
+            return `
+                <div class="step-group ${isOptional ? 'step-group-optional' : ''} ${isEntryPoint ? 'step-group-entry-point' : ''}">
+                    <div class="step-group-header">
+                        <div class="step-group-title">
+                            ${isEntryPoint ? `<span class="entry-point-badge">${section.entryPoint}</span>` : ''}
+                            ${section.title}
+                        </div>
+                        ${isOptional ? '<span class="optional-badge">OPTIONAL</span>' : ''}
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${section.description}</p>
+                    ${section.steps.map(step => `
+                        <div class="step-item">
+                            <div class="step-header" onclick="this.parentElement.classList.toggle('expanded')">
+                                <div class="step-number">${step.number}</div>
+                                <div class="step-title">${step.title}</div>
+                                <div class="step-roles">
+                                    ${step.roles.map(role => `<span class="role-tag ${roleMap[role].class}">${roleMap[role].name}</span>`).join('')}
+                                </div>
+                                <i class="ph ph-caret-down step-expand-icon"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-description">${step.description}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Modal pagination with swipe support
+        function initModalPagination(modalId, totalPages) {
+            const modal = document.getElementById(modalId);
+            const pagesContainer = modal.querySelector('.modal-pages');
+            const dots = modal.querySelectorAll('.pagination-dot');
+            const prevBtn = modal.querySelector('.pagination-arrow:first-child');
+            const nextBtn = modal.querySelector('.pagination-arrow:last-child');
+            const label = modal.querySelector('.pagination-label');
+
+            let currentPage = 0;
+            let startX = 0;
+            let isDragging = false;
+
+            function goToPage(page) {
+                if (page < 0 || page >= totalPages) return;
+                currentPage = page;
+                pagesContainer.style.transform = `translateX(-${page * 100}%)`;
+
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === page));
+                if (label) label.textContent = `${page + 1} / ${totalPages}`;
+                if (prevBtn) prevBtn.disabled = page === 0;
+                if (nextBtn) nextBtn.disabled = page === totalPages - 1;
+            }
+
+            // Button clicks
+            prevBtn?.addEventListener('click', () => goToPage(currentPage - 1));
+            nextBtn?.addEventListener('click', () => goToPage(currentPage + 1));
+
+            // Dot clicks
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => goToPage(i));
+            });
+
+            // Touch/swipe support
+            pagesContainer?.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            }, { passive: true });
+
+            pagesContainer?.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) goToPage(currentPage + 1);
+                    else goToPage(currentPage - 1);
+                }
+                isDragging = false;
+            }, { passive: true });
+
+            // Keyboard navigation
+            modal.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') goToPage(currentPage - 1);
+                if (e.key === 'ArrowRight') goToPage(currentPage + 1);
+            });
         }
 
         // List view item - open modal
