@@ -425,85 +425,6 @@
             z-index: 0;
         }
 
-        /* Continuous Loop between Phase 4 and 5 */
-        .continuous-loop {
-            position: absolute;
-            bottom: -30px;
-            right: 0;
-            width: calc(40% - 20px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .continuous-loop.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .loop-connector {
-            width: 100%;
-            height: 50px;
-            position: relative;
-        }
-
-        .loop-connector svg {
-            width: 100%;
-            height: 100%;
-            overflow: visible;
-        }
-
-        .loop-connector path {
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-        }
-
-        .loop-path-top {
-            stroke: var(--color-accent);
-        }
-
-        .loop-path-bottom {
-            stroke: var(--color-success);
-        }
-
-        .loop-label {
-            font-size: 0.7rem;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-text-muted);
-            background: var(--color-bg-page);
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            margin-top: -8px;
-        }
-
-        /* Loop animation */
-        @keyframes flowRight {
-            0% { stroke-dashoffset: 20; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        @keyframes flowLeft {
-            0% { stroke-dashoffset: -20; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        .loop-path-top {
-            stroke-dasharray: 8 4;
-            animation: flowRight 1s linear infinite;
-        }
-
-        .loop-path-bottom {
-            stroke-dasharray: 8 4;
-            animation: flowLeft 1s linear infinite;
-        }
-
         .phase-node {
             display: flex;
             flex-direction: column;
@@ -1470,10 +1391,6 @@
                 display: none;
             }
 
-            .continuous-loop {
-                display: none;
-            }
-
             .phase-node {
                 max-width: 100%;
             }
@@ -1491,11 +1408,6 @@
             }
         }
 
-        @media (min-width: 769px) and (max-width: 1200px) {
-            .continuous-loop {
-                width: calc(45% - 10px);
-            }
-        }
     </style>
 </head>
 <body>
@@ -1574,27 +1486,6 @@
                                 <div class="phase-name">Adoption</div>
                             </div>
 
-                            <!-- Continuous Loop Connector -->
-                            <div class="continuous-loop">
-                                <div class="loop-connector">
-                                    <svg viewBox="0 0 200 50" preserveAspectRatio="none">
-                                        <!-- Top arrow: Improvement -> Adoption -->
-                                        <path class="loop-path-top" d="M 20 5 L 180 5" marker-end="url(#arrowOrange)"/>
-                                        <!-- Bottom arrow: Adoption -> Improvement -->
-                                        <path class="loop-path-bottom" d="M 180 45 L 20 45" marker-end="url(#arrowGreen)"/>
-                                        <!-- Arrow markers -->
-                                        <defs>
-                                            <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                                                <path d="M0,0 L0,6 L6,3 z" fill="#FF9500"/>
-                                            </marker>
-                                            <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                                                <path d="M0,0 L0,6 L6,3 z" fill="#10B981"/>
-                                            </marker>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <div class="loop-label">Continuous Loop</div>
-                            </div>
                         </div>
                     </div>
 
@@ -2264,14 +2155,6 @@
         function showPhaseDetail(phaseNum) {
             const data = phaseData[phaseNum];
             if (!data) return;
-
-            // Show continuous loop for phases 4 and 5
-            const continuousLoop = document.querySelector('.continuous-loop');
-            if (phaseNum === '4' || phaseNum === '5' || phaseNum === 4 || phaseNum === 5) {
-                continuousLoop?.classList.add('visible');
-            } else {
-                continuousLoop?.classList.remove('visible');
-            }
 
             // Build pages array - each section becomes a page
             const pages = [];
