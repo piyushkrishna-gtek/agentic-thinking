@@ -603,17 +603,109 @@
 
         .step-group {
             margin-bottom: 1.5rem;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        /* Entry Point Styling */
+        .step-group-entry-point {
+            border-width: 2px;
+        }
+
+        .step-group-optional {
+            border-color: var(--color-text-muted);
+            border-style: dashed;
+            background: rgba(80, 80, 80, 0.15);
+            position: relative;
+        }
+
+        .step-group-optional::before {
+            content: 'Skip if you already have a use case';
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            background: var(--color-bg-elevated);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .step-group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .entry-point-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: var(--phase-1);
+            color: white;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .optional-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            background: rgba(128, 128, 128, 0.2);
+            color: var(--color-text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            border: 1px dashed var(--color-text-muted);
+            flex-shrink: 0;
+        }
+
+        .entry-point-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-border-default), transparent);
+        }
+
+        .divider-text {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            padding: 0.5rem 1.25rem;
+            background: var(--color-bg-elevated);
+            border: 2px solid var(--color-primary);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
         }
 
         .step-group-title {
             font-family: var(--font-display);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-text-muted);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px dashed var(--color-border-subtle);
+            letter-spacing: 0.08em;
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: center;
         }
 
         .step-item {
@@ -1895,8 +1987,10 @@
                 color: 'var(--phase-1)',
                 sections: [
                     {
-                        title: 'Entry Point A: High-Level Strategy (Optional)',
+                        title: 'Entry Point A: High-Level Strategy',
                         description: 'For organizations that have not yet identified their priority use case.',
+                        entryPoint: 'A',
+                        optional: true,
                         steps: [
                             { number: '1.1', title: 'Process Reimagination', description: 'Apply AI-first design thinking. Ask "if we redesigned this process assuming AI capabilities, what would it look like?"', roles: ['BO', 'IT'] },
                             { number: '1.2', title: 'High-Level Strategy', description: 'Define user value proposition and ensure strategic alignment with organizational priorities.', roles: ['BO'] },
@@ -1906,7 +2000,8 @@
                     },
                     {
                         title: 'Entry Point B: Known Use Case',
-                        description: 'For organizations that already know which use case to pursue, skip directly to Step 1.5.',
+                        description: 'Start here if you already know which use case to pursue.',
+                        entryPoint: 'B',
                         steps: [
                             { number: '1.5', title: 'Focus on High-Priority Use Case', description: 'Confirm the specific use case to pursue. Assign the Agent Owner.', roles: ['BO', 'AO'] }
                         ]
@@ -2132,11 +2227,32 @@
             }
 
             let sectionsHTML = '';
+            let previousWasEntryPoint = false;
 
-            data.sections.forEach(section => {
+            data.sections.forEach((section, index) => {
+                // Check if we need an OR divider between entry points
+                if (section.entryPoint === 'B' && previousWasEntryPoint) {
+                    sectionsHTML += `
+                        <div class="entry-point-divider">
+                            <div class="divider-line"></div>
+                            <div class="divider-text">OR</div>
+                            <div class="divider-line"></div>
+                        </div>
+                    `;
+                }
+
+                const isOptional = section.optional;
+                const isEntryPoint = section.entryPoint;
+
                 sectionsHTML += `
-                    <div class="step-group">
-                        <div class="step-group-title">${section.title}</div>
+                    <div class="step-group ${isOptional ? 'step-group-optional' : ''} ${isEntryPoint ? 'step-group-entry-point' : ''}">
+                        <div class="step-group-header">
+                            <div class="step-group-title">
+                                ${isEntryPoint ? `<span class="entry-point-badge">${section.entryPoint}</span>` : ''}
+                                ${section.title}
+                            </div>
+                            ${isOptional ? '<span class="optional-badge">OPTIONAL</span>' : ''}
+                        </div>
                         <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${section.description}</p>
                         ${section.steps.map(step => `
                             <div class="step-item">
@@ -2155,6 +2271,8 @@
                         `).join('')}
                     </div>
                 `;
+
+                previousWasEntryPoint = !!section.entryPoint;
             });
 
             // Add Parallel Exploration for Phase 1
