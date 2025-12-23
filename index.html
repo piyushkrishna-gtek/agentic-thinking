@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Agentic Transformation Framework</title>
+    <!-- Google Fonts - brAIght Design System -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            /* brAIght ORIZON Design System - Dark Theme */
+            --color-primary: #00D4FF;
+            --color-primary-hover: #00B8E6;
+            --color-primary-active: #009CCC;
+            --color-primary-light: #33DDFF;
+            --color-primary-dark: #0088CC;
+
+            --color-accent: #FF9500;
+            --color-accent-hover: #E68500;
+            --color-accent-light: #FFAD33;
+            --color-accent-dark: #CC7700;
+
+            --color-quantum: #6A00FF;
+            --color-quantum-light: #8533FF;
+
+            /* Backgrounds - Dark cosmic */
+            --color-bg-base: #000000;
+            --color-bg-page: #0A0A0A;
+            --color-bg-surface: #1A1A1A;
+            --color-bg-elevated: #242424;
+            --color-bg-overlay: #2A2A2A;
+
+            /* Text Colors */
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #C8C8C8;
+            --color-text-tertiary: #808080;
+            --color-text-muted: #505050;
+
+            /* Semantic Colors */
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-error: #EF4444;
+            --color-info: #00D4FF;
+
+            /* Border Colors */
+            --color-border-subtle: #2A2A2A;
+            --color-border-default: #3A3A3A;
+            --color-border-emphasis: #4A4A4A;
+
+            /* Phase Colors - Gradient progression */
+            --phase-1: #00D4FF;  /* Event Horizon Blue */
+            --phase-2: #6A00FF;  /* Quantum Violet */
+            --phase-3: #8533FF;  /* Quantum Light */
+            --phase-4: #FF9500;  /* Accretion Orange */
+            --phase-5: #10B981;  /* Success Green */
+
+            /* Glow effects */
+            --shadow-glow-primary: 0 0 20px rgba(0, 212, 255, 0.3);
+            --shadow-glow-primary-lg: 0 0 40px rgba(0, 212, 255, 0.5);
+            --shadow-glow-accent: 0 0 20px rgba(255, 149, 0, 0.3);
+            --shadow-glow-quantum: 0 0 20px rgba(106, 0, 255, 0.3);
+
+            /* Shadows */
+            --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.5);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #00FFFF 0%, #00D4FF 50%, #0088FF 100%);
+            --gradient-accent: linear-gradient(135deg, #FFE599 0%, #FFCC66 25%, #FF9933 75%, #FF6600 100%);
+            --gradient-surface: linear-gradient(135deg, #1A1A1A 0%, #0A0A0A 100%);
+
+            /* Typography */
+            --font-display: 'Outfit', 'DM Sans', sans-serif;
+            --font-sans: 'Inter', 'DM Sans', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Transitions */
+            --transition-fast: 150ms ease;
+            --transition-base: 200ms ease-out;
+            --transition-slow: 400ms ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg-page);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-surface);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border-emphasis);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-text-tertiary);
+        }
+
+        /* Selection */
+        ::selection {
+            background-color: rgba(0, 212, 255, 0.3);
+            color: var(--color-text-primary);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border-subtle);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 70px;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Main Tabs */
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .main-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--color-border-subtle);
+            background: var(--color-bg-surface);
+            color: var(--color-text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .main-tab:hover {
+            border-color: var(--color-border-default);
+            color: var(--color-text-primary);
+        }
+
+        .main-tab.active {
+            background: var(--color-bg-elevated);
+            border-color: var(--color-primary);
+            color: var(--color-text-primary);
+            box-shadow: var(--shadow-glow-primary);
+        }
+
+        .main-tab i {
+            font-size: 1.125rem;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .view-toggle-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        /* Roles Grid */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .role-card-large {
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .role-card-large:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow-primary);
+        }
+
+        .role-card-large-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .role-card-large-icon.business-owner { background: linear-gradient(135deg, var(--color-primary), var(--color-quantum)); }
+        .role-card-large-icon.agent-owner { background: linear-gradient(135deg, var(--color-quantum), var(--color-quantum-light)); }
+        .role-card-large-icon.implementation { background: linear-gradient(135deg, var(--color-quantum-light), var(--color-accent)); }
+        .role-card-large-icon.business-team { background: linear-gradient(135deg, var(--color-accent), var(--color-success)); }
+
+        .role-card-large-content {
+            flex: 1;
+        }
+
+        .role-card-large-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-card-large-description {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        .role-card-large-arrow {
+            color: var(--color-text-muted);
+            font-size: 1.25rem;
+            transition: var(--transition-fast);
+        }
+
+        .role-card-large:hover .role-card-large-arrow {
+            color: var(--color-primary);
+        }
+
+        @media (max-width: 768px) {
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .philosophy-box {
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border-default);
+            border-radius: 16px;
+            padding: 2rem 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .philosophy-label {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--color-bg-page);
+            padding: 0 12px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-primary);
+            font-family: var(--font-mono);
+        }
+
+        .philosophy-quote {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+        }
+
+        .philosophy-text {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Process Diagram */
+        .process-section {
+            margin-top: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.25rem;
+            background: var(--color-bg-surface);
+            padding: 4px;
+            border-radius: 10px;
+        }
+
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            transition: var(--transition-fast);
+        }
+
+        .view-btn.active {
+            background: var(--color-bg-elevated);
+            color: var(--color-text-primary);
+        }
+
+        .view-btn:hover:not(.active) {
+            color: var(--color-text-primary);
+        }
+
+        /* Process Flow Diagram */
+        .process-diagram {
+            position: relative;
+            padding: 2rem 0 4rem;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .process-flow::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 80px;
+            right: 80px;
+            height: 3px;
+            background: linear-gradient(90deg,
+                var(--phase-1) 0%,
+                var(--phase-2) 25%,
+                var(--phase-3) 50%,
+                var(--phase-4) 75%,
+                var(--phase-5) 100%);
+            border-radius: 2px;
+            z-index: 0;
+        }
+
+        /* Continuous Loop between Phase 4 and 5 */
+        .continuous-loop {
+            position: absolute;
+            bottom: -30px;
+            right: 0;
+            width: calc(40% - 20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .continuous-loop.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loop-connector {
+            width: 100%;
+            height: 50px;
+            position: relative;
+        }
+
+        .loop-connector svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .loop-connector path {
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .loop-path-top {
+            stroke: var(--color-accent);
+        }
+
+        .loop-path-bottom {
+            stroke: var(--color-success);
+        }
+
+        .loop-label {
+            font-size: 0.7rem;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted);
+            background: var(--color-bg-page);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            margin-top: -8px;
+        }
+
+        /* Loop animation */
+        @keyframes flowRight {
+            0% { stroke-dashoffset: 20; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes flowLeft {
+            0% { stroke-dashoffset: -20; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .loop-path-top {
+            stroke-dasharray: 8 4;
+            animation: flowRight 1s linear infinite;
+        }
+
+        .loop-path-bottom {
+            stroke-dasharray: 8 4;
+            animation: flowLeft 1s linear infinite;
+        }
+
+        .phase-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            flex: 1;
+            max-width: 180px;
+        }
+
+        .phase-node:hover {
+            transform: translateY(-4px);
+        }
+
+        .phase-node:hover .phase-circle {
+            transform: scale(1.1);
+        }
+
+        .phase-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            transition: var(--transition-fast);
+            position: relative;
+            color: white;
+        }
+
+        .phase-circle::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            transition: var(--transition-fast);
+        }
+
+        .phase-node:hover .phase-circle::after,
+        .phase-node.active .phase-circle::after {
+            border-color: currentColor;
+            opacity: 0.5;
+        }
+
+        .phase-node.active .phase-circle {
+            transform: scale(1.15);
+        }
+
+        .phase-1 .phase-circle { background: var(--phase-1); box-shadow: 0 0 30px rgba(0, 212, 255, 0.4); }
+        .phase-2 .phase-circle { background: var(--phase-2); box-shadow: 0 0 30px rgba(106, 0, 255, 0.4); }
+        .phase-3 .phase-circle { background: var(--phase-3); box-shadow: 0 0 30px rgba(133, 51, 255, 0.4); }
+        .phase-4 .phase-circle { background: var(--phase-4); box-shadow: 0 0 30px rgba(255, 149, 0, 0.4); }
+        .phase-5 .phase-circle { background: var(--phase-5); box-shadow: 0 0 30px rgba(16, 185, 129, 0.4); }
+
+        .phase-number {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .phase-name {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        /* Steps */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .step-group-title {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--color-border-subtle);
+        }
+
+        .step-item {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition-fast);
+            margin-bottom: 0.75rem;
+        }
+
+        .step-item:hover {
+            border-color: var(--color-border-default);
+        }
+
+        .step-item.expanded {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-glow-primary);
+        }
+
+        .step-header {
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--color-bg-overlay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .step-roles {
+            display: flex;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+        }
+
+        .role-tag {
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-family: var(--font-mono);
+            white-space: nowrap;
+        }
+
+        .role-tag.bo { background: rgba(0, 212, 255, 0.2); color: var(--color-primary-light); }
+        .role-tag.ao { background: rgba(106, 0, 255, 0.2); color: var(--color-quantum-light); }
+        .role-tag.it { background: rgba(255, 149, 0, 0.2); color: var(--color-accent-light); }
+        .role-tag.bt { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+
+        .step-expand-icon {
+            transition: var(--transition-fast);
+            color: var(--color-text-muted);
+        }
+
+        .step-item.expanded .step-expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .step-item.expanded .step-content {
+            max-height: 500px;
+        }
+
+        .step-description {
+            padding: 0 1.25rem 1.25rem;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            border-top: 1px solid var(--color-border-subtle);
+            padding-top: 1rem;
+            margin-top: 0;
+        }
+
+        /* Parallel Exploration Grid */
+        .parallel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .parallel-item {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 12px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .parallel-item:hover {
+            border-color: var(--color-border-default);
+            transform: translateY(-2px);
+        }
+
+        .parallel-item.expanded {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-glow-primary);
+        }
+
+        .parallel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .parallel-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--color-bg-overlay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--color-primary);
+        }
+
+        .parallel-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            flex: 1;
+        }
+
+        .parallel-description {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .parallel-item.expanded .parallel-description {
+            max-height: 200px;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--color-border-subtle);
+        }
+
+        .parallel-roles {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .essentials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .essential-card {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: var(--transition-fast);
+        }
+
+        .essential-card:hover {
+            border-color: var(--color-border-default);
+            transform: translateY(-2px);
+        }
+
+        .essential-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-quantum));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: white;
+        }
+
+        .essential-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .essential-description {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        .involvement-section {
+            border-top: 1px solid var(--color-border-subtle);
+            padding-top: 1.5rem;
+        }
+
+        .involvement-title {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .involvement-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .involvement-item {
+            padding: 0.5rem 1rem;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+        }
+
+        .involvement-note {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+        }
+
+        /* Continuous Loop Explanation */
+        .loop-explanation-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .loop-explanation-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-success));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .loop-explanation-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .loop-explanation-subtitle {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            margin: 0.25rem 0 0 0;
+        }
+
+        .loop-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .loop-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 10px;
+            transition: var(--transition-fast);
+        }
+
+        .loop-point:hover {
+            border-color: var(--color-border-default);
+        }
+
+        .loop-point-icon {
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+
+        .loop-point-text {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        .loop-point-text strong {
+            color: var(--color-text-primary);
+        }
+
+        .loop-explanation-inline {
+            margin-top: 1.5rem;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-default);
+            border-left: 3px solid;
+            border-image: linear-gradient(180deg, var(--color-accent), var(--color-success)) 1;
+            border-radius: 0 12px 12px 0;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .loop-explanation-inline .loop-explanation-header {
+            margin-bottom: 1rem;
+        }
+
+        .loop-explanation-inline .loop-points {
+            grid-template-columns: 1fr;
+        }
+
+        /* Role Modal */
+        .role-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .role-modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .role-modal {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-default);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow: hidden;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .role-modal-overlay.visible .role-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .role-modal-large {
+            max-width: 900px;
+        }
+
+        .role-modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--color-border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .role-modal-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .role-modal-icon.business-owner {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-quantum));
+        }
+
+        .role-modal-icon.agent-owner {
+            background: linear-gradient(135deg, var(--color-quantum), var(--color-quantum-light));
+        }
+
+        .role-modal-icon.implementation {
+            background: linear-gradient(135deg, var(--color-quantum-light), var(--color-accent));
+        }
+
+        .role-modal-icon.business-team {
+            background: linear-gradient(135deg, var(--color-accent), var(--color-success));
+        }
+
+        .role-modal-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .role-modal-subtitle {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .role-modal-close {
+            margin-left: auto;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--color-border-subtle);
+            background: transparent;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .role-modal-close:hover {
+            background: var(--color-bg-overlay);
+            color: var(--color-text-primary);
+        }
+
+        .role-modal-content {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: calc(85vh - 100px);
+        }
+
+        .role-modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .role-modal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .role-modal-section-title {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--color-border-subtle);
+        }
+
+        .role-modal-description {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Phase Involvement List */
+        .phase-involvement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .phase-involvement-item {
+            display: grid;
+            grid-template-columns: 28px 140px auto 1fr;
+            gap: 0.75rem;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 10px;
+            transition: var(--transition-fast);
+        }
+
+        .phase-involvement-item:hover {
+            border-color: var(--color-border-default);
+        }
+
+        .phase-involvement-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .phase-involvement-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .phase-involvement-level {
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .phase-involvement-level.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+        }
+
+        .phase-involvement-level.monitors {
+            background: rgba(128, 128, 128, 0.2);
+            color: var(--color-text-tertiary);
+        }
+
+        .phase-involvement-detail {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .phase-involvement-item {
+                grid-template-columns: 28px 1fr;
+                grid-template-rows: auto auto auto;
+            }
+
+            .phase-involvement-name {
+                grid-column: 2;
+            }
+
+            .phase-involvement-level {
+                grid-column: 2;
+            }
+
+            .phase-involvement-detail {
+                grid-column: 1 / -1;
+                padding-top: 0.5rem;
+                border-top: 1px solid var(--color-border-subtle);
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* List view styles */
+        .list-view {
+            display: none;
+        }
+
+        .list-view.active {
+            display: block;
+        }
+
+        .diagram-view {
+            display: block;
+        }
+
+        .diagram-view.hidden {
+            display: none;
+        }
+
+        .phase-list-item {
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: var(--transition-fast);
+        }
+
+        .phase-list-item:hover {
+            border-color: var(--color-border-default);
+        }
+
+        .phase-list-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+        }
+
+        .phase-list-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .phase-list-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .phase-list-subtitle {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .phase-list-expand {
+            margin-left: auto;
+            transition: var(--transition-fast);
+            color: var(--color-text-muted);
+        }
+
+        .phase-list-item:hover .phase-list-expand {
+            color: var(--color-primary);
+        }
+
+        /* Phosphor Icon sizing */
+        .ph {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .roles-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .roles-sidebar.visible {
+                transform: translateX(0);
+            }
+
+            .content-area {
+                margin-left: 0;
+            }
+
+            .sidebar-toggle {
+                left: 0;
+            }
+
+            .sidebar-toggle.visible {
+                left: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .philosophy-box {
+                padding: 1.5rem;
+            }
+
+            .philosophy-quote {
+                font-size: 1.25rem;
+            }
+
+            .process-flow {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .process-flow::before {
+                display: none;
+            }
+
+            .continuous-loop {
+                display: none;
+            }
+
+            .phase-node {
+                max-width: 100%;
+            }
+
+            .content-area {
+                padding: 1.5rem;
+            }
+
+            .step-roles {
+                display: none;
+            }
+
+            .loop-points {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .continuous-loop {
+                width: calc(45% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Agentic Transformation Framework</div>
+    </header>
+
+    <div class="main-container">
+        <!-- Main Content -->
+        <main class="content-area" id="contentArea">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>The Agentic Transformation Framework</h1>
+                <div class="philosophy-box">
+                    <span class="philosophy-label">Philosophy</span>
+                    <p class="philosophy-quote">"Think big, start small, improve & adopt."</p>
+                    <p class="philosophy-text">
+                        AI agents are products, not projects. Success is not a perfect launch—success is going to production with something that works, then improving constantly based on what real data reveals.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Main Tabs -->
+            <div class="main-tabs">
+                <button class="main-tab active" data-tab="process">
+                    <i class="ph ph-flow-arrow"></i>
+                    Transformation Process
+                </button>
+                <button class="main-tab" data-tab="roles">
+                    <i class="ph ph-users-four"></i>
+                    Supporting Roles
+                </button>
+            </div>
+
+            <!-- Process Tab Content -->
+            <section class="tab-content active" id="processTab">
+                <div class="view-toggle-container">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="diagram">Diagram</button>
+                        <button class="view-btn" data-view="list">List</button>
+                    </div>
+                </div>
+
+                <!-- Diagram View -->
+                <div class="diagram-view" id="diagramView">
+                    <div class="process-diagram">
+                        <div class="process-flow">
+                            <div class="phase-node phase-1" data-phase="1">
+                                <div class="phase-circle">
+                                    <i class="ph ph-magnifying-glass"></i>
+                                </div>
+                                <div class="phase-number">Phase 1</div>
+                                <div class="phase-name">Discovery</div>
+                            </div>
+                            <div class="phase-node phase-2" data-phase="2">
+                                <div class="phase-circle">
+                                    <i class="ph ph-hammer"></i>
+                                </div>
+                                <div class="phase-number">Phase 2</div>
+                                <div class="phase-name">Development</div>
+                            </div>
+                            <div class="phase-node phase-3" data-phase="3">
+                                <div class="phase-circle">
+                                    <i class="ph ph-check-circle"></i>
+                                </div>
+                                <div class="phase-number">Phase 3</div>
+                                <div class="phase-name">Testing & Production</div>
+                            </div>
+                            <div class="phase-node phase-4" data-phase="4">
+                                <div class="phase-circle">
+                                    <i class="ph ph-trend-up"></i>
+                                </div>
+                                <div class="phase-number">Phase 4</div>
+                                <div class="phase-name">Improvement</div>
+                            </div>
+                            <div class="phase-node phase-5" data-phase="5">
+                                <div class="phase-circle">
+                                    <i class="ph ph-rocket-launch"></i>
+                                </div>
+                                <div class="phase-number">Phase 5</div>
+                                <div class="phase-name">Adoption</div>
+                            </div>
+
+                            <!-- Continuous Loop Connector -->
+                            <div class="continuous-loop">
+                                <div class="loop-connector">
+                                    <svg viewBox="0 0 200 50" preserveAspectRatio="none">
+                                        <!-- Top arrow: Improvement -> Adoption -->
+                                        <path class="loop-path-top" d="M 20 5 L 180 5" marker-end="url(#arrowOrange)"/>
+                                        <!-- Bottom arrow: Adoption -> Improvement -->
+                                        <path class="loop-path-bottom" d="M 180 45 L 20 45" marker-end="url(#arrowGreen)"/>
+                                        <!-- Arrow markers -->
+                                        <defs>
+                                            <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                                <path d="M0,0 L0,6 L6,3 z" fill="#FF9500"/>
+                                            </marker>
+                                            <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                                <path d="M0,0 L0,6 L6,3 z" fill="#10B981"/>
+                                            </marker>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="loop-label">Continuous Loop</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- List View -->
+                <div class="list-view" id="listView">
+                    <!-- Phase 1: Discovery -->
+                    <div class="phase-list-item" data-phase="1">
+                        <div class="phase-list-header">
+                            <div class="phase-list-icon" style="background: var(--phase-1);">
+                                <i class="ph ph-magnifying-glass"></i>
+                            </div>
+                            <div>
+                                <div class="phase-list-title">Phase 1: Discovery</div>
+                                <div class="phase-list-subtitle">Establish the foundation through structured exploration</div>
+                            </div>
+                            <i class="ph ph-arrow-square-out phase-list-expand"></i>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2: Development -->
+                    <div class="phase-list-item" data-phase="2">
+                        <div class="phase-list-header">
+                            <div class="phase-list-icon" style="background: var(--phase-2);">
+                                <i class="ph ph-hammer"></i>
+                            </div>
+                            <div>
+                                <div class="phase-list-title">Phase 2: Development</div>
+                                <div class="phase-list-subtitle">Translate discovery outputs into a working agent</div>
+                            </div>
+                            <i class="ph ph-arrow-square-out phase-list-expand"></i>
+                        </div>
+                    </div>
+
+                    <!-- Phase 3: Testing -->
+                    <div class="phase-list-item" data-phase="3">
+                        <div class="phase-list-header">
+                            <div class="phase-list-icon" style="background: var(--phase-3);">
+                                <i class="ph ph-check-circle"></i>
+                            </div>
+                            <div>
+                                <div class="phase-list-title">Phase 3: Testing & Production</div>
+                                <div class="phase-list-subtitle">Testing happens in three waves</div>
+                            </div>
+                            <i class="ph ph-arrow-square-out phase-list-expand"></i>
+                        </div>
+                    </div>
+
+                    <!-- Phase 4: Improvement -->
+                    <div class="phase-list-item" data-phase="4">
+                        <div class="phase-list-header">
+                            <div class="phase-list-icon" style="background: var(--phase-4);">
+                                <i class="ph ph-trend-up"></i>
+                            </div>
+                            <div>
+                                <div class="phase-list-title">Phase 4: Improvement</div>
+                                <div class="phase-list-subtitle">The agent gets better based on real-world performance</div>
+                            </div>
+                            <i class="ph ph-arrow-square-out phase-list-expand"></i>
+                        </div>
+                    </div>
+
+                    <!-- Phase 5: Adoption -->
+                    <div class="phase-list-item" data-phase="5">
+                        <div class="phase-list-header">
+                            <div class="phase-list-icon" style="background: var(--phase-5);">
+                                <i class="ph ph-rocket-launch"></i>
+                            </div>
+                            <div>
+                                <div class="phase-list-title">Phase 5: Adoption</div>
+                                <div class="phase-list-subtitle">Runs in parallel with improvement—they feed each other</div>
+                            </div>
+                            <i class="ph ph-arrow-square-out phase-list-expand"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Roles Tab Content -->
+            <section class="tab-content" id="rolesTab">
+                <div class="roles-grid">
+                    <div class="role-card-large" data-modal="businessOwnerModal">
+                        <div class="role-card-large-icon business-owner">
+                            <i class="ph ph-briefcase"></i>
+                        </div>
+                        <div class="role-card-large-content">
+                            <h3 class="role-card-large-title">Business Owner</h3>
+                            <p class="role-card-large-description">Senior leader accountable for the agent portfolio. Makes Scale, Fix, or Kill decisions.</p>
+                        </div>
+                        <i class="ph ph-arrow-square-out role-card-large-arrow"></i>
+                    </div>
+
+                    <div class="role-card-large" data-modal="agentOwnerModal">
+                        <div class="role-card-large-icon agent-owner">
+                            <i class="ph ph-robot"></i>
+                        </div>
+                        <div class="role-card-large-content">
+                            <h3 class="role-card-large-title">Agent Owner</h3>
+                            <p class="role-card-large-description">Responsible for individual agent success and evolution. Owns improvement and adoption.</p>
+                        </div>
+                        <i class="ph ph-arrow-square-out role-card-large-arrow"></i>
+                    </div>
+
+                    <div class="role-card-large" data-modal="implementationTeamModal">
+                        <div class="role-card-large-icon implementation">
+                            <i class="ph ph-code"></i>
+                        </div>
+                        <div class="role-card-large-content">
+                            <h3 class="role-card-large-title">Implementation Team</h3>
+                            <p class="role-card-large-description">Builds and maintains the agent technically. Partners with the Agent Owner.</p>
+                        </div>
+                        <i class="ph ph-arrow-square-out role-card-large-arrow"></i>
+                    </div>
+
+                    <div class="role-card-large" data-modal="businessTeamModal">
+                        <div class="role-card-large-icon business-team">
+                            <i class="ph ph-users-three"></i>
+                        </div>
+                        <div class="role-card-large-content">
+                            <h3 class="role-card-large-title">Business Team</h3>
+                            <p class="role-card-large-description">Domain experts who provide requirements, validate behavior, and test the agent.</p>
+                        </div>
+                        <i class="ph ph-arrow-square-out role-card-large-arrow"></i>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Business Owner Modal -->
+    <div class="role-modal-overlay" id="businessOwnerModal">
+        <div class="role-modal">
+            <div class="role-modal-header">
+                <div class="role-modal-icon business-owner">
+                    <i class="ph ph-briefcase"></i>
+                </div>
+                <div>
+                    <div class="role-modal-title">Business Owner</div>
+                    <div class="role-modal-subtitle">Senior leader accountable for the agent portfolio</div>
+                </div>
+                <button class="role-modal-close" onclick="closeModal('businessOwnerModal')">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <div class="role-modal-content">
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Role Definition</div>
+                    <p class="role-modal-description">
+                        Senior leader responsible for a business unit or function. Owns a portfolio of agents. Accountable for ROI. Makes Scale, Fix, or Kill decisions.
+                    </p>
+                </div>
+
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Phase Involvement</div>
+                    <div class="phase-involvement-list">
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-1);">1</div>
+                            <div class="phase-involvement-name">Discovery</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Drives use case selection, capability mapping, ROI methodology</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-2);">2</div>
+                            <div class="phase-involvement-name">Development</div>
+                            <div class="phase-involvement-level monitors">Monitors</div>
+                            <div class="phase-involvement-detail">Agent Owner operates with autonomy</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-3);">3</div>
+                            <div class="phase-involvement-name">Testing & Production</div>
+                            <div class="phase-involvement-level active">Go/No-Go</div>
+                            <div class="phase-involvement-detail">Makes production launch decision</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-4);">4</div>
+                            <div class="phase-involvement-name">Improvement</div>
+                            <div class="phase-involvement-level monitors">Monitors</div>
+                            <div class="phase-involvement-detail">Receives updates via alerts and dashboards</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-5);">5</div>
+                            <div class="phase-involvement-name">Adoption</div>
+                            <div class="phase-involvement-level active">Escalations</div>
+                            <div class="phase-involvement-detail">Handles blockers requiring senior intervention, scale decisions</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Key Responsibilities</div>
+                    <div class="involvement-list">
+                        <div class="involvement-item">Use case selection and prioritization</div>
+                        <div class="involvement-item">ROI accountability and methodology</div>
+                        <div class="involvement-item">Production launch approval</div>
+                        <div class="involvement-item">Scale, Fix, or Kill decisions</div>
+                        <div class="involvement-item">Escalation handling</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agent Owner Modal -->
+    <div class="role-modal-overlay" id="agentOwnerModal">
+        <div class="role-modal">
+            <div class="role-modal-header">
+                <div class="role-modal-icon agent-owner">
+                    <i class="ph ph-robot"></i>
+                </div>
+                <div>
+                    <div class="role-modal-title">Agent Owner</div>
+                    <div class="role-modal-subtitle">Responsible for individual agent success and evolution</div>
+                </div>
+                <button class="role-modal-close" onclick="closeModal('agentOwnerModal')">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <div class="role-modal-content">
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Role Definition</div>
+                    <p class="role-modal-description">
+                        Responsible for the success and evolution of an individual agent. Owns improvement and adoption. Reports to the Business Owner. Single point of accountability for their agent's success.
+                    </p>
+                </div>
+
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Phase Involvement</div>
+                    <div class="phase-involvement-list">
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-1);">1</div>
+                            <div class="phase-involvement-name">Discovery</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Process & capability mapping, guardrails exploration, all six parallel workstreams</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-2);">2</div>
+                            <div class="phase-involvement-name">Development</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Validation and iteration cycles with Implementation Team</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-3);">3</div>
+                            <div class="phase-involvement-name">Testing & Production</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Leads all three testing waves, coordinates production launch</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-4);">4</div>
+                            <div class="phase-involvement-name">Improvement</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Feedback loop, gap detection, communicate improvements to users</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-5);">5</div>
+                            <div class="phase-involvement-name">Adoption</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">User base understanding, barrier removal, promotion, champion network</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Core Responsibilities</div>
+                    <div class="essentials-grid">
+                        <div class="essential-card">
+                            <div class="essential-number"><i class="ph ph-trend-up"></i></div>
+                            <div class="essential-name">Drive Improvement</div>
+                            <div class="essential-description">Collect feedback, detect gaps, and continuously enhance agent behavior</div>
+                        </div>
+                        <div class="essential-card">
+                            <div class="essential-number"><i class="ph ph-users"></i></div>
+                            <div class="essential-name">Drive Adoption</div>
+                            <div class="essential-description">Understand users, address barriers, promote capabilities, build champion network</div>
+                        </div>
+                        <div class="essential-card">
+                            <div class="essential-number"><i class="ph ph-chat-centered-text"></i></div>
+                            <div class="essential-name">Close Feedback Loop</div>
+                            <div class="essential-description">Communicate improvements to users and build trust through transparency</div>
+                        </div>
+                        <div class="essential-card">
+                            <div class="essential-number"><i class="ph ph-flag"></i></div>
+                            <div class="essential-name">Escalate Blockers</div>
+                            <div class="essential-description">Identify issues requiring Business Owner intervention and escalate appropriately</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Team Modal -->
+    <div class="role-modal-overlay" id="implementationTeamModal">
+        <div class="role-modal">
+            <div class="role-modal-header">
+                <div class="role-modal-icon implementation">
+                    <i class="ph ph-code"></i>
+                </div>
+                <div>
+                    <div class="role-modal-title">Implementation Team</div>
+                    <div class="role-modal-subtitle">Technical builders and maintainers of the agent</div>
+                </div>
+                <button class="role-modal-close" onclick="closeModal('implementationTeamModal')">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <div class="role-modal-content">
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Role Definition</div>
+                    <p class="role-modal-description">
+                        Builds and maintains the agent technically. Partners with the Agent Owner throughout the lifecycle. Responsible for translating requirements into working agent capabilities.
+                    </p>
+                </div>
+
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Phase Involvement</div>
+                    <div class="phase-involvement-list">
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-1);">1</div>
+                            <div class="phase-involvement-name">Discovery</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Process reimagination, data landscape assessment, guardrails exploration</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-2);">2</div>
+                            <div class="phase-involvement-name">Development</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">First draft creation, validation and iteration cycles</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-3);">3</div>
+                            <div class="phase-involvement-name">Testing & Production</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Initial testing, technical support for broader testing</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-4);">4</div>
+                            <div class="phase-involvement-name">Improvement</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Detect and address gaps, clean data, adjust behavior</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-5);">5</div>
+                            <div class="phase-involvement-name">Adoption</div>
+                            <div class="phase-involvement-level monitors">Support</div>
+                            <div class="phase-involvement-detail">Technical support for scaling and capability expansion</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Key Responsibilities</div>
+                    <div class="involvement-list">
+                        <div class="involvement-item">Agent architecture and development</div>
+                        <div class="involvement-item">Data integration and RAG implementation</div>
+                        <div class="involvement-item">Technical iteration based on feedback</div>
+                        <div class="involvement-item">Performance optimization</div>
+                        <div class="involvement-item">Production deployment and maintenance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Business Team Modal -->
+    <div class="role-modal-overlay" id="businessTeamModal">
+        <div class="role-modal">
+            <div class="role-modal-header">
+                <div class="role-modal-icon business-team">
+                    <i class="ph ph-users-three"></i>
+                </div>
+                <div>
+                    <div class="role-modal-title">Business Team</div>
+                    <div class="role-modal-subtitle">Domain experts and end users of the agent</div>
+                </div>
+                <button class="role-modal-close" onclick="closeModal('businessTeamModal')">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <div class="role-modal-content">
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Role Definition</div>
+                    <p class="role-modal-description">
+                        Domain experts who provide requirements, validate behavior, and test the agent. Works alongside the Agent Owner to ensure the agent meets real business needs.
+                    </p>
+                </div>
+
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Phase Involvement</div>
+                    <div class="phase-involvement-list">
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-1);">1</div>
+                            <div class="phase-involvement-name">Discovery</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Process mapping, capability mapping, guardrails exploration, adoption planning</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-2);">2</div>
+                            <div class="phase-involvement-name">Development</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Validation and iteration, providing domain expertise</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-3);">3</div>
+                            <div class="phase-involvement-name">Testing & Production</div>
+                            <div class="phase-involvement-level active">Active</div>
+                            <div class="phase-involvement-detail">Broader testing across roles and personas</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-4);">4</div>
+                            <div class="phase-involvement-name">Improvement</div>
+                            <div class="phase-involvement-level monitors">Feedback</div>
+                            <div class="phase-involvement-detail">Provide explicit feedback and usage insights</div>
+                        </div>
+                        <div class="phase-involvement-item">
+                            <div class="phase-involvement-badge" style="background: var(--phase-5);">5</div>
+                            <div class="phase-involvement-name">Adoption</div>
+                            <div class="phase-involvement-level active">Champions</div>
+                            <div class="phase-involvement-detail">Power users become internal advocates supporting teammates</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-modal-section">
+                    <div class="role-modal-section-title">Key Responsibilities</div>
+                    <div class="involvement-list">
+                        <div class="involvement-item">Define business requirements and success criteria</div>
+                        <div class="involvement-item">Validate agent behavior against real workflows</div>
+                        <div class="involvement-item">Participate in testing waves</div>
+                        <div class="involvement-item">Provide ongoing feedback</div>
+                        <div class="involvement-item">Champion adoption among peers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phase Detail Modal -->
+    <div class="role-modal-overlay" id="phaseDetailModal">
+        <div class="role-modal role-modal-large">
+            <div class="role-modal-header" id="phaseModalHeader">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="role-modal-content" id="phaseModalContent">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Phase Data with Phosphor icon classes
+        const phaseData = {
+            1: {
+                title: 'Discovery',
+                subtitle: 'Establish the foundation through structured exploration',
+                icon: 'ph-magnifying-glass',
+                color: 'var(--phase-1)',
+                sections: [
+                    {
+                        title: 'Entry Point A: High-Level Strategy (Optional)',
+                        description: 'For organizations that have not yet identified their priority use case.',
+                        steps: [
+                            { number: '1.1', title: 'Process Reimagination', description: 'Apply AI-first design thinking. Ask "if we redesigned this process assuming AI capabilities, what would it look like?"', roles: ['BO', 'IT'] },
+                            { number: '1.2', title: 'High-Level Strategy', description: 'Define user value proposition and ensure strategic alignment with organizational priorities.', roles: ['BO'] },
+                            { number: '1.3', title: 'High-Level Data Landscape', description: 'Overview of available data sources and their interconnections.', roles: ['BO', 'IT'] },
+                            { number: '1.4', title: 'Decompose and Prioritize', description: 'Identify buildable increments. Evaluate value versus effort. Select highest-priority use case.', roles: ['BO'] }
+                        ]
+                    },
+                    {
+                        title: 'Entry Point B: Known Use Case',
+                        description: 'For organizations that already know which use case to pursue, skip directly to Step 1.5.',
+                        steps: [
+                            { number: '1.5', title: 'Focus on High-Priority Use Case', description: 'Confirm the specific use case to pursue. Assign the Agent Owner.', roles: ['BO', 'AO'] }
+                        ]
+                    },
+                    {
+                        title: 'Discovery Workshop: Agentic Thinking',
+                        description: 'The workshop translates the chosen use case into actionable foundations for development.',
+                        steps: [
+                            { number: '1.6', title: 'Process Mapping', description: 'Map current process for the specific use case. Draft the "Process Reimagined" state.', roles: ['AO', 'BT', 'IT'] },
+                            { number: '1.7', title: 'Capability Mapping', description: 'Define capability statements: "This agent should be capable of..." Prioritize must-haves.', roles: ['AO', 'BT', 'BO'] },
+                            { number: '1.8', title: 'Guardrails Exploration', description: 'Define boundaries, safety requirements, compliance constraints, and escalation paths.', roles: ['AO', 'BT', 'IT'] },
+                            { number: '1.9', title: 'High-Level Data Mapping', description: 'Identify relevant data sources. Initial structure review. Basic availability check.', roles: ['AO', 'IT'] }
+                        ]
+                    }
+                ],
+                parallelExploration: {
+                    title: 'Parallel Exploration',
+                    description: 'Six workstreams run in parallel following the Discovery Workshop.',
+                    items: [
+                        { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Define success metrics, baselines, targets, and ROI calculation methodology.', roles: ['AO', 'BO'] },
+                        { icon: 'ph-users', title: 'Adoption', description: 'Identify user personas, surface adoption barriers, define success indicators.', roles: ['AO', 'BT'] },
+                        { icon: 'ph-database', title: 'Data', description: 'Deep dive into specific data sources. Assess quality. Begin RAG experimentation.', roles: ['AO', 'IT'] },
+                        { icon: 'ph-rocket-launch', title: 'Deployment', description: 'Define first users, starting location, staged rollout strategy.', roles: ['AO', 'BT'] },
+                        { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] },
+                        { icon: 'ph-robot', title: 'Agent Owner', description: 'Formalize assignment, define responsibilities, establish ownership expectations.', roles: ['AO', 'BO'] }
+                    ]
+                }
+            },
+            2: {
+                title: 'Development',
+                subtitle: 'Translate discovery outputs into a working agent',
+                icon: 'ph-hammer',
+                color: 'var(--phase-2)',
+                sections: [
+                    {
+                        title: 'Build Phase',
+                        description: 'Development translates discovery outputs into a working agent.',
+                        steps: [
+                            { number: '2.1', title: 'First Draft Creation', description: 'Build the first draft based on Discovery Workshop outcomes and Parallel Exploration inputs.', roles: ['IT', 'AO'] },
+                            { number: '2.2', title: 'Validation and Iteration', description: 'Test the draft. Multiple refinement cycles shape the agent toward intended behavior.', roles: ['AO', 'BT', 'IT'] }
+                        ]
+                    }
+                ]
+            },
+            3: {
+                title: 'Testing and Route to Production',
+                subtitle: 'Testing happens in three waves',
+                icon: 'ph-check-circle',
+                color: 'var(--phase-3)',
+                sections: [
+                    {
+                        title: 'Testing Waves',
+                        description: 'Progressive testing from focused groups to production launch.',
+                        steps: [
+                            { number: '3.1', title: 'Initial Testing', description: 'Small, focused group tests for fast feedback and rapid iteration.', roles: ['AO', 'IT'] },
+                            { number: '3.2', title: 'Broader Testing', description: 'Expand to cover different roles and personas. Discover actual needs versus assumptions.', roles: ['AO', 'BT'] },
+                            { number: '3.3', title: 'Production Launch', description: 'Launch when core functionalities are satisfactory. Early launch expected—real data drives improvement.', roles: ['AO', 'BO'] }
+                        ]
+                    }
+                ]
+            },
+            4: {
+                title: 'Improvement',
+                subtitle: 'The agent gets better based on real-world performance',
+                icon: 'ph-trend-up',
+                color: 'var(--phase-4)',
+                sections: [
+                    {
+                        title: 'Continuous Improvement',
+                        description: 'Improvement is ongoing—the agent gets better based on real-world performance.',
+                        steps: [
+                            { number: '4.1', title: 'Feedback Loop', description: 'Collect implicit feedback (evaluations, usage patterns) and explicit feedback (direct user input).', roles: ['AO'] },
+                            { number: '4.2', title: 'Detect and Address Gaps', description: 'Clean data inconsistencies. Fill knowledge gaps. Adjust behavior for edge cases.', roles: ['AO', 'IT'] },
+                            { number: '4.3', title: 'Communicate Improvements', description: 'Notify users when fixes are applied. Close the feedback loop to build trust.', roles: ['AO'] }
+                        ]
+                    }
+                ]
+            },
+            5: {
+                title: 'Adoption',
+                subtitle: 'Runs in parallel with improvement—they feed each other continuously',
+                icon: 'ph-rocket-launch',
+                color: 'var(--phase-5)',
+                sections: [
+                    {
+                        title: 'Adoption Strategy',
+                        description: 'Adoption runs in parallel with improvement—they feed each other continuously.',
+                        steps: [
+                            { number: '5.1', title: 'Understand User Base', description: 'Adapt strategy based on real user behavior. Close gap between assumed and actual needs.', roles: ['AO'] },
+                            { number: '5.2', title: 'Address Adoption Barriers', description: 'Systematically work through barriers: skeptical managers, competing priorities, resistance patterns, and organizational dynamics. Escalate blockers that require Business Owner intervention.', roles: ['AO', 'BO'] },
+                            { number: '5.3', title: 'Promote the Agent', description: 'Showcase capabilities. Identify power users as they emerge.', roles: ['AO'] },
+                            { number: '5.4', title: 'Champion Network', description: 'Cultivate early adopters into internal advocates who support teammates.', roles: ['AO'] },
+                            { number: '5.5', title: 'Expand Capabilities', description: 'Identify multi-agent opportunities. Formalize patterns users discover.', roles: ['AO', 'BO'] }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        const roleMap = {
+            'BO': { name: 'Business Owner', class: 'bo' },
+            'AO': { name: 'Agent Owner', class: 'ao' },
+            'IT': { name: 'Implementation Team', class: 'it' },
+            'BT': { name: 'Business Team', class: 'bt' }
+        };
+
+        // DOM Elements
+        const mainTabs = document.querySelectorAll('.main-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const phaseNodes = document.querySelectorAll('.phase-node');
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const diagramView = document.getElementById('diagramView');
+        const listView = document.getElementById('listView');
+        const roleCardsLarge = document.querySelectorAll('.role-card-large');
+        const phaseListItems = document.querySelectorAll('.phase-list-item');
+
+        // Main Tab Switching
+        mainTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                mainTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const tabName = tab.dataset.tab;
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabName + 'Tab') {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Role Cards - Open Modal
+        roleCardsLarge.forEach(card => {
+            card.addEventListener('click', () => {
+                const modalId = card.dataset.modal;
+                if (modalId) {
+                    openModal(modalId);
+                }
+            });
+        });
+
+        // Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.role-modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('visible');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.role-modal-overlay.visible').forEach(modal => {
+                    modal.classList.remove('visible');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+
+        // View Toggle
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                viewBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const view = btn.dataset.view;
+                if (view === 'list') {
+                    diagramView.classList.add('hidden');
+                    listView.classList.add('active');
+                    populateListView();
+                } else {
+                    diagramView.classList.remove('hidden');
+                    listView.classList.remove('active');
+                }
+            });
+        });
+
+        // Phase Node Click
+        phaseNodes.forEach(node => {
+            node.addEventListener('click', () => {
+                const phase = node.dataset.phase;
+
+                // Update active state
+                phaseNodes.forEach(n => n.classList.remove('active'));
+                node.classList.add('active');
+
+                // Show detail panel
+                showPhaseDetail(phase);
+            });
+        });
+
+        // Show Phase Detail Modal
+        function showPhaseDetail(phaseNum) {
+            const data = phaseData[phaseNum];
+            if (!data) return;
+
+            // Show continuous loop for phases 4 and 5
+            const continuousLoop = document.querySelector('.continuous-loop');
+            if (phaseNum === '4' || phaseNum === '5' || phaseNum === 4 || phaseNum === 5) {
+                continuousLoop?.classList.add('visible');
+            } else {
+                continuousLoop?.classList.remove('visible');
+            }
+
+            let sectionsHTML = '';
+
+            data.sections.forEach(section => {
+                sectionsHTML += `
+                    <div class="step-group">
+                        <div class="step-group-title">${section.title}</div>
+                        <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${section.description}</p>
+                        ${section.steps.map(step => `
+                            <div class="step-item">
+                                <div class="step-header" onclick="this.parentElement.classList.toggle('expanded')">
+                                    <div class="step-number">${step.number}</div>
+                                    <div class="step-title">${step.title}</div>
+                                    <div class="step-roles">
+                                        ${step.roles.map(role => `<span class="role-tag ${roleMap[role].class}">${roleMap[role].name}</span>`).join('')}
+                                    </div>
+                                    <i class="ph ph-caret-down step-expand-icon"></i>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-description">${step.description}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            // Add Parallel Exploration for Phase 1
+            if (data.parallelExploration) {
+                sectionsHTML += `
+                    <div class="step-group">
+                        <div class="step-group-title">${data.parallelExploration.title}</div>
+                        <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${data.parallelExploration.description}</p>
+                        <div class="parallel-grid">
+                            ${data.parallelExploration.items.map(item => `
+                                <div class="parallel-item" onclick="this.classList.toggle('expanded')">
+                                    <div class="parallel-header">
+                                        <div class="parallel-icon"><i class="ph ${item.icon}"></i></div>
+                                        <div class="parallel-title">${item.title}</div>
+                                    </div>
+                                    <div class="parallel-roles">
+                                        ${item.roles.map(role => `<span class="role-tag ${roleMap[role].class}">${roleMap[role].name}</span>`).join('')}
+                                    </div>
+                                    <div class="parallel-description">${item.description}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Add continuous loop explanation for phases 4 and 5
+            if (phaseNum === '4' || phaseNum === '5' || phaseNum === 4 || phaseNum === 5) {
+                sectionsHTML += `
+                    <div class="loop-explanation-inline">
+                        <div class="loop-explanation-header">
+                            <div class="loop-explanation-icon">
+                                <i class="ph ph-arrows-clockwise"></i>
+                            </div>
+                            <div>
+                                <h3 class="loop-explanation-title">The Continuous Loop</h3>
+                                <p class="loop-explanation-subtitle">Phases 4 & 5 run in parallel, feeding each other continuously</p>
+                            </div>
+                        </div>
+                        <div class="loop-points">
+                            <div class="loop-point">
+                                <span class="loop-point-icon" style="color: var(--color-accent);"><i class="ph ph-trend-up"></i></span>
+                                <div class="loop-point-text"><strong>Improvement drives adoption:</strong> Better agents attract more users</div>
+                            </div>
+                            <div class="loop-point">
+                                <span class="loop-point-icon" style="color: var(--color-success);"><i class="ph ph-chat-centered-text"></i></span>
+                                <div class="loop-point-text"><strong>Adoption generates feedback:</strong> More users reveal more gaps</div>
+                            </div>
+                            <div class="loop-point">
+                                <span class="loop-point-icon" style="color: var(--color-primary);"><i class="ph ph-wrench"></i></span>
+                                <div class="loop-point-text"><strong>Feedback drives improvement:</strong> Gaps become addressable</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const phaseModalHeader = document.getElementById('phaseModalHeader');
+            const phaseModalContent = document.getElementById('phaseModalContent');
+
+            phaseModalHeader.innerHTML = `
+                <div class="role-modal-icon" style="background: ${data.color};">
+                    <i class="ph ${data.icon}"></i>
+                </div>
+                <div>
+                    <div class="role-modal-title">Phase ${phaseNum}: ${data.title}</div>
+                    <div class="role-modal-subtitle">${data.subtitle}</div>
+                </div>
+                <button class="role-modal-close" onclick="closeModal('phaseDetailModal')">
+                    <i class="ph ph-x"></i>
+                </button>
+            `;
+
+            phaseModalContent.innerHTML = `
+                <div class="steps-container">
+                    ${sectionsHTML}
+                </div>
+            `;
+
+            openModal('phaseDetailModal');
+        }
+
+        // List view item - open modal
+        document.querySelectorAll('.phase-list-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const phase = item.dataset.phase;
+                showPhaseDetail(phase);
+            });
+        });
+    </script>
+</body>
+</html>
