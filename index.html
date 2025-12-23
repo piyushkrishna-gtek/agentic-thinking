@@ -1084,15 +1084,55 @@
 
         .modal-page {
             min-width: 100%;
-            padding: 0 0.5rem;
+            padding: 0 3rem;
             box-sizing: border-box;
+        }
+
+        .pagination-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border-default);
+            background: var(--color-bg-elevated);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            font-size: 1.25rem;
+        }
+
+        .pagination-arrow.prev {
+            left: 0.5rem;
+        }
+
+        .pagination-arrow.next {
+            right: 0.5rem;
+        }
+
+        .pagination-arrow:hover:not(:disabled) {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: var(--color-bg-surface);
+            box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+        }
+
+        .pagination-arrow:disabled {
+            opacity: 0.15;
+            cursor: not-allowed;
         }
 
         .modal-pagination {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.75rem;
             padding: 1rem 2rem;
             border-top: 1px solid var(--color-border-subtle);
             background: var(--color-bg-surface);
@@ -1104,8 +1144,8 @@
         }
 
         .pagination-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: var(--color-border-default);
             cursor: pointer;
@@ -1114,43 +1154,17 @@
 
         .pagination-dot.active {
             background: var(--color-primary);
-            transform: scale(1.25);
+            transform: scale(1.2);
         }
 
         .pagination-dot:hover:not(.active) {
             background: var(--color-text-muted);
         }
 
-        .pagination-arrow {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid var(--color-border-subtle);
-            background: var(--color-bg-elevated);
-            color: var(--color-text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-fast);
-        }
-
-        .pagination-arrow:hover:not(:disabled) {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-        }
-
-        .pagination-arrow:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
         .pagination-label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--color-text-muted);
             font-family: var(--font-mono);
-            min-width: 60px;
-            text-align: center;
         }
 
         .role-modal-header {
@@ -2384,21 +2398,21 @@
 
             phaseModalContent.innerHTML = `
                 <div class="modal-pages-container">
+                    <button class="pagination-arrow prev" id="phasePrevBtn" disabled>
+                        <i class="ph ph-caret-left"></i>
+                    </button>
                     <div class="modal-pages" id="phaseModalPages" style="transform: translateX(0%);">
                         ${pagesHTML}
                     </div>
+                    <button class="pagination-arrow next" id="phaseNextBtn" ${pages.length <= 1 ? 'disabled' : ''}>
+                        <i class="ph ph-caret-right"></i>
+                    </button>
                 </div>
                 <div class="modal-pagination">
-                    <button class="pagination-arrow" id="phasePrevBtn" disabled>
-                        <i class="ph ph-caret-left"></i>
-                    </button>
                     <div class="pagination-dots" id="phasePageDots">
                         ${dotsHTML}
                     </div>
                     <span class="pagination-label" id="phasePageLabel">1 / ${pages.length}</span>
-                    <button class="pagination-arrow" id="phaseNextBtn" ${pages.length <= 1 ? 'disabled' : ''}>
-                        <i class="ph ph-caret-right"></i>
-                    </button>
                 </div>
             `;
 
@@ -2444,8 +2458,8 @@
             const modal = document.getElementById(modalId);
             const pagesContainer = modal.querySelector('.modal-pages');
             const dots = modal.querySelectorAll('.pagination-dot');
-            const prevBtn = modal.querySelector('.pagination-arrow:first-child');
-            const nextBtn = modal.querySelector('.pagination-arrow:last-child');
+            const prevBtn = modal.querySelector('.pagination-arrow.prev');
+            const nextBtn = modal.querySelector('.pagination-arrow.next');
             const label = modal.querySelector('.pagination-label');
 
             let currentPage = 0;
