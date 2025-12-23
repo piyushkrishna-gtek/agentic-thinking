@@ -120,37 +120,10 @@
             color: var(--color-text-primary);
         }
 
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--color-border-subtle);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         /* Main Layout */
         .main-container {
             display: flex;
             min-height: 100vh;
-            padding-top: 70px;
         }
 
         /* Content Area */
@@ -1414,11 +1387,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">Agentic Transformation Framework</div>
-    </header>
-
     <div class="main-container">
         <!-- Main Content -->
         <main class="content-area" id="contentArea">
