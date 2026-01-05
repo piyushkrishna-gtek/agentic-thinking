@@ -2293,7 +2293,7 @@
             '1.a.2': {
                 title: 'High-Level Strategy',
                 roles: ['BO'],
-                content: `<p>High-Level Strategy ensures that any AI initiative connects to what actually matters for the business unit. The reimagined processes from Step 1.1 may surface many possibilities, but not all of them align with current organizational priorities.</p>
+                content: `<p>High-Level Strategy ensures that any AI initiative connects to what actually matters for the business unit. The reimagined processes from Step 1.a.1 may surface many possibilities, but not all of them align with current organizational priorities.</p>
                 <p>This step filters opportunities through strategic relevance—ensuring that effort goes toward initiatives that leadership will support and fund. Which opportunities align with the business unit's goals? Which have executive sponsorship? Which fit the current investment appetite?</p>
                 <p>The Business Owner owns this step entirely. No technical input is required yet. The goal is clarity on strategic direction before resources are committed.</p>`
             },
@@ -2311,7 +2311,7 @@
                 content: `<p>With reimagined processes, strategic alignment, and data landscape understood, the Business Owner now breaks down opportunities into buildable increments and selects where to start.</p>
                 <p>Decomposition means identifying the smaller pieces within a large opportunity. A fully reimagined process might require multiple agents, integrations, and workflow changes. Breaking it into increments allows the team to deliver value sooner and learn faster.</p>
                 <p>Prioritization evaluates each increment on value versus effort. Which pieces deliver the most impact for the least investment? Which have data readily available? Which align most closely with immediate business needs?</p>
-                <p>The output is a selected high-priority use case—the specific opportunity that will move forward into the Discovery Workshop. This decision belongs to the Business Owner, informed by everything learned in Steps 1.1–1.3.</p>`
+                <p>The output is a selected high-priority use case—the specific opportunity that will move forward into the Discovery Workshop. This decision belongs to the Business Owner, informed by everything learned in Steps 1.a.1–1.a.3.</p>`
             },
             '1.b.1': {
                 title: 'Focus on High-Priority Use Case',
@@ -2325,7 +2325,7 @@
             '1.b.2': {
                 title: 'Process Mapping',
                 roles: ['AO', 'BT', 'IT'],
-                content: `<p>Process Mapping is the first step of the Discovery Workshop. The Agent Owner leads the team in documenting the current process for the specific use case selected in Step 1.5.</p>
+                content: `<p>Process Mapping is the first step of the Discovery Workshop. The Agent Owner leads the team in documenting the current process for the specific use case selected in Step 1.b.1.</p>
                 <p>This is detailed work. The team maps how work actually flows today—not the idealized version, but reality. Where does work originate? What steps does it pass through? Where do delays occur? Where is human judgment most heavily applied?</p>
                 <p>With the current state documented, the team drafts the "Process Reimagined" state. This is the target: how the process would work with an agent in place. What steps does the agent handle? Where does human oversight remain? How does the workflow change?</p>
                 <p>The gap between current and reimagined states defines what the agent must accomplish.</p>`
@@ -2358,8 +2358,8 @@
             '1.b.6': {
                 title: 'High-Level Data Mapping',
                 roles: ['AO', 'IT'],
-                content: `<p>High-Level Data Mapping focuses on the specific data sources required for the selected use case. Unlike the broad overview in Step 1.3, this step identifies exactly which data the agent will need to access.</p>
-                <p>The Agent Owner and Implementation Team review each capability from Step 1.8 and map it to data requirements. What data does the agent need to perform this capability? Where does that data live? What format is it in?</p>
+                content: `<p>High-Level Data Mapping focuses on the specific data sources required for the selected use case. Unlike the broad overview in Step 1.a.3, this step identifies exactly which data the agent will need to access.</p>
+                <p>The Agent Owner and Implementation Team review each capability from Step 1.b.4 and map it to data requirements. What data does the agent need to perform this capability? Where does that data live? What format is it in?</p>
                 <p>Initial structure review examines whether the data is organized in ways the agent can use. A basic availability check confirms the data can actually be accessed—permissions, APIs, and integrations may all be factors.</p>
                 <p>This step surfaces data gaps early. If a critical capability requires data that doesn't exist or can't be accessed, the team learns now rather than during development.</p>`
             },
@@ -2384,7 +2384,7 @@
             'Data': {
                 title: 'Data Workstream',
                 roles: ['AO', 'IT'],
-                content: `<p>The Data Workstream moves from the high-level mapping in Step 1.10 to detailed preparation.</p>
+                content: `<p>The Data Workstream moves from the high-level mapping in Step 1.b.6 to detailed preparation.</p>
                 <p>The team conducts a deep dive into each specific data source required for the agent's capabilities. This includes examining data structure, formats, and access patterns.</p>
                 <p>Data quality assessment identifies issues that could affect agent performance. Inconsistencies, gaps, outdated records, and formatting problems all need to be understood before the agent relies on this data.</p>
                 <p>For agents using unstructured data, RAG experimentation begins. Early experiments with retrieval-augmented generation reveal what's possible with the available documents and surface patterns that inform development.</p>
@@ -2403,7 +2403,7 @@
                 title: 'Evaluation Workstream',
                 roles: ['AO', 'IT'],
                 content: `<p>The Evaluation Workstream establishes how the agent's quality will be measured throughout its lifecycle.</p>
-                <p>Evaluation criteria define what "good" looks like for this agent. Accuracy? Completeness? Speed? Tone? Each capability from Step 1.8 may have different quality standards.</p>
+                <p>Evaluation criteria define what "good" looks like for this agent. Accuracy? Completeness? Speed? Tone? Each capability from Step 1.b.4 may have different quality standards.</p>
                 <p>Quality metrics translate criteria into measurable indicators. These metrics will power the feedback loop in Phase 4, enabling the team to detect when the agent is underperforming.</p>
                 <p>Testing approach designs how the agent will be validated before and after launch. What test cases matter most? How will edge cases be covered? How will regression be detected?</p>
                 <p>This workstream ensures the team can objectively assess agent performance, not just hope it's working.</p>`
@@ -3281,7 +3281,7 @@
                 '1.a.2': {
                     title: 'Estrategia de Alto Nivel',
                     roles: ['BO'],
-                    content: `<p>La Estrategia de Alto Nivel asegura que cualquier iniciativa de IA se conecte con lo que realmente importa para la unidad de negocio. Los procesos reimaginados del Paso 1.1 pueden revelar muchas posibilidades, pero no todas se alinean con las prioridades organizacionales actuales.</p>
+                    content: `<p>La Estrategia de Alto Nivel asegura que cualquier iniciativa de IA se conecte con lo que realmente importa para la unidad de negocio. Los procesos reimaginados del Paso 1.a.1 pueden revelar muchas posibilidades, pero no todas se alinean con las prioridades organizacionales actuales.</p>
                     <p>Este paso filtra oportunidades a través de la relevancia estratégica—asegurando que el esfuerzo se dirija hacia iniciativas que la dirección apoyará y financiará. ¿Qué oportunidades se alinean con los objetivos de la unidad de negocio? ¿Cuáles tienen patrocinio ejecutivo? ¿Cuáles encajan con el apetito de inversión actual?</p>
                     <p>El Dueño del Negocio es el único propietario de este paso. Aún no se requiere entrada técnica. El objetivo es claridad en la dirección estratégica antes de comprometer recursos.</p>`
                 },
@@ -3299,7 +3299,7 @@
                     content: `<p>Con los procesos reimaginados, la alineación estratégica y el panorama de datos comprendidos, el Dueño del Negocio ahora descompone las oportunidades en incrementos construibles y selecciona por dónde empezar.</p>
                     <p>Descomponer significa identificar las piezas más pequeñas dentro de una gran oportunidad. Un proceso completamente reimaginado podría requerir múltiples agentes, integraciones y cambios de flujo de trabajo. Dividirlo en incrementos permite al equipo entregar valor antes y aprender más rápido.</p>
                     <p>La priorización evalúa cada incremento en valor versus esfuerzo. ¿Qué piezas entregan más impacto por la menor inversión? ¿Cuáles tienen datos disponibles? ¿Cuáles se alinean más estrechamente con las necesidades inmediatas del negocio?</p>
-                    <p>El resultado es un caso de uso de alta prioridad seleccionado—la oportunidad específica que avanzará al Taller de Descubrimiento. Esta decisión pertenece al Dueño del Negocio, informada por todo lo aprendido en los Pasos 1.1–1.3.</p>`
+                    <p>El resultado es un caso de uso de alta prioridad seleccionado—la oportunidad específica que avanzará al Taller de Descubrimiento. Esta decisión pertenece al Dueño del Negocio, informada por todo lo aprendido en los Pasos 1.a.1–1.a.3.</p>`
                 },
                 '1.b.1': {
                     title: 'Enfocarse en el Caso de Uso Prioritario',
@@ -3313,7 +3313,7 @@
                 '1.b.2': {
                     title: 'Mapeo de Procesos',
                     roles: ['AO', 'BT', 'IT'],
-                    content: `<p>El Mapeo de Procesos es el primer paso del Taller de Descubrimiento. El Dueño del Agente lidera al equipo en documentar el proceso actual para el caso de uso específico seleccionado en el Paso 1.5.</p>
+                    content: `<p>El Mapeo de Procesos es el primer paso del Taller de Descubrimiento. El Dueño del Agente lidera al equipo en documentar el proceso actual para el caso de uso específico seleccionado en el Paso 1.b.1.</p>
                     <p>Este es un trabajo detallado. El equipo mapea cómo fluye realmente el trabajo hoy—no la versión idealizada, sino la realidad. ¿Dónde se origina el trabajo? ¿Por qué pasos pasa? ¿Dónde ocurren los retrasos? ¿Dónde se aplica más fuertemente el juicio humano?</p>
                     <p>Con el estado actual documentado, el equipo diseña el estado "Proceso Reimaginado". Este es el objetivo: cómo funcionaría el proceso con un agente en su lugar. ¿Qué pasos maneja el agente? ¿Dónde permanece la supervisión humana? ¿Cómo cambia el flujo de trabajo?</p>
                     <p>La brecha entre los estados actual y reimaginado define lo que el agente debe lograr.</p>`
@@ -3346,8 +3346,8 @@
                 '1.b.6': {
                     title: 'Mapeo de Datos de Alto Nivel',
                     roles: ['AO', 'IT'],
-                    content: `<p>El Mapeo de Datos de Alto Nivel se enfoca en las fuentes de datos específicas requeridas para el caso de uso seleccionado. A diferencia de la visión general amplia del Paso 1.3, este paso identifica exactamente qué datos necesitará acceder el agente.</p>
-                    <p>El Dueño del Agente y el Equipo de Implementación revisan cada capacidad del Paso 1.8 y la mapean a requisitos de datos. ¿Qué datos necesita el agente para realizar esta capacidad? ¿Dónde viven esos datos? ¿En qué formato están?</p>
+                    content: `<p>El Mapeo de Datos de Alto Nivel se enfoca en las fuentes de datos específicas requeridas para el caso de uso seleccionado. A diferencia de la visión general amplia del Paso 1.a.3, este paso identifica exactamente qué datos necesitará acceder el agente.</p>
+                    <p>El Dueño del Agente y el Equipo de Implementación revisan cada capacidad del Paso 1.b.4 y la mapean a requisitos de datos. ¿Qué datos necesita el agente para realizar esta capacidad? ¿Dónde viven esos datos? ¿En qué formato están?</p>
                     <p>La revisión inicial de estructura examina si los datos están organizados de maneras que el agente pueda usar. Una verificación básica de disponibilidad confirma que los datos pueden realmente accederse—permisos, APIs e integraciones pueden ser todos factores.</p>
                     <p>Este paso revela brechas de datos temprano. Si una capacidad crítica requiere datos que no existen o no pueden accederse, el equipo lo aprende ahora en lugar de durante el desarrollo.</p>`
                 },
@@ -3372,7 +3372,7 @@
                 'Data': {
                     title: 'Flujo de Trabajo de Datos',
                     roles: ['AO', 'IT'],
-                    content: `<p>El Flujo de Trabajo de Datos avanza desde el mapeo de alto nivel del Paso 1.10 hacia una preparación detallada.</p>
+                    content: `<p>El Flujo de Trabajo de Datos avanza desde el mapeo de alto nivel del Paso 1.b.6 hacia una preparación detallada.</p>
                     <p>El equipo realiza un análisis profundo de cada fuente de datos específica requerida para las capacidades del agente. Esto incluye examinar la estructura de datos, formatos y patrones de acceso.</p>
                     <p>La evaluación de calidad de datos identifica problemas que podrían afectar el rendimiento del agente. Inconsistencias, brechas, registros desactualizados y problemas de formato necesitan entenderse antes de que el agente dependa de estos datos.</p>
                     <p>Para agentes que usan datos no estructurados, comienza la experimentación RAG. Los experimentos tempranos con generación aumentada por recuperación revelan qué es posible con los documentos disponibles y revelan patrones que informan el desarrollo.</p>
@@ -3391,7 +3391,7 @@
                     title: 'Flujo de Trabajo de Evaluación',
                     roles: ['AO', 'IT'],
                     content: `<p>El Flujo de Trabajo de Evaluación establece cómo se medirá la calidad del agente a lo largo de su ciclo de vida.</p>
-                    <p>Los criterios de evaluación definen cómo se ve "bueno" para este agente. ¿Precisión? ¿Completitud? ¿Velocidad? ¿Tono? Cada capacidad del Paso 1.8 puede tener diferentes estándares de calidad.</p>
+                    <p>Los criterios de evaluación definen cómo se ve "bueno" para este agente. ¿Precisión? ¿Completitud? ¿Velocidad? ¿Tono? Cada capacidad del Paso 1.b.4 puede tener diferentes estándares de calidad.</p>
                     <p>Las métricas de calidad traducen criterios en indicadores medibles. Estas métricas impulsarán el ciclo de retroalimentación en la Fase 4, permitiendo al equipo detectar cuando el agente está rindiendo por debajo de lo esperado.</p>
                     <p>El enfoque de pruebas diseña cómo se validará el agente antes y después del lanzamiento. ¿Qué casos de prueba importan más? ¿Cómo se cubrirán los casos extremos? ¿Cómo se detectará la regresión?</p>
                     <p>Este flujo de trabajo asegura que el equipo pueda evaluar objetivamente el rendimiento del agente, no solo esperar que esté funcionando.</p>`
