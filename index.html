@@ -1181,11 +1181,13 @@
         .modal-pagination {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 0.75rem;
-            padding: 1rem 2rem;
-            border-top: 1px solid var(--color-border-subtle);
-            background: var(--color-bg-surface);
+            margin-left: auto;
+            margin-right: 1rem;
+        }
+
+        .modal-header-content {
+            flex: 1;
         }
 
         .pagination-dots {
@@ -2741,14 +2743,26 @@
             const phaseModalHeader = document.getElementById('phaseModalHeader');
             const phaseModalContent = document.getElementById('phaseModalContent');
 
+            const dotsHTML = pages.map((_, i) => `
+                <div class="pagination-dot ${i === 0 ? 'active' : ''}" data-page="${i}"></div>
+            `).join('');
+
             phaseModalHeader.innerHTML = `
                 <div class="role-modal-icon" style="background: ${data.color};">
                     <i class="ph ${data.icon}"></i>
                 </div>
-                <div>
+                <div class="modal-header-content">
                     <div class="role-modal-title">Phase ${phaseNum}: ${data.title}</div>
                     <div class="role-modal-subtitle">${data.subtitle}</div>
                 </div>
+                ${pages.length > 1 ? `
+                <div class="modal-pagination">
+                    <div class="pagination-dots" id="phasePageDots">
+                        ${dotsHTML}
+                    </div>
+                    <span class="pagination-label" id="phasePageLabel">1 / ${pages.length}</span>
+                </div>
+                ` : ''}
                 <button class="role-modal-close" onclick="closeModal('phaseDetailModal')">
                     <i class="ph ph-x"></i>
                 </button>
@@ -2759,10 +2773,6 @@
                 <div class="modal-page" data-page="${i}">
                     <div class="steps-container">${page.content}</div>
                 </div>
-            `).join('');
-
-            const dotsHTML = pages.map((_, i) => `
-                <div class="pagination-dot ${i === 0 ? 'active' : ''}" data-page="${i}"></div>
             `).join('');
 
             phaseModalContent.innerHTML = `
@@ -2776,12 +2786,6 @@
                     <button class="pagination-arrow next" id="phaseNextBtn" ${pages.length <= 1 ? 'disabled' : ''}>
                         <i class="ph ph-caret-right"></i>
                     </button>
-                </div>
-                <div class="modal-pagination">
-                    <div class="pagination-dots" id="phasePageDots">
-                        ${dotsHTML}
-                    </div>
-                    <span class="pagination-label" id="phasePageLabel">1 / ${pages.length}</span>
                 </div>
             `;
 
@@ -3978,14 +3982,26 @@
             const phaseModalContent = document.getElementById('phaseModalContent');
 
             const phaseLabel = currentLanguage === 'es' ? 'Fase' : 'Phase';
+            const dotsHTML = pages.map((_, i) => `
+                <div class="pagination-dot ${i === 0 ? 'active' : ''}" data-page="${i}"></div>
+            `).join('');
+
             phaseModalHeader.innerHTML = `
                 <div class="role-modal-icon" style="background: ${data.color};">
                     <i class="ph ${data.icon}"></i>
                 </div>
-                <div>
+                <div class="modal-header-content">
                     <div class="role-modal-title">${phaseLabel} ${phaseNum}: ${data.title}</div>
                     <div class="role-modal-subtitle">${data.subtitle}</div>
                 </div>
+                ${pages.length > 1 ? `
+                <div class="modal-pagination">
+                    <div class="pagination-dots" id="phasePageDots">
+                        ${dotsHTML}
+                    </div>
+                    <span class="pagination-label" id="phasePageLabel">1 / ${pages.length}</span>
+                </div>
+                ` : ''}
                 <button class="role-modal-close" onclick="closeModal('phaseDetailModal')">
                     <i class="ph ph-x"></i>
                 </button>
@@ -3996,10 +4012,6 @@
                 <div class="modal-page" data-page="${i}">
                     <div class="steps-container">${page.content}</div>
                 </div>
-            `).join('');
-
-            const dotsHTML = pages.map((_, i) => `
-                <div class="pagination-dot ${i === 0 ? 'active' : ''}" data-page="${i}"></div>
             `).join('');
 
             phaseModalContent.innerHTML = `
@@ -4013,12 +4025,6 @@
                     <button class="pagination-arrow next" id="phaseNextBtn" ${pages.length <= 1 ? 'disabled' : ''}>
                         <i class="ph ph-caret-right"></i>
                     </button>
-                </div>
-                <div class="modal-pagination">
-                    <div class="pagination-dots" id="phasePageDots">
-                        ${dotsHTML}
-                    </div>
-                    <span class="pagination-label" id="phasePageLabel">1 / ${pages.length}</span>
                 </div>
             `;
 
