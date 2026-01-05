@@ -96,6 +96,7 @@
             color: var(--color-text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            zoom: 1.15;
         }
 
         /* Scrollbar */
@@ -129,7 +130,7 @@
         /* Content Area */
         .content-area {
             flex: 1;
-            padding: 2rem 3rem;
+            padding: 0 3rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -283,8 +284,16 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 3rem 2rem 4rem;
+            padding: 0.25rem 2rem 2.5rem;
             position: relative;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .hero::before {
@@ -303,7 +312,7 @@
             font-family: var(--font-display);
             font-size: 3rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
+            margin: 0;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -451,6 +460,8 @@
         }
 
         .phase-1 .phase-circle { background: var(--phase-1); box-shadow: 0 0 30px rgba(0, 212, 255, 0.4); }
+        .phase-1a .phase-circle { background: var(--phase-1); box-shadow: 0 0 30px rgba(0, 212, 255, 0.4); }
+        .phase-1b .phase-circle { background: var(--phase-1); box-shadow: 0 0 30px rgba(0, 212, 255, 0.4); }
         .phase-2 .phase-circle { background: var(--phase-2); box-shadow: 0 0 30px rgba(106, 0, 255, 0.4); }
         .phase-3 .phase-circle { background: var(--phase-3); box-shadow: 0 0 30px rgba(133, 51, 255, 0.4); }
         .phase-4 .phase-circle { background: var(--phase-4); box-shadow: 0 0 30px rgba(255, 149, 0, 0.4); }
@@ -1207,7 +1218,7 @@
         }
 
         .role-modal-header {
-            padding: 1.5rem 2rem;
+            padding: 1.5rem 2rem 1rem;
             border-bottom: 1px solid var(--color-border-subtle);
             display: flex;
             align-items: center;
@@ -1488,13 +1499,57 @@
 
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
+            }
+
+            .hero-header {
+                flex-direction: column;
+                gap: 0.75rem;
             }
 
             .philosophy-box {
                 padding: 1.5rem;
             }
+        }
 
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 8px;
+            padding: 3px;
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+
+        .language-option {
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            letter-spacing: 0.05em;
+            color: var(--color-text-tertiary);
+            transition: var(--transition-fast);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .language-option:hover {
+            color: var(--color-text-secondary);
+        }
+
+        .language-option.active {
+            background: var(--color-primary);
+            color: var(--color-bg-base);
+            box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
+        }
+
+        @media (max-width: 480px) {
             .philosophy-quote {
                 font-size: 1.25rem;
             }
@@ -1534,11 +1589,17 @@
         <main class="content-area" id="contentArea">
             <!-- Hero Section -->
             <section class="hero">
-                <h1>The Agentic Transformation Framework</h1>
+                <div class="hero-header">
+                    <h1 data-i18n="heroTitle">The Agentic Transformation Framework</h1>
+                    <div class="language-toggle">
+                        <button class="language-option active" data-lang="en">EN</button>
+                        <button class="language-option" data-lang="es">ES</button>
+                    </div>
+                </div>
                 <div class="philosophy-box">
-                    <span class="philosophy-label">Philosophy</span>
-                    <p class="philosophy-quote">"Think big, start small, improve & adopt."</p>
-                    <p class="philosophy-text">
+                    <span class="philosophy-label" data-i18n="philosophyLabel">Philosophy</span>
+                    <p class="philosophy-quote" data-i18n="philosophyQuote">"Think big, start small, improve & adopt."</p>
+                    <p class="philosophy-text" data-i18n="philosophyText">
                         AI agents are products, not projects. Success is not a perfect launch—success is going to production with something that works, then improving constantly based on what real data reveals.
                     </p>
                 </div>
@@ -1548,11 +1609,11 @@
             <div class="main-tabs">
                 <button class="main-tab active" data-tab="process">
                     <i class="ph ph-flow-arrow"></i>
-                    Transformation Process
+                    <span data-i18n="tabProcess">Transformation Process</span>
                 </button>
                 <button class="main-tab" data-tab="roles">
                     <i class="ph ph-users-four"></i>
-                    Supporting Roles
+                    <span data-i18n="tabRoles">Supporting Roles</span>
                 </button>
             </div>
 
@@ -1563,40 +1624,47 @@
                 <div class="diagram-view" id="diagramView">
                     <div class="process-diagram">
                         <div class="process-flow">
-                            <div class="phase-node phase-1" data-phase="1">
+                            <div class="phase-node phase-1a" data-phase="1A">
                                 <div class="phase-circle">
-                                    <i class="ph ph-magnifying-glass"></i>
+                                    <i class="ph ph-compass"></i>
                                 </div>
-                                <div class="phase-number">Phase 1</div>
-                                <div class="phase-name">Discovery</div>
+                                <div class="phase-number" data-i18n="phase1ALabel">Phase 1A</div>
+                                <div class="phase-name" data-i18n="phase1AName">Discovery - High-Level Strategy</div>
+                            </div>
+                            <div class="phase-node phase-1b" data-phase="1B">
+                                <div class="phase-circle">
+                                    <i class="ph ph-target"></i>
+                                </div>
+                                <div class="phase-number" data-i18n="phase1BLabel">Phase 1B</div>
+                                <div class="phase-name" data-i18n="phase1BName">Discovery - Use Case Focus</div>
                             </div>
                             <div class="phase-node phase-2" data-phase="2">
                                 <div class="phase-circle">
                                     <i class="ph ph-hammer"></i>
                                 </div>
-                                <div class="phase-number">Phase 2</div>
-                                <div class="phase-name">Development</div>
+                                <div class="phase-number" data-i18n="phase2Label">Phase 2</div>
+                                <div class="phase-name" data-i18n="phase2Name">Development</div>
                             </div>
                             <div class="phase-node phase-3" data-phase="3">
                                 <div class="phase-circle">
                                     <i class="ph ph-check-circle"></i>
                                 </div>
-                                <div class="phase-number">Phase 3</div>
-                                <div class="phase-name">Testing & Production</div>
+                                <div class="phase-number" data-i18n="phase3Label">Phase 3</div>
+                                <div class="phase-name" data-i18n="phase3Name">Testing & Production</div>
                             </div>
                             <div class="phase-node phase-4" data-phase="4">
                                 <div class="phase-circle">
                                     <i class="ph ph-trend-up"></i>
                                 </div>
-                                <div class="phase-number">Phase 4</div>
-                                <div class="phase-name">Improvement</div>
+                                <div class="phase-number" data-i18n="phase4Label">Phase 4</div>
+                                <div class="phase-name" data-i18n="phase4Name">Improvement</div>
                             </div>
                             <div class="phase-node phase-5" data-phase="5">
                                 <div class="phase-circle">
                                     <i class="ph ph-rocket-launch"></i>
                                 </div>
-                                <div class="phase-number">Phase 5</div>
-                                <div class="phase-name">Adoption</div>
+                                <div class="phase-number" data-i18n="phase5Label">Phase 5</div>
+                                <div class="phase-name" data-i18n="phase5Name">Adoption</div>
                             </div>
 
                         </div>
@@ -1606,15 +1674,29 @@
 
                 <!-- List View -->
                 <div class="list-view" id="listView">
-                    <!-- Phase 1: Discovery -->
-                    <div class="phase-list-item" data-phase="1">
+                    <!-- Phase 1A: Discovery - High-Level Strategy -->
+                    <div class="phase-list-item" data-phase="1A">
                         <div class="phase-list-header">
                             <div class="phase-list-icon" style="background: var(--phase-1);">
-                                <i class="ph ph-magnifying-glass"></i>
+                                <i class="ph ph-compass"></i>
                             </div>
                             <div>
-                                <div class="phase-list-title">Phase 1: Discovery</div>
-                                <div class="phase-list-subtitle">Establish the foundation through structured exploration</div>
+                                <div class="phase-list-title" data-i18n="phase1AListTitle">Phase 1A: Discovery - High-Level Strategy</div>
+                                <div class="phase-list-subtitle" data-i18n="phase1ASubtitle">Optional entry point for organizations without a priority use case</div>
+                            </div>
+                            <i class="ph ph-arrow-square-out phase-list-expand"></i>
+                        </div>
+                    </div>
+
+                    <!-- Phase 1B: Discovery - Use Case Focus -->
+                    <div class="phase-list-item" data-phase="1B">
+                        <div class="phase-list-header">
+                            <div class="phase-list-icon" style="background: var(--phase-1);">
+                                <i class="ph ph-target"></i>
+                            </div>
+                            <div>
+                                <div class="phase-list-title" data-i18n="phase1BListTitle">Phase 1B: Discovery - Use Case Focus</div>
+                                <div class="phase-list-subtitle" data-i18n="phase1BSubtitle">Agentic Thinking Workshop + Parallel Exploration</div>
                             </div>
                             <i class="ph ph-arrow-square-out phase-list-expand"></i>
                         </div>
@@ -1627,8 +1709,8 @@
                                 <i class="ph ph-hammer"></i>
                             </div>
                             <div>
-                                <div class="phase-list-title">Phase 2: Development</div>
-                                <div class="phase-list-subtitle">Translate discovery outputs into a working agent</div>
+                                <div class="phase-list-title" data-i18n="phase2ListTitle">Phase 2: Development</div>
+                                <div class="phase-list-subtitle" data-i18n="phase2Subtitle">Translate discovery outputs into a working agent</div>
                             </div>
                             <i class="ph ph-arrow-square-out phase-list-expand"></i>
                         </div>
@@ -1641,8 +1723,8 @@
                                 <i class="ph ph-check-circle"></i>
                             </div>
                             <div>
-                                <div class="phase-list-title">Phase 3: Testing & Production</div>
-                                <div class="phase-list-subtitle">Testing happens in three waves</div>
+                                <div class="phase-list-title" data-i18n="phase3ListTitle">Phase 3: Testing & Production</div>
+                                <div class="phase-list-subtitle" data-i18n="phase3Subtitle">Testing happens in three waves</div>
                             </div>
                             <i class="ph ph-arrow-square-out phase-list-expand"></i>
                         </div>
@@ -1655,8 +1737,8 @@
                                 <i class="ph ph-trend-up"></i>
                             </div>
                             <div>
-                                <div class="phase-list-title">Phase 4: Improvement</div>
-                                <div class="phase-list-subtitle">The agent gets better based on real-world performance</div>
+                                <div class="phase-list-title" data-i18n="phase4ListTitle">Phase 4: Improvement</div>
+                                <div class="phase-list-subtitle" data-i18n="phase4Subtitle">The agent gets better based on real-world performance</div>
                             </div>
                             <i class="ph ph-arrow-square-out phase-list-expand"></i>
                         </div>
@@ -1669,8 +1751,8 @@
                                 <i class="ph ph-rocket-launch"></i>
                             </div>
                             <div>
-                                <div class="phase-list-title">Phase 5: Adoption</div>
-                                <div class="phase-list-subtitle">Runs in parallel with improvement—they feed each other</div>
+                                <div class="phase-list-title" data-i18n="phase5ListTitle">Phase 5: Adoption</div>
+                                <div class="phase-list-subtitle" data-i18n="phase5Subtitle">Runs in parallel with improvement—they feed each other</div>
                             </div>
                             <i class="ph ph-arrow-square-out phase-list-expand"></i>
                         </div>
@@ -1686,8 +1768,8 @@
                             <i class="ph ph-briefcase"></i>
                         </div>
                         <div class="role-card-large-content">
-                            <h3 class="role-card-large-title">Business Owner</h3>
-                            <p class="role-card-large-description">Senior leader accountable for the agent portfolio. Makes Scale, Fix, or Kill decisions.</p>
+                            <h3 class="role-card-large-title" data-i18n="roleBO">Business Owner</h3>
+                            <p class="role-card-large-description" data-i18n="roleBODesc">Senior leader accountable for the agent portfolio. Makes Scale, Fix, or Kill decisions.</p>
                         </div>
                         <i class="ph ph-arrow-square-out role-card-large-arrow"></i>
                     </div>
@@ -1697,8 +1779,8 @@
                             <i class="ph ph-robot"></i>
                         </div>
                         <div class="role-card-large-content">
-                            <h3 class="role-card-large-title">Agent Owner</h3>
-                            <p class="role-card-large-description">Responsible for individual agent success and evolution. Owns improvement and adoption.</p>
+                            <h3 class="role-card-large-title" data-i18n="roleAO">Agent Owner</h3>
+                            <p class="role-card-large-description" data-i18n="roleAODesc">Responsible for individual agent success and evolution. Owns improvement and adoption.</p>
                         </div>
                         <i class="ph ph-arrow-square-out role-card-large-arrow"></i>
                     </div>
@@ -1708,8 +1790,8 @@
                             <i class="ph ph-code"></i>
                         </div>
                         <div class="role-card-large-content">
-                            <h3 class="role-card-large-title">Implementation Team</h3>
-                            <p class="role-card-large-description">Builds and maintains the agent technically. Partners with the Agent Owner.</p>
+                            <h3 class="role-card-large-title" data-i18n="roleIT">Implementation Team</h3>
+                            <p class="role-card-large-description" data-i18n="roleITDesc">Builds and maintains the agent technically. Partners with the Agent Owner.</p>
                         </div>
                         <i class="ph ph-arrow-square-out role-card-large-arrow"></i>
                     </div>
@@ -1719,8 +1801,8 @@
                             <i class="ph ph-users-three"></i>
                         </div>
                         <div class="role-card-large-content">
-                            <h3 class="role-card-large-title">Business Team</h3>
-                            <p class="role-card-large-description">Domain experts who provide requirements, validate behavior, and test the agent.</p>
+                            <h3 class="role-card-large-title" data-i18n="roleBT">Business Team</h3>
+                            <p class="role-card-large-description" data-i18n="roleBTDesc">Domain experts who provide requirements, validate behavior, and test the agent.</p>
                         </div>
                         <i class="ph ph-arrow-square-out role-card-large-arrow"></i>
                     </div>
@@ -2069,41 +2151,40 @@
     <script>
         // Phase Data with Phosphor icon classes
         const phaseData = {
-            1: {
-                title: 'Discovery',
-                subtitle: 'Establish the foundation through structured exploration',
-                icon: 'ph-magnifying-glass',
+            '1A': {
+                title: 'Discovery - High-Level Strategy',
+                subtitle: 'Optional entry point for organizations without a priority use case',
+                icon: 'ph-compass',
                 color: 'var(--phase-1)',
                 sections: [
                     {
-                        title: 'Entry Point A: High-Level Strategy',
-                        description: 'For organizations that have not yet identified their priority use case.',
-                        entryPoint: 'A',
-                        optional: true,
+                        title: 'Strategic Discovery',
+                        description: 'For organizations that have not yet identified their priority use case. Complete these steps, then proceed to Phase 1B.',
                         steps: [
-                            { number: '1.1', title: 'Process Reimagination', description: 'Apply AI-first design thinking. Ask "if we redesigned this process assuming AI capabilities, what would it look like?"', roles: ['BO', 'IT'] },
-                            { number: '1.2', title: 'High-Level Strategy', description: 'Ensure strategic alignment with organizational priorities.', roles: ['BO'] },
-                            { number: '1.3', title: 'High-Level Data Landscape', description: 'Overview of available data sources and their interconnections.', roles: ['BO', 'IT'] },
-                            { number: '1.4', title: 'Decompose and Prioritize', description: 'Identify buildable increments. Evaluate value versus effort. Select highest-priority use case.', roles: ['BO'] }
+                            { number: '1.a.1', title: 'Process Reimagination', description: 'Apply AI-first design thinking. Ask "if we redesigned this process assuming AI capabilities, what would it look like?"', roles: ['BO', 'IT'] },
+                            { number: '1.a.2', title: 'High-Level Strategy', description: 'Ensure strategic alignment with organizational priorities.', roles: ['BO'] },
+                            { number: '1.a.3', title: 'High-Level Data Landscape', description: 'Overview of available data sources and their interconnections.', roles: ['BO', 'IT'] },
+                            { number: '1.a.4', title: 'Decompose and Prioritize', description: 'Identify buildable increments. Evaluate value versus effort. Select highest-priority use case.', roles: ['BO'] }
                         ]
-                    },
-                    {
-                        title: 'Entry Point B: Known Use Case',
-                        description: 'Start here if you already know which use case to pursue.',
-                        entryPoint: 'B',
-                        steps: [
-                            { number: '1.5', title: 'Focus on High-Priority Use Case', description: 'Confirm the specific use case to pursue. Assign the Agent Owner.', roles: ['BO', 'AO'] }
-                        ]
-                    },
+                    }
+                ]
+            },
+            '1B': {
+                title: 'Discovery - Use Case Focus',
+                subtitle: 'Agentic Thinking Workshop + Parallel Exploration',
+                icon: 'ph-target',
+                color: 'var(--phase-1)',
+                sections: [
                     {
                         title: 'Discovery Workshop: Agentic Thinking',
-                        description: 'The workshop translates the chosen use case into actionable foundations for development.',
+                        description: 'Start here if you already know which use case to pursue, or after completing Phase 1A. The workshop translates the chosen use case into actionable foundations for development.',
                         steps: [
-                            { number: '1.6', title: 'Process Mapping', description: 'Map current process for the specific use case. Draft the "Process Reimagined" state.', roles: ['AO', 'BT', 'IT'] },
-                            { number: '1.7', title: 'User Value Proposition', description: 'Define how the agent will support end users. Articulate why they will return to use it repeatedly.', roles: ['AO', 'BT'] },
-                            { number: '1.8', title: 'Capability Mapping', description: 'Define capability statements: "This agent should be capable of..." Prioritize must-haves.', roles: ['AO', 'BT', 'BO'] },
-                            { number: '1.9', title: 'Guardrails Exploration', description: 'Define boundaries, safety requirements, compliance constraints, and escalation paths.', roles: ['AO', 'BT', 'IT'] },
-                            { number: '1.10', title: 'High-Level Data Mapping', description: 'Identify relevant data sources. Initial structure review. Basic availability check.', roles: ['AO', 'IT'] }
+                            { number: '1.b.1', title: 'Focus on High-Priority Use Case', description: 'Confirm the specific use case to pursue. Assign the Agent Owner.', roles: ['BO', 'AO'] },
+                            { number: '1.b.2', title: 'Process Mapping', description: 'Map current process for the specific use case. Draft the "Process Reimagined" state.', roles: ['AO', 'BT', 'IT'] },
+                            { number: '1.b.3', title: 'User Value Proposition', description: 'Define how the agent will support end users. Articulate why they will return to use it repeatedly.', roles: ['AO', 'BT'] },
+                            { number: '1.b.4', title: 'Capability Mapping', description: 'Define capability statements: "This agent should be capable of..." Prioritize must-haves.', roles: ['AO', 'BT', 'BO'] },
+                            { number: '1.b.5', title: 'Guardrails Exploration', description: 'Define boundaries, safety requirements, compliance constraints, and escalation paths.', roles: ['AO', 'BT', 'IT'] },
+                            { number: '1.b.6', title: 'High-Level Data Mapping', description: 'Identify relevant data sources. Initial structure review. Basic availability check.', roles: ['AO', 'IT'] }
                         ]
                     }
                 ],
@@ -2200,7 +2281,7 @@
 
         // Step Descriptions - Full detailed content for each step
         const stepDescriptions = {
-            '1.1': {
+            '1.a.1': {
                 title: 'Process Reimagination',
                 roles: ['BO', 'IT'],
                 content: `<p>Process Reimagination is the starting point for organizations that haven't yet identified their priority use case. Rather than asking "where can we add an agent?", the Business Owner asks a more powerful question: "If we redesigned this process assuming AI capabilities, what would it look like?"</p>
@@ -2208,14 +2289,14 @@
                 <p>The Business Owner leads this exercise, bringing strategic context about which processes matter most to the business unit. The Implementation Team supports by providing perspective on what AI can realistically accomplish—helping distinguish between genuinely high-value opportunities and ideas that sound impressive but lack technical feasibility.</p>
                 <p>The output of this step is not a list of "AI use cases" but a reimagined view of how work could flow differently. This becomes the raw material for identifying high-value items in subsequent steps.</p>`
             },
-            '1.2': {
+            '1.a.2': {
                 title: 'High-Level Strategy',
                 roles: ['BO'],
                 content: `<p>High-Level Strategy ensures that any AI initiative connects to what actually matters for the business unit. The reimagined processes from Step 1.1 may surface many possibilities, but not all of them align with current organizational priorities.</p>
                 <p>This step filters opportunities through strategic relevance—ensuring that effort goes toward initiatives that leadership will support and fund. Which opportunities align with the business unit's goals? Which have executive sponsorship? Which fit the current investment appetite?</p>
                 <p>The Business Owner owns this step entirely. No technical input is required yet. The goal is clarity on strategic direction before resources are committed.</p>`
             },
-            '1.3': {
+            '1.a.3': {
                 title: 'High-Level Data Landscape',
                 roles: ['BO', 'IT'],
                 content: `<p>Before committing to a use case, the team needs a realistic view of what data exists to support it. This step creates an overview—not a detailed audit—of available data sources and how they interconnect.</p>
@@ -2223,7 +2304,7 @@
                 <p>Key questions at this stage: What is described in each source? Which use cases could each support? How are sources interconnected? Are there obvious gaps or quality concerns?</p>
                 <p>This is a feasibility check. A compelling reimagined process means nothing if the data to power it doesn't exist or can't be accessed. Surfacing data constraints early prevents wasted effort on use cases that will stall during implementation.</p>`
             },
-            '1.4': {
+            '1.a.4': {
                 title: 'Decompose and Prioritize',
                 roles: ['BO'],
                 content: `<p>With reimagined processes, strategic alignment, and data landscape understood, the Business Owner now breaks down opportunities into buildable increments and selects where to start.</p>
@@ -2231,7 +2312,7 @@
                 <p>Prioritization evaluates each increment on value versus effort. Which pieces deliver the most impact for the least investment? Which have data readily available? Which align most closely with immediate business needs?</p>
                 <p>The output is a selected high-priority use case—the specific opportunity that will move forward into the Discovery Workshop. This decision belongs to the Business Owner, informed by everything learned in Steps 1.1–1.3.</p>`
             },
-            '1.5': {
+            '1.b.1': {
                 title: 'Focus on High-Priority Use Case',
                 roles: ['BO', 'AO'],
                 content: `<p>This step marks the transition from strategic exploration to focused execution. Whether the use case emerged from Steps 1.1–1.4 or was known from the start (Entry Point B), this is where it becomes official.</p>
@@ -2239,7 +2320,7 @@
                 <p>The assignment is formal. The Agent Owner needs clear mandate and accountability from this point forward. The Business Owner remains involved but shifts from driving to overseeing.</p>
                 <p>From here, the Discovery Workshop begins.</p>`
             },
-            '1.6': {
+            '1.b.2': {
                 title: 'Process Mapping',
                 roles: ['AO', 'BT', 'IT'],
                 content: `<p>Process Mapping is the first step of the Discovery Workshop. The Agent Owner leads the team in documenting the current process for the specific use case selected in Step 1.5.</p>
@@ -2247,7 +2328,7 @@
                 <p>With the current state documented, the team drafts the "Process Reimagined" state. This is the target: how the process would work with an agent in place. What steps does the agent handle? Where does human oversight remain? How does the workflow change?</p>
                 <p>The gap between current and reimagined states defines what the agent must accomplish.</p>`
             },
-            '1.7': {
+            '1.b.3': {
                 title: 'User Value Proposition',
                 roles: ['AO', 'BT'],
                 content: `<p>User Value Proposition defines why users will actually use this agent. Without a clear answer to this question, even a technically excellent agent will fail to gain adoption.</p>
@@ -2255,7 +2336,7 @@
                 <p>Equally important: Why will users come back to use it repeatedly? A one-time novelty isn't valuable. The agent must deliver ongoing value that makes it part of users' regular workflow.</p>
                 <p>This step connects directly to adoption. The higher the genuine value to users, the higher the adoption. The higher the adoption, the higher the ROI. A weak value proposition identified now can be strengthened before development begins.</p>`
             },
-            '1.8': {
+            '1.b.4': {
                 title: 'Capability Mapping',
                 roles: ['AO', 'BT', 'BO'],
                 content: `<p>Capability Mapping translates the reimagined process into specific agent capabilities. The team creates a list of capability statements, each framed as: "This agent should be capable of..."</p>
@@ -2263,7 +2344,7 @@
                 <p>Not all capabilities are equal. The team prioritizes must-haves versus nice-to-haves. Must-haves are essential for the agent to deliver its core value proposition. Nice-to-haves can wait for future iterations.</p>
                 <p>This prioritization is crucial. Scope creep kills AI projects. A focused agent that does a few things well will succeed where an ambitious agent that tries to do everything will fail.</p>`
             },
-            '1.9': {
+            '1.b.5': {
                 title: 'Guardrails Exploration',
                 roles: ['AO', 'BT', 'IT'],
                 content: `<p>Guardrails define what the agent should not do. This step establishes boundaries, safety requirements, compliance constraints, and escalation paths.</p>
@@ -2272,7 +2353,7 @@
                 <p>Safety requirements address potential harms. What could go wrong if the agent behaves unexpectedly? How can those risks be mitigated?</p>
                 <p>Guardrails aren't limitations on value—they're prerequisites for trust. An agent without clear boundaries won't be adopted because users won't trust it. Defining guardrails early ensures they're built in, not bolted on.</p>`
             },
-            '1.10': {
+            '1.b.6': {
                 title: 'High-Level Data Mapping',
                 roles: ['AO', 'IT'],
                 content: `<p>High-Level Data Mapping focuses on the specific data sources required for the selected use case. Unlike the broad overview in Step 1.3, this step identifies exactly which data the agent will need to access.</p>
@@ -2821,6 +2902,1235 @@
                 showPhaseDetail(phase);
             });
         });
+
+        // ==========================================
+        // INTERNATIONALIZATION (i18n) SYSTEM
+        // ==========================================
+
+        let currentLanguage = 'en';
+
+        // Static translations for HTML elements
+        const translations = {
+            en: {
+                // Hero Section
+                heroTitle: 'The Agentic Transformation Framework',
+                philosophyLabel: 'Philosophy',
+                philosophyQuote: '"Think big, start small, improve & adopt."',
+                philosophyText: 'AI agents are products, not projects. Success is not a perfect launch—success is going to production with something that works, then improving constantly based on what real data reveals.',
+
+                // Main Tabs
+                tabProcess: 'Transformation Process',
+                tabRoles: 'Supporting Roles',
+
+                // Phase Labels (Diagram View)
+                phase1ALabel: 'Phase 1A',
+                phase1BLabel: 'Phase 1B',
+                phase2Label: 'Phase 2',
+                phase3Label: 'Phase 3',
+                phase4Label: 'Phase 4',
+                phase5Label: 'Phase 5',
+                phase1AName: 'Discovery - High-Level Strategy',
+                phase1BName: 'Discovery - Use Case Focus',
+                phase2Name: 'Development',
+                phase3Name: 'Testing & Production',
+                phase4Name: 'Improvement',
+                phase5Name: 'Adoption',
+
+                // Phase List View
+                phase1AListTitle: 'Phase 1A: Discovery - High-Level Strategy',
+                phase1BListTitle: 'Phase 1B: Discovery - Use Case Focus',
+                phase2ListTitle: 'Phase 2: Development',
+                phase3ListTitle: 'Phase 3: Testing & Production',
+                phase4ListTitle: 'Phase 4: Improvement',
+                phase5ListTitle: 'Phase 5: Adoption',
+                phase1ASubtitle: 'Optional entry point for organizations without a priority use case',
+                phase1BSubtitle: 'Agentic Thinking Workshop + Parallel Exploration',
+                phase2Subtitle: 'Translate discovery outputs into a working agent',
+                phase3Subtitle: 'Testing happens in three waves',
+                phase4Subtitle: 'The agent gets better based on real-world performance',
+                phase5Subtitle: 'Runs in parallel with improvement—they feed each other',
+
+                // Role Cards
+                roleBO: 'Business Owner',
+                roleBODesc: 'Senior leader accountable for the agent portfolio. Makes Scale, Fix, or Kill decisions.',
+                roleAO: 'Agent Owner',
+                roleAODesc: 'Responsible for individual agent success and evolution. Owns improvement and adoption.',
+                roleIT: 'Implementation Team',
+                roleITDesc: 'Builds and maintains the agent technically. Partners with the Agent Owner.',
+                roleBT: 'Business Team',
+                roleBTDesc: 'Domain experts who provide requirements, validate behavior, and test the agent.',
+            },
+            es: {
+                // Hero Section
+                heroTitle: 'El Marco de Transformación Agéntica',
+                philosophyLabel: 'Filosofía',
+                philosophyQuote: '"Piensa en grande, empieza pequeño, mejora y adopta."',
+                philosophyText: 'Los agentes de IA son productos, no proyectos. El éxito no es un lanzamiento perfecto—el éxito es llegar a producción con algo que funciona, y luego mejorar constantemente basándose en lo que revelan los datos reales.',
+
+                // Main Tabs
+                tabProcess: 'Proceso de Transformación',
+                tabRoles: 'Roles de Apoyo',
+
+                // Phase Labels (Diagram View)
+                phase1ALabel: 'Fase 1A',
+                phase1BLabel: 'Fase 1B',
+                phase2Label: 'Fase 2',
+                phase3Label: 'Fase 3',
+                phase4Label: 'Fase 4',
+                phase5Label: 'Fase 5',
+                phase1AName: 'Descubrimiento - Estrategia de Alto Nivel',
+                phase1BName: 'Descubrimiento - Enfoque en Caso de Uso',
+                phase2Name: 'Desarrollo',
+                phase3Name: 'Pruebas y Producción',
+                phase4Name: 'Mejora',
+                phase5Name: 'Adopción',
+
+                // Phase List View
+                phase1AListTitle: 'Fase 1A: Descubrimiento - Estrategia de Alto Nivel',
+                phase1BListTitle: 'Fase 1B: Descubrimiento - Enfoque en Caso de Uso',
+                phase2ListTitle: 'Fase 2: Desarrollo',
+                phase3ListTitle: 'Fase 3: Pruebas y Producción',
+                phase4ListTitle: 'Fase 4: Mejora',
+                phase5ListTitle: 'Fase 5: Adopción',
+                phase1ASubtitle: 'Punto de entrada opcional para organizaciones sin un caso de uso prioritario',
+                phase1BSubtitle: 'Taller de Pensamiento Agéntico + Exploración Paralela',
+                phase2Subtitle: 'Traducir los resultados del descubrimiento en un agente funcional',
+                phase3Subtitle: 'Las pruebas ocurren en tres oleadas',
+                phase4Subtitle: 'El agente mejora basándose en el rendimiento del mundo real',
+                phase5Subtitle: 'Se ejecuta en paralelo con la mejora—se alimentan mutuamente',
+
+                // Role Cards
+                roleBO: 'Dueño del Negocio',
+                roleBODesc: 'Líder senior responsable del portafolio de agentes. Toma decisiones de Escalar, Arreglar o Eliminar.',
+                roleAO: 'Dueño del Agente',
+                roleAODesc: 'Responsable del éxito y evolución del agente individual. Gestiona la mejora y adopción.',
+                roleIT: 'Equipo de Implementación',
+                roleITDesc: 'Construye y mantiene el agente técnicamente. Colabora con el Dueño del Agente.',
+                roleBT: 'Equipo de Negocio',
+                roleBTDesc: 'Expertos de dominio que proveen requisitos, validan comportamiento y prueban el agente.',
+            }
+        };
+
+        // Bilingual Phase Data
+        const phaseDataI18n = {
+            en: {
+                '1A': {
+                    title: 'Discovery - High-Level Strategy',
+                    subtitle: 'Optional entry point for organizations without a priority use case',
+                    icon: 'ph-compass',
+                    color: 'var(--phase-1)',
+                    sections: [
+                        {
+                            title: 'Strategic Discovery',
+                            description: 'For organizations that have not yet identified their priority use case. Complete these steps, then proceed to Phase 1B.',
+                            steps: [
+                                { number: '1.a.1', title: 'Process Reimagination', description: 'Apply AI-first design thinking. Ask "if we redesigned this process assuming AI capabilities, what would it look like?"', roles: ['BO', 'IT'] },
+                                { number: '1.a.2', title: 'High-Level Strategy', description: 'Ensure strategic alignment with organizational priorities.', roles: ['BO'] },
+                                { number: '1.a.3', title: 'High-Level Data Landscape', description: 'Overview of available data sources and their interconnections.', roles: ['BO', 'IT'] },
+                                { number: '1.a.4', title: 'Decompose and Prioritize', description: 'Identify buildable increments. Evaluate value versus effort. Select highest-priority use case.', roles: ['BO'] }
+                            ]
+                        }
+                    ]
+                },
+                '1B': {
+                    title: 'Discovery - Use Case Focus',
+                    subtitle: 'Agentic Thinking Workshop + Parallel Exploration',
+                    icon: 'ph-target',
+                    color: 'var(--phase-1)',
+                    sections: [
+                        {
+                            title: 'Discovery Workshop: Agentic Thinking',
+                            description: 'Start here if you already know which use case to pursue, or after completing Phase 1A. The workshop translates the chosen use case into actionable foundations for development.',
+                            steps: [
+                                { number: '1.b.1', title: 'Focus on High-Priority Use Case', description: 'Confirm the specific use case to pursue. Assign the Agent Owner.', roles: ['BO', 'AO'] },
+                                { number: '1.b.2', title: 'Process Mapping', description: 'Map current process for the specific use case. Draft the "Process Reimagined" state.', roles: ['AO', 'BT', 'IT'] },
+                                { number: '1.b.3', title: 'User Value Proposition', description: 'Define how the agent will support end users. Articulate why they will return to use it repeatedly.', roles: ['AO', 'BT'] },
+                                { number: '1.b.4', title: 'Capability Mapping', description: 'Define capability statements: "This agent should be capable of..." Prioritize must-haves.', roles: ['AO', 'BT', 'BO'] },
+                                { number: '1.b.5', title: 'Guardrails Exploration', description: 'Define boundaries, safety requirements, compliance constraints, and escalation paths.', roles: ['AO', 'BT', 'IT'] },
+                                { number: '1.b.6', title: 'High-Level Data Mapping', description: 'Identify relevant data sources. Initial structure review. Basic availability check.', roles: ['AO', 'IT'] }
+                            ]
+                        }
+                    ],
+                    parallelExploration: {
+                        title: 'Parallel Exploration',
+                        description: 'Six workstreams run in parallel following the Discovery Workshop.',
+                        items: [
+                            { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Define success metrics, baselines, targets, and ROI calculation methodology.', roles: ['AO', 'BO'] },
+                            { icon: 'ph-users', title: 'Adoption', description: 'Identify user personas, surface adoption barriers, define success indicators.', roles: ['AO', 'BT'] },
+                            { icon: 'ph-database', title: 'Data', description: 'Deep dive into specific data sources. Assess quality. Begin RAG experimentation.', roles: ['AO', 'IT'] },
+                            { icon: 'ph-rocket-launch', title: 'Deployment', description: 'Define first users, starting location, staged rollout strategy.', roles: ['AO', 'BT'] },
+                            { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] },
+                            { icon: 'ph-robot', title: 'Agent Owner', description: 'Formalize assignment, define responsibilities, establish ownership expectations.', roles: ['AO', 'BO'] }
+                        ]
+                    }
+                },
+                2: {
+                    title: 'Development',
+                    subtitle: 'Translate discovery outputs into a working agent',
+                    icon: 'ph-hammer',
+                    color: 'var(--phase-2)',
+                    sections: [
+                        {
+                            title: 'Build Phase',
+                            description: 'Development translates discovery outputs into a working agent.',
+                            steps: [
+                                { number: '2.1', title: 'First Draft Creation', description: 'Build the first draft based on Discovery Workshop outcomes and Parallel Exploration inputs.', roles: ['IT', 'AO'] },
+                                { number: '2.2', title: 'Validation and Iteration', description: 'Test the draft. Multiple refinement cycles shape the agent toward intended behavior.', roles: ['AO', 'BT', 'IT'] }
+                            ]
+                        }
+                    ]
+                },
+                3: {
+                    title: 'Testing and Route to Production',
+                    subtitle: 'Testing happens in three waves',
+                    icon: 'ph-check-circle',
+                    color: 'var(--phase-3)',
+                    sections: [
+                        {
+                            title: 'Testing Waves',
+                            description: 'Progressive testing from focused groups to production launch.',
+                            steps: [
+                                { number: '3.1', title: 'Initial Testing', description: 'Small, focused group tests for fast feedback and rapid iteration.', roles: ['AO', 'IT'] },
+                                { number: '3.2', title: 'Broader Testing', description: 'Expand to cover different roles and personas. Discover actual needs versus assumptions.', roles: ['AO', 'BT'] },
+                                { number: '3.3', title: 'Production Launch', description: 'Launch when core functionalities are satisfactory. Early launch expected—real data drives improvement.', roles: ['AO', 'BO'] }
+                            ]
+                        }
+                    ]
+                },
+                4: {
+                    title: 'Improvement',
+                    subtitle: 'The agent gets better based on real-world performance',
+                    icon: 'ph-trend-up',
+                    color: 'var(--phase-4)',
+                    sections: [
+                        {
+                            title: 'Continuous Improvement',
+                            description: 'Improvement is ongoing—the agent gets better based on real-world performance.',
+                            steps: [
+                                { number: '4.1', title: 'Feedback Loop', description: 'Collect implicit feedback (evaluations, usage patterns) and explicit feedback (direct user input).', roles: ['AO'] },
+                                { number: '4.2', title: 'Detect and Address Gaps', description: 'Clean data inconsistencies. Fill knowledge gaps. Adjust behavior for edge cases.', roles: ['AO', 'IT'] },
+                                { number: '4.3', title: 'Communicate Improvements', description: 'Notify users when fixes are applied. Close the feedback loop to build trust.', roles: ['AO'] }
+                            ]
+                        }
+                    ]
+                },
+                5: {
+                    title: 'Adoption',
+                    subtitle: 'Runs in parallel with improvement—they feed each other continuously',
+                    icon: 'ph-rocket-launch',
+                    color: 'var(--phase-5)',
+                    sections: [
+                        {
+                            title: 'Adoption Strategy',
+                            description: 'Adoption runs in parallel with improvement—they feed each other continuously.',
+                            steps: [
+                                { number: '5.1', title: 'Understand User Base', description: 'Adapt strategy based on real user behavior. Close gap between assumed and actual needs.', roles: ['AO'] },
+                                { number: '5.2', title: 'Address Adoption Barriers', description: 'Systematically work through barriers: skeptical managers, competing priorities, resistance patterns, and organizational dynamics. Escalate blockers that require Business Owner intervention.', roles: ['AO', 'BO'] },
+                                { number: '5.3', title: 'Promote the Agent', description: 'Showcase capabilities. Identify power users as they emerge.', roles: ['AO'] },
+                                { number: '5.4', title: 'Champion Network', description: 'Cultivate early adopters into internal advocates who support teammates.', roles: ['AO'] },
+                                { number: '5.5', title: 'Expand Capabilities', description: 'Identify multi-agent opportunities. Formalize patterns users discover.', roles: ['AO', 'BO'] }
+                            ]
+                        }
+                    ]
+                }
+            },
+            es: {
+                '1A': {
+                    title: 'Descubrimiento - Estrategia de Alto Nivel',
+                    subtitle: 'Punto de entrada opcional para organizaciones sin un caso de uso prioritario',
+                    icon: 'ph-compass',
+                    color: 'var(--phase-1)',
+                    sections: [
+                        {
+                            title: 'Descubrimiento Estratégico',
+                            description: 'Para organizaciones que aún no han identificado su caso de uso prioritario. Complete estos pasos, luego proceda a la Fase 1B.',
+                            steps: [
+                                { number: '1.a.1', title: 'Reimaginación de Procesos', description: 'Aplicar pensamiento de diseño centrado en IA. Preguntar "si rediseñáramos este proceso asumiendo capacidades de IA, ¿cómo se vería?"', roles: ['BO', 'IT'] },
+                                { number: '1.a.2', title: 'Estrategia de Alto Nivel', description: 'Asegurar alineación estratégica con las prioridades organizacionales.', roles: ['BO'] },
+                                { number: '1.a.3', title: 'Panorama de Datos de Alto Nivel', description: 'Visión general de las fuentes de datos disponibles y sus interconexiones.', roles: ['BO', 'IT'] },
+                                { number: '1.a.4', title: 'Descomponer y Priorizar', description: 'Identificar incrementos construibles. Evaluar valor versus esfuerzo. Seleccionar el caso de uso de mayor prioridad.', roles: ['BO'] }
+                            ]
+                        }
+                    ]
+                },
+                '1B': {
+                    title: 'Descubrimiento - Enfoque en Caso de Uso',
+                    subtitle: 'Taller de Pensamiento Agéntico + Exploración Paralela',
+                    icon: 'ph-target',
+                    color: 'var(--phase-1)',
+                    sections: [
+                        {
+                            title: 'Taller de Descubrimiento: Pensamiento Agéntico',
+                            description: 'Comienza aquí si ya sabes qué caso de uso perseguir, o después de completar la Fase 1A. El taller traduce el caso de uso elegido en bases accionables para el desarrollo.',
+                            steps: [
+                                { number: '1.b.1', title: 'Enfocarse en el Caso de Uso Prioritario', description: 'Confirmar el caso de uso específico a perseguir. Asignar al Dueño del Agente.', roles: ['BO', 'AO'] },
+                                { number: '1.b.2', title: 'Mapeo de Procesos', description: 'Mapear el proceso actual para el caso de uso específico. Diseñar el estado "Proceso Reimaginado".', roles: ['AO', 'BT', 'IT'] },
+                                { number: '1.b.3', title: 'Propuesta de Valor para el Usuario', description: 'Definir cómo el agente apoyará a los usuarios finales. Articular por qué volverán a usarlo repetidamente.', roles: ['AO', 'BT'] },
+                                { number: '1.b.4', title: 'Mapeo de Capacidades', description: 'Definir declaraciones de capacidad: "Este agente debe ser capaz de..." Priorizar los imprescindibles.', roles: ['AO', 'BT', 'BO'] },
+                                { number: '1.b.5', title: 'Exploración de Guardarraíles', description: 'Definir límites, requisitos de seguridad, restricciones de cumplimiento y rutas de escalamiento.', roles: ['AO', 'BT', 'IT'] },
+                                { number: '1.b.6', title: 'Mapeo de Datos de Alto Nivel', description: 'Identificar fuentes de datos relevantes. Revisión inicial de estructura. Verificación básica de disponibilidad.', roles: ['AO', 'IT'] }
+                            ]
+                        }
+                    ],
+                    parallelExploration: {
+                        title: 'Exploración Paralela',
+                        description: 'Seis flujos de trabajo se ejecutan en paralelo después del Taller de Descubrimiento.',
+                        items: [
+                            { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Definir métricas de éxito, líneas base, objetivos y metodología de cálculo de ROI.', roles: ['AO', 'BO'] },
+                            { icon: 'ph-users', title: 'Adopción', description: 'Identificar personas de usuario, detectar barreras de adopción, definir indicadores de éxito.', roles: ['AO', 'BT'] },
+                            { icon: 'ph-database', title: 'Datos', description: 'Análisis profundo de fuentes de datos específicas. Evaluar calidad. Comenzar experimentación RAG.', roles: ['AO', 'IT'] },
+                            { icon: 'ph-rocket-launch', title: 'Despliegue', description: 'Definir primeros usuarios, ubicación inicial, estrategia de despliegue por etapas.', roles: ['AO', 'BT'] },
+                            { icon: 'ph-clipboard-text', title: 'Evaluación', description: 'Definir criterios de evaluación, métricas de calidad, enfoque de pruebas.', roles: ['AO', 'IT'] },
+                            { icon: 'ph-robot', title: 'Dueño del Agente', description: 'Formalizar asignación, definir responsabilidades, establecer expectativas de propiedad.', roles: ['AO', 'BO'] }
+                        ]
+                    }
+                },
+                2: {
+                    title: 'Desarrollo',
+                    subtitle: 'Traducir los resultados del descubrimiento en un agente funcional',
+                    icon: 'ph-hammer',
+                    color: 'var(--phase-2)',
+                    sections: [
+                        {
+                            title: 'Fase de Construcción',
+                            description: 'El desarrollo traduce los resultados del descubrimiento en un agente funcional.',
+                            steps: [
+                                { number: '2.1', title: 'Creación del Primer Borrador', description: 'Construir el primer borrador basado en los resultados del Taller de Descubrimiento y las entradas de la Exploración Paralela.', roles: ['IT', 'AO'] },
+                                { number: '2.2', title: 'Validación e Iteración', description: 'Probar el borrador. Múltiples ciclos de refinamiento dan forma al comportamiento deseado del agente.', roles: ['AO', 'BT', 'IT'] }
+                            ]
+                        }
+                    ]
+                },
+                3: {
+                    title: 'Pruebas y Ruta a Producción',
+                    subtitle: 'Las pruebas ocurren en tres oleadas',
+                    icon: 'ph-check-circle',
+                    color: 'var(--phase-3)',
+                    sections: [
+                        {
+                            title: 'Oleadas de Pruebas',
+                            description: 'Pruebas progresivas desde grupos focalizados hasta el lanzamiento en producción.',
+                            steps: [
+                                { number: '3.1', title: 'Pruebas Iniciales', description: 'Grupo pequeño y focalizado para retroalimentación rápida e iteración veloz.', roles: ['AO', 'IT'] },
+                                { number: '3.2', title: 'Pruebas Ampliadas', description: 'Expandir para cubrir diferentes roles y personas. Descubrir necesidades reales versus suposiciones.', roles: ['AO', 'BT'] },
+                                { number: '3.3', title: 'Lanzamiento a Producción', description: 'Lanzar cuando las funcionalidades principales sean satisfactorias. Se espera un lanzamiento temprano—los datos reales impulsan la mejora.', roles: ['AO', 'BO'] }
+                            ]
+                        }
+                    ]
+                },
+                4: {
+                    title: 'Mejora',
+                    subtitle: 'El agente mejora basándose en el rendimiento del mundo real',
+                    icon: 'ph-trend-up',
+                    color: 'var(--phase-4)',
+                    sections: [
+                        {
+                            title: 'Mejora Continua',
+                            description: 'La mejora es continua—el agente mejora basándose en el rendimiento del mundo real.',
+                            steps: [
+                                { number: '4.1', title: 'Ciclo de Retroalimentación', description: 'Recopilar retroalimentación implícita (evaluaciones, patrones de uso) y explícita (entrada directa del usuario).', roles: ['AO'] },
+                                { number: '4.2', title: 'Detectar y Abordar Brechas', description: 'Limpiar inconsistencias de datos. Llenar brechas de conocimiento. Ajustar comportamiento para casos extremos.', roles: ['AO', 'IT'] },
+                                { number: '4.3', title: 'Comunicar Mejoras', description: 'Notificar a los usuarios cuando se aplican correcciones. Cerrar el ciclo de retroalimentación para generar confianza.', roles: ['AO'] }
+                            ]
+                        }
+                    ]
+                },
+                5: {
+                    title: 'Adopción',
+                    subtitle: 'Se ejecuta en paralelo con la mejora—se alimentan mutuamente de forma continua',
+                    icon: 'ph-rocket-launch',
+                    color: 'var(--phase-5)',
+                    sections: [
+                        {
+                            title: 'Estrategia de Adopción',
+                            description: 'La adopción se ejecuta en paralelo con la mejora—se alimentan mutuamente de forma continua.',
+                            steps: [
+                                { number: '5.1', title: 'Comprender la Base de Usuarios', description: 'Adaptar la estrategia basándose en el comportamiento real del usuario. Cerrar la brecha entre necesidades asumidas y reales.', roles: ['AO'] },
+                                { number: '5.2', title: 'Abordar Barreras de Adopción', description: 'Trabajar sistemáticamente a través de barreras: gerentes escépticos, prioridades competidoras, patrones de resistencia y dinámicas organizacionales. Escalar bloqueadores que requieran intervención del Dueño del Negocio.', roles: ['AO', 'BO'] },
+                                { number: '5.3', title: 'Promocionar el Agente', description: 'Mostrar capacidades. Identificar usuarios avanzados conforme emergen.', roles: ['AO'] },
+                                { number: '5.4', title: 'Red de Campeones', description: 'Cultivar adoptadores tempranos en defensores internos que apoyen a sus compañeros.', roles: ['AO'] },
+                                { number: '5.5', title: 'Expandir Capacidades', description: 'Identificar oportunidades multi-agente. Formalizar patrones que descubren los usuarios.', roles: ['AO', 'BO'] }
+                            ]
+                        }
+                    ]
+                }
+            }
+        };
+
+        // Bilingual Role Map
+        const roleMapI18n = {
+            en: {
+                'BO': { name: 'Business Owner', class: 'bo' },
+                'AO': { name: 'Agent Owner', class: 'ao' },
+                'IT': { name: 'Implementation Team', class: 'it' },
+                'BT': { name: 'Business Team', class: 'bt' }
+            },
+            es: {
+                'BO': { name: 'Dueño del Negocio', class: 'bo' },
+                'AO': { name: 'Dueño del Agente', class: 'ao' },
+                'IT': { name: 'Equipo de Implementación', class: 'it' },
+                'BT': { name: 'Equipo de Negocio', class: 'bt' }
+            }
+        };
+
+        // Bilingual Step Descriptions
+        const stepDescriptionsI18n = {
+            en: stepDescriptions,
+            es: {
+                '1.a.1': {
+                    title: 'Reimaginación de Procesos',
+                    roles: ['BO', 'IT'],
+                    content: `<p>La Reimaginación de Procesos es el punto de partida para organizaciones que aún no han identificado su caso de uso prioritario. En lugar de preguntar "¿dónde podemos agregar un agente?", el Dueño del Negocio hace una pregunta más poderosa: "Si rediseñáramos este proceso asumiendo capacidades de IA, ¿cómo se vería?"</p>
+                    <p>Este cambio de perspectiva es crítico. Buscar lugares para insertar IA en flujos de trabajo existentes produce, en el mejor de los casos, mejoras incrementales. Reimaginar procesos con IA como capacidad fundamental revela oportunidades transformacionales que de otra manera permanecerían invisibles.</p>
+                    <p>El Dueño del Negocio lidera este ejercicio, aportando contexto estratégico sobre qué procesos importan más para la unidad de negocio. El Equipo de Implementación apoya proporcionando perspectiva sobre lo que la IA puede lograr de manera realista—ayudando a distinguir entre oportunidades genuinamente valiosas e ideas que suenan impresionantes pero carecen de viabilidad técnica.</p>
+                    <p>El resultado de este paso no es una lista de "casos de uso de IA" sino una visión reimaginada de cómo podría fluir el trabajo de manera diferente. Esto se convierte en la materia prima para identificar elementos de alto valor en los pasos subsiguientes.</p>`
+                },
+                '1.a.2': {
+                    title: 'Estrategia de Alto Nivel',
+                    roles: ['BO'],
+                    content: `<p>La Estrategia de Alto Nivel asegura que cualquier iniciativa de IA se conecte con lo que realmente importa para la unidad de negocio. Los procesos reimaginados del Paso 1.1 pueden revelar muchas posibilidades, pero no todas se alinean con las prioridades organizacionales actuales.</p>
+                    <p>Este paso filtra oportunidades a través de la relevancia estratégica—asegurando que el esfuerzo se dirija hacia iniciativas que la dirección apoyará y financiará. ¿Qué oportunidades se alinean con los objetivos de la unidad de negocio? ¿Cuáles tienen patrocinio ejecutivo? ¿Cuáles encajan con el apetito de inversión actual?</p>
+                    <p>El Dueño del Negocio es el único propietario de este paso. Aún no se requiere entrada técnica. El objetivo es claridad en la dirección estratégica antes de comprometer recursos.</p>`
+                },
+                '1.a.3': {
+                    title: 'Panorama de Datos de Alto Nivel',
+                    roles: ['BO', 'IT'],
+                    content: `<p>Antes de comprometerse con un caso de uso, el equipo necesita una visión realista de qué datos existen para respaldarlo. Este paso crea una visión general—no una auditoría detallada—de las fuentes de datos disponibles y cómo se interconectan.</p>
+                    <p>El Dueño del Negocio aporta conocimiento sobre qué datos genera y usa la unidad de negocio. El Equipo de Implementación evalúa si esos datos son accesibles, estructurados y probablemente capaces de soportar capacidades de IA.</p>
+                    <p>Preguntas clave en esta etapa: ¿Qué se describe en cada fuente? ¿Qué casos de uso podría soportar cada una? ¿Cómo están interconectadas las fuentes? ¿Hay brechas obvias o preocupaciones de calidad?</p>
+                    <p>Esta es una verificación de viabilidad. Un proceso reimaginado convincente no significa nada si los datos para impulsarlo no existen o no pueden accederse. Revelar restricciones de datos temprano previene esfuerzo desperdiciado en casos de uso que se estancarán durante la implementación.</p>`
+                },
+                '1.a.4': {
+                    title: 'Descomponer y Priorizar',
+                    roles: ['BO'],
+                    content: `<p>Con los procesos reimaginados, la alineación estratégica y el panorama de datos comprendidos, el Dueño del Negocio ahora descompone las oportunidades en incrementos construibles y selecciona por dónde empezar.</p>
+                    <p>Descomponer significa identificar las piezas más pequeñas dentro de una gran oportunidad. Un proceso completamente reimaginado podría requerir múltiples agentes, integraciones y cambios de flujo de trabajo. Dividirlo en incrementos permite al equipo entregar valor antes y aprender más rápido.</p>
+                    <p>La priorización evalúa cada incremento en valor versus esfuerzo. ¿Qué piezas entregan más impacto por la menor inversión? ¿Cuáles tienen datos disponibles? ¿Cuáles se alinean más estrechamente con las necesidades inmediatas del negocio?</p>
+                    <p>El resultado es un caso de uso de alta prioridad seleccionado—la oportunidad específica que avanzará al Taller de Descubrimiento. Esta decisión pertenece al Dueño del Negocio, informada por todo lo aprendido en los Pasos 1.1–1.3.</p>`
+                },
+                '1.b.1': {
+                    title: 'Enfocarse en el Caso de Uso Prioritario',
+                    roles: ['BO', 'AO'],
+                    content: `<p>Este paso marca la transición de la exploración estratégica a la ejecución enfocada. Ya sea que el caso de uso emergiera de los Pasos 1.1–1.4 o se conociera desde el principio (Punto de Entrada B), aquí es donde se vuelve oficial.</p>
+                    <p>El Dueño del Negocio confirma el caso de uso específico a perseguir. Igualmente importante, aquí es cuando se asigna al Dueño del Agente. El Dueño del Agente asumirá la responsabilidad del éxito de este agente a través del desarrollo, pruebas, mejora y adopción.</p>
+                    <p>La asignación es formal. El Dueño del Agente necesita un mandato claro y responsabilidad desde este punto en adelante. El Dueño del Negocio permanece involucrado pero pasa de impulsar a supervisar.</p>
+                    <p>Desde aquí, comienza el Taller de Descubrimiento.</p>`
+                },
+                '1.b.2': {
+                    title: 'Mapeo de Procesos',
+                    roles: ['AO', 'BT', 'IT'],
+                    content: `<p>El Mapeo de Procesos es el primer paso del Taller de Descubrimiento. El Dueño del Agente lidera al equipo en documentar el proceso actual para el caso de uso específico seleccionado en el Paso 1.5.</p>
+                    <p>Este es un trabajo detallado. El equipo mapea cómo fluye realmente el trabajo hoy—no la versión idealizada, sino la realidad. ¿Dónde se origina el trabajo? ¿Por qué pasos pasa? ¿Dónde ocurren los retrasos? ¿Dónde se aplica más fuertemente el juicio humano?</p>
+                    <p>Con el estado actual documentado, el equipo diseña el estado "Proceso Reimaginado". Este es el objetivo: cómo funcionaría el proceso con un agente en su lugar. ¿Qué pasos maneja el agente? ¿Dónde permanece la supervisión humana? ¿Cómo cambia el flujo de trabajo?</p>
+                    <p>La brecha entre los estados actual y reimaginado define lo que el agente debe lograr.</p>`
+                },
+                '1.b.3': {
+                    title: 'Propuesta de Valor para el Usuario',
+                    roles: ['AO', 'BT'],
+                    content: `<p>La Propuesta de Valor para el Usuario define por qué los usuarios realmente usarán este agente. Sin una respuesta clara a esta pregunta, incluso un agente técnicamente excelente fallará en ganar adopción.</p>
+                    <p>El Dueño del Agente lidera al equipo en articular cómo el agente apoyará a los usuarios finales. ¿Qué problema les resuelve? ¿Qué fricción elimina? ¿Qué capacidad les proporciona que no tienen hoy?</p>
+                    <p>Igualmente importante: ¿Por qué los usuarios volverán a usarlo repetidamente? Una novedad de una sola vez no es valiosa. El agente debe entregar valor continuo que lo convierta en parte del flujo de trabajo regular de los usuarios.</p>
+                    <p>Este paso se conecta directamente con la adopción. Cuanto mayor sea el valor genuino para los usuarios, mayor será la adopción. Cuanto mayor sea la adopción, mayor será el ROI. Una propuesta de valor débil identificada ahora puede fortalecerse antes de que comience el desarrollo.</p>`
+                },
+                '1.b.4': {
+                    title: 'Mapeo de Capacidades',
+                    roles: ['AO', 'BT', 'BO'],
+                    content: `<p>El Mapeo de Capacidades traduce el proceso reimaginado en capacidades específicas del agente. El equipo crea una lista de declaraciones de capacidad, cada una enmarcada como: "Este agente debe ser capaz de..."</p>
+                    <p>El Equipo de Negocio proporciona experiencia de dominio sobre qué capacidades ayudarían genuinamente a los usuarios. El Dueño del Agente facilita y documenta. El Dueño del Negocio proporciona entrada sobre qué capacidades importan más para el ROI—asegurando que el equipo no construya características impresionantes que no generen valor.</p>
+                    <p>No todas las capacidades son iguales. El equipo prioriza los imprescindibles versus los deseables. Los imprescindibles son esenciales para que el agente entregue su propuesta de valor central. Los deseables pueden esperar a futuras iteraciones.</p>
+                    <p>Esta priorización es crucial. La expansión del alcance mata los proyectos de IA. Un agente enfocado que hace pocas cosas bien tendrá éxito donde un agente ambicioso que intenta hacer todo fallará.</p>`
+                },
+                '1.b.5': {
+                    title: 'Exploración de Guardarraíles',
+                    roles: ['AO', 'BT', 'IT'],
+                    content: `<p>Los Guardarraíles definen lo que el agente NO debe hacer. Este paso establece límites, requisitos de seguridad, restricciones de cumplimiento y rutas de escalamiento.</p>
+                    <p>El Equipo de Negocio identifica situaciones donde el agente debe ceder a los humanos. Decisiones sensibles, casos extremos y escenarios de alto riesgo necesitan rutas claras de escalamiento. El Equipo de Implementación asesora sobre lo que es técnicamente factible de implementar.</p>
+                    <p>Las restricciones de cumplimiento provienen de requisitos regulatorios, políticas de la empresa o estándares de la industria. Estos son límites no negociables que el agente debe respetar.</p>
+                    <p>Los requisitos de seguridad abordan daños potenciales. ¿Qué podría salir mal si el agente se comporta inesperadamente? ¿Cómo pueden mitigarse esos riesgos?</p>
+                    <p>Los guardarraíles no son limitaciones al valor—son prerrequisitos para la confianza. Un agente sin límites claros no será adoptado porque los usuarios no confiarán en él. Definir guardarraíles temprano asegura que se construyan desde el inicio, no se agreguen después.</p>`
+                },
+                '1.b.6': {
+                    title: 'Mapeo de Datos de Alto Nivel',
+                    roles: ['AO', 'IT'],
+                    content: `<p>El Mapeo de Datos de Alto Nivel se enfoca en las fuentes de datos específicas requeridas para el caso de uso seleccionado. A diferencia de la visión general amplia del Paso 1.3, este paso identifica exactamente qué datos necesitará acceder el agente.</p>
+                    <p>El Dueño del Agente y el Equipo de Implementación revisan cada capacidad del Paso 1.8 y la mapean a requisitos de datos. ¿Qué datos necesita el agente para realizar esta capacidad? ¿Dónde viven esos datos? ¿En qué formato están?</p>
+                    <p>La revisión inicial de estructura examina si los datos están organizados de maneras que el agente pueda usar. Una verificación básica de disponibilidad confirma que los datos pueden realmente accederse—permisos, APIs e integraciones pueden ser todos factores.</p>
+                    <p>Este paso revela brechas de datos temprano. Si una capacidad crítica requiere datos que no existen o no pueden accederse, el equipo lo aprende ahora en lugar de durante el desarrollo.</p>`
+                },
+                'ROI': {
+                    title: 'Flujo de Trabajo de ROI',
+                    roles: ['AO', 'BO'],
+                    content: `<p>El Flujo de Trabajo de ROI establece cómo se medirá el éxito y cómo se calculará el retorno de inversión.</p>
+                    <p>El Dueño del Agente y el Dueño del Negocio trabajan juntos para definir métricas de éxito—las mediciones específicas que indicarán si el agente está entregando valor. Estas deben ser concretas y medibles, no aspiraciones vagas.</p>
+                    <p>Las líneas base capturan el estado actual. ¿Cuánto tarda el proceso hoy? ¿Cuánto cuesta? ¿Cuál es la tasa de error? Sin líneas base, la mejora no puede cuantificarse.</p>
+                    <p>Los objetivos definen cómo se ve el éxito. ¿Qué mejora se espera? ¿Qué ROI justificaría la inversión?</p>
+                    <p>Finalmente, el equipo acuerda la metodología de cálculo de ROI. ¿Cómo se medirá el valor entregado? ¿Cómo se rastrearán los costos? Esta alineación entre el Dueño del Agente y el Dueño del Negocio previene disputas posteriores sobre si el agente realmente está funcionando.</p>`
+                },
+                'Adoption': {
+                    title: 'Flujo de Trabajo de Adopción',
+                    roles: ['AO', 'BT'],
+                    content: `<p>El Flujo de Trabajo de Adopción prepara para el lado humano del éxito del agente. La capacidad técnica no significa nada si los usuarios no adoptan el agente.</p>
+                    <p>El equipo identifica personas de usuario—los diferentes tipos de personas que interactuarán con el agente. Cada persona puede tener diferentes necesidades, preocupaciones y barreras.</p>
+                    <p>Detectar barreras de adopción es trabajo crítico. ¿Qué podría impedir que los usuarios adopten? ¿Escepticismo sobre la IA? ¿Prioridades competidoras? ¿Miedo al desplazamiento laboral? ¿Falta de capacitación? Cada barrera necesita una estrategia de mitigación.</p>
+                    <p>Los indicadores de éxito definen cómo se ve la adopción. ¿Usuarios activos? ¿Frecuencia de uso? ¿Tasas de completación de tareas? Estas métricas guiarán el trabajo del Dueño del Agente en la Fase 5.</p>
+                    <p>Este flujo de trabajo asegura que el equipo piense en la adopción antes del lanzamiento, no después.</p>`
+                },
+                'Data': {
+                    title: 'Flujo de Trabajo de Datos',
+                    roles: ['AO', 'IT'],
+                    content: `<p>El Flujo de Trabajo de Datos avanza desde el mapeo de alto nivel del Paso 1.10 hacia una preparación detallada.</p>
+                    <p>El equipo realiza un análisis profundo de cada fuente de datos específica requerida para las capacidades del agente. Esto incluye examinar la estructura de datos, formatos y patrones de acceso.</p>
+                    <p>La evaluación de calidad de datos identifica problemas que podrían afectar el rendimiento del agente. Inconsistencias, brechas, registros desactualizados y problemas de formato necesitan entenderse antes de que el agente dependa de estos datos.</p>
+                    <p>Para agentes que usan datos no estructurados, comienza la experimentación RAG. Los experimentos tempranos con generación aumentada por recuperación revelan qué es posible con los documentos disponibles y revelan patrones que informan el desarrollo.</p>
+                    <p>Este flujo de trabajo asegura que la base de datos sea sólida antes de que comience la construcción.</p>`
+                },
+                'Deployment': {
+                    title: 'Flujo de Trabajo de Despliegue',
+                    roles: ['AO', 'BT'],
+                    content: `<p>El Flujo de Trabajo de Despliegue planifica cómo el agente llegará a los usuarios.</p>
+                    <p>El equipo define los primeros usuarios—el grupo inicial que usará el agente. Estos deben seleccionarse cuidadosamente: lo suficientemente receptivos para proporcionar retroalimentación constructiva, lo suficientemente representativos para revelar problemas reales.</p>
+                    <p>La ubicación inicial determina dónde se lanza primero el agente. ¿Qué departamento, equipo o mercado? Comenzar de manera estrecha permite un aprendizaje controlado antes del despliegue más amplio.</p>
+                    <p>La estrategia de despliegue por etapas planifica la expansión desde los primeros usuarios hasta el despliegue completo. ¿Qué desencadena la expansión a la siguiente etapa? ¿Qué métricas indican preparación? ¿Qué apoyo se necesita en cada etapa?</p>
+                    <p>Este flujo de trabajo asegura que el despliegue sea deliberado, no caótico.</p>`
+                },
+                'Evaluation': {
+                    title: 'Flujo de Trabajo de Evaluación',
+                    roles: ['AO', 'IT'],
+                    content: `<p>El Flujo de Trabajo de Evaluación establece cómo se medirá la calidad del agente a lo largo de su ciclo de vida.</p>
+                    <p>Los criterios de evaluación definen cómo se ve "bueno" para este agente. ¿Precisión? ¿Completitud? ¿Velocidad? ¿Tono? Cada capacidad del Paso 1.8 puede tener diferentes estándares de calidad.</p>
+                    <p>Las métricas de calidad traducen criterios en indicadores medibles. Estas métricas impulsarán el ciclo de retroalimentación en la Fase 4, permitiendo al equipo detectar cuando el agente está rindiendo por debajo de lo esperado.</p>
+                    <p>El enfoque de pruebas diseña cómo se validará el agente antes y después del lanzamiento. ¿Qué casos de prueba importan más? ¿Cómo se cubrirán los casos extremos? ¿Cómo se detectará la regresión?</p>
+                    <p>Este flujo de trabajo asegura que el equipo pueda evaluar objetivamente el rendimiento del agente, no solo esperar que esté funcionando.</p>`
+                },
+                'Agent Owner': {
+                    title: 'Flujo de Trabajo del Dueño del Agente',
+                    roles: ['AO', 'BO'],
+                    content: `<p>El Flujo de Trabajo del Dueño del Agente formaliza el rol del Dueño del Agente para este agente específico.</p>
+                    <p>Se confirma la asignación. Aunque el Dueño del Agente fue designado en el Paso 1.5, este flujo de trabajo hace la asignación concreta con expectativas claras.</p>
+                    <p>Las responsabilidades se definen en detalle. ¿De qué exactamente es responsable el Dueño del Agente? ¿Qué decisiones puede tomar autónomamente? ¿Qué requiere aprobación del Dueño del Negocio?</p>
+                    <p>Las expectativas de propiedad establecen la relación a largo plazo. El Dueño del Agente no solo es responsable del lanzamiento—es dueño de todo el ciclo de vida del agente a través de la mejora y adopción.</p>
+                    <p>Este flujo de trabajo asegura que el Dueño del Agente tenga un mandato claro y el Dueño del Negocio tenga expectativas claras.</p>`
+                },
+                '2.1': {
+                    title: 'Creación del Primer Borrador',
+                    roles: ['IT', 'AO'],
+                    content: `<p>La Creación del Primer Borrador es donde el agente comienza a existir. El Equipo de Implementación construye la primera versión funcional basada en todo lo aprendido en el Descubrimiento y la Exploración Paralela.</p>
+                    <p>Los resultados del Taller de Descubrimiento—mapeo de procesos, mapeo de capacidades, guardarraíles y mapeo de datos—proporcionan el plano. Las entradas de la Exploración Paralela refinan el enfoque con objetivos de ROI, planes de despliegue y criterios de evaluación.</p>
+                    <p>Este no es el agente final. Es un primer borrador—lo suficientemente funcional para probar, lo suficientemente incompleto para requerir iteración. El objetivo es crear algo concreto a lo que el equipo pueda reaccionar y refinar.</p>
+                    <p>El Dueño del Agente coordina estrechamente con el Equipo de Implementación, asegurando que la construcción se mantenga alineada con la intención del negocio mientras permanece técnicamente factible.</p>`
+                },
+                '2.2': {
+                    title: 'Validación e Iteración',
+                    roles: ['AO', 'BT', 'IT'],
+                    content: `<p>La Validación e Iteración es donde el primer borrador se convierte en un agente funcional a través de ciclos de prueba y refinamiento.</p>
+                    <p>El Equipo de Negocio prueba el borrador contra escenarios reales. ¿El agente maneja los casos esperados? ¿Cómo responde a casos extremos? ¿Dónde se queda corto?</p>
+                    <p>Múltiples ciclos de refinamiento dan forma al agente hacia el comportamiento deseado. Cada ciclo revela problemas, el Equipo de Implementación los aborda, y la siguiente ronda de pruebas revela qué ha mejorado y qué permanece.</p>
+                    <p>El Dueño del Agente orquesta este proceso, priorizando qué problemas abordar y asegurando que los ciclos avancen eficientemente. No todos los problemas necesitan arreglarse antes de avanzar—el objetivo es un agente lo suficientemente bueno para probar con usuarios reales.</p>
+                    <p>Este paso puede tomar múltiples iteraciones. Apresurarse crea problemas más difíciles de arreglar después del lanzamiento.</p>`
+                },
+                '3.1': {
+                    title: 'Pruebas Iniciales',
+                    roles: ['AO', 'IT'],
+                    content: `<p>Las Pruebas Iniciales ponen al agente frente a usuarios reales por primera vez—pero de manera controlada.</p>
+                    <p>Un grupo pequeño y enfocado prueba el agente. Estos son típicamente los "primeros usuarios" identificados en el Flujo de Trabajo de Despliegue: receptivos, representativos y dispuestos a proporcionar retroalimentación sincera.</p>
+                    <p>El objetivo es retroalimentación rápida e iteración veloz. Los problemas descubiertos aquí se arreglan rápidamente mientras la base de usuarios es pequeña. La personalidad, tono y comportamiento del agente se afinan basándose en cómo los usuarios reales interactúan con él.</p>
+                    <p>El Dueño del Agente recopila retroalimentación sistemáticamente y trabaja con el Equipo de Implementación para abordar problemas. La velocidad importa—esta fase debe moverse rápidamente para mantener el impulso y el compromiso de los probadores.</p>`
+                },
+                '3.2': {
+                    title: 'Pruebas Ampliadas',
+                    roles: ['AO', 'BT'],
+                    content: `<p>Las Pruebas Ampliadas expanden la base de usuarios para cubrir diferentes roles y personas identificadas durante la Exploración Paralela.</p>
+                    <p>Esta fase revela lo que la gente realmente quiere versus lo que se asumió. Diferentes tipos de usuarios interactúan con el agente de manera diferente. Algunos lo encuentran intuitivo; otros luchan. Algunos lo usan para propósitos esperados; otros descubren aplicaciones inesperadas.</p>
+                    <p>El Dueño del Agente y el Equipo de Negocio trabajan juntos para entender estos patrones. ¿Qué funciona? ¿Qué no? ¿Dónde están las brechas entre las suposiciones de diseño y las necesidades reales?</p>
+                    <p>Los hallazgos de esta fase informan los refinamientos finales antes de producción. Algunos problemas pueden requerir correcciones; otros pueden convertirse en limitaciones conocidas a abordar después del lanzamiento.</p>`
+                },
+                '3.3': {
+                    title: 'Lanzamiento a Producción',
+                    roles: ['AO', 'BO'],
+                    content: `<p>El Lanzamiento a Producción es cuando el agente se vuelve real. Pasa de pruebas a uso real por la base de usuarios objetivo.</p>
+                    <p>El lanzamiento ocurre cuando las funcionalidades principales son satisfactorias. Esto no significa perfecto—se espera y alienta un lanzamiento temprano. Un agente que funciona lo suficientemente bien para generar datos reales mejorará más rápido que un agente atascado en pruebas sin fin.</p>
+                    <p>El Dueño del Negocio toma la decisión de continuar o no. Esta es una puerta: ¿El agente cumple los criterios mínimos establecidos en el Flujo de Trabajo de Evaluación? ¿Está listo para producción?</p>
+                    <p>Una vez lanzado, el agente entra en el ciclo continuo de Mejora y Adopción. Los datos reales impulsan la mejora. El enfoque del Dueño del Agente cambia de construir a evolucionar.</p>`
+                },
+                '4.1': {
+                    title: 'Ciclo de Retroalimentación',
+                    roles: ['AO'],
+                    content: `<p>El Ciclo de Retroalimentación es el motor de la mejora continua. El Dueño del Agente recopila ambos tipos de retroalimentación que revelan cómo está rindiendo el agente.</p>
+                    <p>La retroalimentación implícita viene de evaluaciones y patrones de uso. Puntuaciones de evaluación bajas indican problemas de calidad. Los patrones de uso revelan lo que los usuarios realmente hacen—dónde tienen éxito, dónde abandonan, qué ignoran.</p>
+                    <p>La retroalimentación explícita viene directamente de los usuarios. Comentarios, calificaciones, quejas y solicitudes proporcionan información sobre la experiencia del usuario y necesidades no satisfechas.</p>
+                    <p>Ambos tipos de retroalimentación son esenciales. La retroalimentación implícita captura problemas que los usuarios no se molestan en reportar. La retroalimentación explícita captura contexto y matices que las métricas no detectan.</p>
+                    <p>El Dueño del Agente monitorea esta retroalimentación continuamente, buscando patrones que indiquen dónde necesita mejorar el agente.</p>`
+                },
+                '4.2': {
+                    title: 'Detectar y Abordar Brechas',
+                    roles: ['AO', 'IT'],
+                    content: `<p>Detectar y Abordar Brechas es donde la retroalimentación se convierte en acción. El Dueño del Agente identifica problemas específicos y trabaja con el Equipo de Implementación para resolverlos.</p>
+                    <p>Las inconsistencias de datos son comunes al principio. El agente puede encontrar información conflictiva, registros desactualizados o problemas de formato que causan respuestas incorrectas. Limpiar estos datos mejora el rendimiento.</p>
+                    <p>Las brechas de conocimiento aparecen cuando los usuarios hacen preguntas que el agente no puede responder. Llenar estas brechas—agregando documentos, expandiendo instrucciones, mejorando la recuperación—extiende las capacidades del agente.</p>
+                    <p>Los casos extremos emergen a medida que más usuarios interactúan con el agente. El comportamiento que funcionó en pruebas puede fallar en escenarios inesperados del mundo real. Ajustar el comportamiento del agente para estos casos mejora la confiabilidad.</p>
+                    <p>Este es trabajo continuo, no un esfuerzo de una sola vez. El agente mejora continuamente basándose en lo que revela el uso real.</p>`
+                },
+                '4.3': {
+                    title: 'Comunicar Mejoras',
+                    roles: ['AO'],
+                    content: `<p>Comunicar Mejoras cierra el ciclo de retroalimentación con los usuarios. Cuando se aplican correcciones, los usuarios deben saberlo.</p>
+                    <p>La notificación importa porque genera confianza. Los usuarios que reportaron problemas ven que su retroalimentación llevó a acción. Los usuarios que encontraron problemas aprenden que esos problemas están resueltos.</p>
+                    <p>Esta comunicación no necesita ser elaborada. Una simple notificación de que una pregunta previamente sin respuesta ahora tiene respuesta, o que un error conocido está arreglado, es suficiente.</p>
+                    <p>El Dueño del Agente es dueño de esta comunicación. No se trata solo de informar a los usuarios—se trata de demostrar que el agente se mantiene activamente y está mejorando. Esta visibilidad alienta el compromiso continuo y retroalimentación adicional.</p>`
+                },
+                '5.1': {
+                    title: 'Comprender la Base de Usuarios',
+                    roles: ['AO'],
+                    content: `<p>Comprender la Base de Usuarios se trata de cerrar la brecha entre suposiciones y realidad. Lo que los usuarios realmente hacen con el agente a menudo difiere de lo que se esperaba.</p>
+                    <p>El Dueño del Agente adapta la estrategia basándose en el comportamiento real del usuario. ¿Qué personas usan más el agente? ¿Cuáles lo ignoran? ¿Qué hacen los usuarios intensivos diferente de los usuarios ligeros?</p>
+                    <p>Esta comprensión informa toda otra actividad de adopción. Los esfuerzos de promoción pueden dirigirse a segmentos subutilizados. El reclutamiento de campeones puede enfocarse donde ya existe impulso. La eliminación de barreras puede priorizar lo que realmente bloquea a la gente.</p>
+                    <p>La estrategia de adopción debe evolucionar continuamente basándose en lo que revelan los datos sobre cómo los usuarios realmente interactúan con el agente.</p>`
+                },
+                '5.2': {
+                    title: 'Abordar Barreras de Adopción',
+                    roles: ['AO', 'BO'],
+                    content: `<p>Abordar Barreras de Adopción es trabajo sistemático para eliminar lo que impide que los usuarios adopten el agente.</p>
+                    <p>Los gerentes escépticos pueden bloquear a sus equipos de usar el agente. El Dueño del Agente aborda esto a través de evidencia, demostración y construcción de relaciones.</p>
+                    <p>Las prioridades competidoras significan que los usuarios se sienten "muy ocupados" para la adopción. El Dueño del Agente reenmarca al agente como ayuda para las prioridades en lugar de competir con ellas.</p>
+                    <p>Los patrones de resistencia emergen de varias fuentes—miedo al cambio, desconfianza de la IA, experiencias negativas pasadas. Cada patrón necesita una respuesta adaptada.</p>
+                    <p>Las dinámicas organizacionales pueden crear bloqueadores que el Dueño del Agente no puede resolver solo. Cuando las barreras requieren autoridad o recursos más allá del alcance del Dueño del Agente, es apropiado escalar al Dueño del Negocio.</p>
+                    <p>Este paso reconoce que la adopción a menudo está bloqueada por problemas de personas, no problemas de producto.</p>`
+                },
+                '5.3': {
+                    title: 'Promocionar el Agente',
+                    roles: ['AO'],
+                    content: `<p>Promocionar el Agente se trata de hacer visible el valor. Los usuarios que no saben lo que el agente puede hacer no lo usarán.</p>
+                    <p>Mostrar capacidades significa demostrar lo que es posible. Ejemplos reales, historias de éxito y casos de uso ayudan a los usuarios potenciales a entender cómo el agente podría ayudarles.</p>
+                    <p>Los usuarios avanzados emergen naturalmente a medida que algunos usuarios se involucran más profundamente que otros. El Dueño del Agente identifica a estos usuarios avanzados e interactúa con ellos—entendiendo sus necesidades, ayudándoles a hacer más, y aprendiendo de sus patrones de uso.</p>
+                    <p>La promoción no es marketing. Es ayudar a los usuarios a entender el arte de lo posible para que puedan tomar decisiones informadas sobre si involucrarse.</p>`
+                },
+                '5.4': {
+                    title: 'Red de Campeones',
+                    roles: ['AO'],
+                    content: `<p>La Red de Campeones multiplica el impacto del Dueño del Agente. Los adoptadores tempranos que creen en el agente se convierten en defensores internos.</p>
+                    <p>Cultivar campeones significa identificar usuarios que son tanto entusiastas como influyentes. Estos individuos promueven el uso dentro de sus equipos, responden preguntas de compañeros y proporcionan prueba social de que el agente funciona.</p>
+                    <p>Los campeones apoyan a sus compañeros de maneras que el Dueño del Agente no puede. Están presentes en reuniones, disponibles para preguntas rápidas, y tienen la confianza de sus colegas. Su respaldo tiene un peso que las comunicaciones oficiales no tienen.</p>
+                    <p>El Dueño del Agente apoya a los campeones con información, reconocimiento y acceso. Una red de campeones saludable escala la adopción más allá de lo que el Dueño del Agente podría lograr solo.</p>`
+                },
+                '5.5': {
+                    title: 'Expandir Capacidades',
+                    roles: ['AO', 'BO'],
+                    content: `<p>Expandir Capacidades se trata de crecimiento—tanto en lo que el agente puede hacer como en cuán ampliamente se usa.</p>
+                    <p>A medida que el agente madura, emergen oportunidades para la expansión de capacidades. Los usuarios solicitan nuevas características. Los casos de uso adyacentes se vuelven visibles. Las oportunidades multi-agente surgen donde los agentes podrían trabajar juntos.</p>
+                    <p>El Dueño del Agente identifica estas oportunidades y las presenta al Dueño del Negocio para decisiones de escala. ¿Qué expansiones justifican inversión? ¿Cuáles se alinean con las prioridades estratégicas?</p>
+                    <p>Este paso también formaliza los patrones que descubren los usuarios. Cuando los usuarios encuentran aplicaciones creativas para el agente, esos patrones pueden convertirse en capacidades soportadas en lugar de soluciones alternativas.</p>`
+                }
+            }
+        };
+
+        // UI strings for dynamic content
+        const uiStringsI18n = {
+            en: {
+                skipIfHaveUseCase: 'Skip if you already have a use case →',
+                or: 'OR',
+                optional: 'OPTIONAL',
+                roleDefinition: 'Role Definition',
+                phaseInvolvement: 'Phase Involvement',
+                keyResponsibilities: 'Key Responsibilities',
+                coreResponsibilities: 'Core Responsibilities',
+                active: 'Active',
+                monitors: 'Monitors',
+                goNoGo: 'Go/No-Go',
+                escalations: 'Escalations',
+                support: 'Support',
+                feedback: 'Feedback',
+                champions: 'Champions',
+                continuousLoop: 'The Continuous Loop',
+                continuousLoopSubtitle: 'Phases 4 & 5 run in parallel, feeding each other continuously',
+                improvementDrivesAdoption: 'Improvement drives adoption:',
+                betterAgentsAttract: 'Better agents attract more users',
+                adoptionGeneratesFeedback: 'Adoption generates feedback:',
+                moreUsersReveal: 'More users reveal more gaps',
+                feedbackDrivesImprovement: 'Feedback drives improvement:',
+                gapsBecomeAddressable: 'Gaps become addressable',
+                // Business Owner Modal
+                boRoleDefinition: 'Senior leader responsible for a business unit or function. Owns a portfolio of agents. Accountable for ROI. Makes Scale, Fix, or Kill decisions.',
+                boPhase1Detail: 'Drives use case selection, capability mapping, ROI methodology',
+                boPhase2Detail: 'Agent Owner operates with autonomy',
+                boPhase3Detail: 'Makes production launch decision',
+                boPhase4Detail: 'Receives updates via alerts and dashboards',
+                boPhase5Detail: 'Handles blockers requiring senior intervention, scale decisions',
+                boResp1: 'Use case selection and prioritization',
+                boResp2: 'ROI accountability and methodology',
+                boResp3: 'Production launch approval',
+                boResp4: 'Scale, Fix, or Kill decisions',
+                boResp5: 'Escalation handling',
+                // Agent Owner Modal
+                aoRoleDefinition: 'Responsible for the success and evolution of an individual agent. Owns improvement and adoption. Reports to the Business Owner. Single point of accountability for their agent\'s success.',
+                aoPhase1Detail: 'User value proposition, process & capability mapping, guardrails exploration, all six parallel workstreams',
+                aoPhase2Detail: 'Validation and iteration cycles with Implementation Team',
+                aoPhase3Detail: 'Leads all three testing waves, coordinates production launch',
+                aoPhase4Detail: 'Feedback loop, gap detection, communicate improvements to users',
+                aoPhase5Detail: 'User base understanding, barrier removal, promotion, champion network',
+                aoCoreResp1Title: 'Drive Improvement',
+                aoCoreResp1Desc: 'Collect feedback, detect gaps, and continuously enhance agent behavior',
+                aoCoreResp2Title: 'Drive Adoption',
+                aoCoreResp2Desc: 'Understand users, address barriers, promote capabilities, build champion network',
+                aoCoreResp3Title: 'Close Feedback Loop',
+                aoCoreResp3Desc: 'Communicate improvements to users and build trust through transparency',
+                aoCoreResp4Title: 'Escalate Blockers',
+                aoCoreResp4Desc: 'Identify issues requiring Business Owner intervention and escalate appropriately',
+                // Implementation Team Modal
+                itRoleDefinition: 'Builds and maintains the agent technically. Partners with the Agent Owner throughout the lifecycle. Responsible for translating requirements into working agent capabilities.',
+                itPhase1Detail: 'Process reimagination, data landscape assessment, guardrails exploration',
+                itPhase2Detail: 'First draft creation, validation and iteration cycles',
+                itPhase3Detail: 'Initial testing, technical support for broader testing',
+                itPhase4Detail: 'Detect and address gaps, clean data, adjust behavior',
+                itPhase5Detail: 'Technical support for scaling and capability expansion',
+                itResp1: 'Agent architecture and development',
+                itResp2: 'Data integration and RAG implementation',
+                itResp3: 'Technical iteration based on feedback',
+                itResp4: 'Performance optimization',
+                itResp5: 'Production deployment and maintenance',
+                // Business Team Modal
+                btRoleDefinition: 'Domain experts who provide requirements, validate behavior, and test the agent. Works alongside the Agent Owner to ensure the agent meets real business needs.',
+                btPhase1Detail: 'User value proposition, process mapping, capability mapping, guardrails exploration, adoption planning',
+                btPhase2Detail: 'Validation and iteration, providing domain expertise',
+                btPhase3Detail: 'Broader testing across roles and personas',
+                btPhase4Detail: 'Provide explicit feedback and usage insights',
+                btPhase5Detail: 'Power users become internal advocates supporting teammates',
+                btResp1: 'Define business requirements and success criteria',
+                btResp2: 'Validate agent behavior against real workflows',
+                btResp3: 'Participate in testing waves',
+                btResp4: 'Provide ongoing feedback',
+                btResp5: 'Champion adoption among peers',
+                // Modal subtitles
+                boSubtitle: 'Senior leader accountable for the agent portfolio',
+                aoSubtitle: 'Responsible for individual agent success and evolution',
+                itSubtitle: 'Technical builders and maintainers of the agent',
+                btSubtitle: 'Domain experts and end users of the agent'
+            },
+            es: {
+                skipIfHaveUseCase: 'Omitir si ya tienes un caso de uso →',
+                or: 'O',
+                optional: 'OPCIONAL',
+                roleDefinition: 'Definición del Rol',
+                phaseInvolvement: 'Participación por Fase',
+                keyResponsibilities: 'Responsabilidades Clave',
+                coreResponsibilities: 'Responsabilidades Principales',
+                active: 'Activo',
+                monitors: 'Monitorea',
+                goNoGo: 'Continuar/No',
+                escalations: 'Escalamientos',
+                support: 'Apoyo',
+                feedback: 'Retroalimentación',
+                champions: 'Campeones',
+                continuousLoop: 'El Ciclo Continuo',
+                continuousLoopSubtitle: 'Las Fases 4 y 5 se ejecutan en paralelo, alimentándose mutuamente de forma continua',
+                improvementDrivesAdoption: 'La mejora impulsa la adopción:',
+                betterAgentsAttract: 'Mejores agentes atraen más usuarios',
+                adoptionGeneratesFeedback: 'La adopción genera retroalimentación:',
+                moreUsersReveal: 'Más usuarios revelan más brechas',
+                feedbackDrivesImprovement: 'La retroalimentación impulsa la mejora:',
+                gapsBecomeAddressable: 'Las brechas se vuelven abordables',
+                // Business Owner Modal
+                boRoleDefinition: 'Líder senior responsable de una unidad de negocio o función. Dueño de un portafolio de agentes. Responsable del ROI. Toma decisiones de Escalar, Arreglar o Eliminar.',
+                boPhase1Detail: 'Impulsa la selección de casos de uso, mapeo de capacidades, metodología de ROI',
+                boPhase2Detail: 'El Dueño del Agente opera con autonomía',
+                boPhase3Detail: 'Toma la decisión de lanzamiento a producción',
+                boPhase4Detail: 'Recibe actualizaciones vía alertas y paneles',
+                boPhase5Detail: 'Maneja bloqueadores que requieren intervención senior, decisiones de escala',
+                boResp1: 'Selección y priorización de casos de uso',
+                boResp2: 'Responsabilidad y metodología de ROI',
+                boResp3: 'Aprobación del lanzamiento a producción',
+                boResp4: 'Decisiones de Escalar, Arreglar o Eliminar',
+                boResp5: 'Manejo de escalamientos',
+                // Agent Owner Modal
+                aoRoleDefinition: 'Responsable del éxito y evolución de un agente individual. Dueño de la mejora y adopción. Reporta al Dueño del Negocio. Punto único de responsabilidad por el éxito de su agente.',
+                aoPhase1Detail: 'Propuesta de valor al usuario, mapeo de procesos y capacidades, exploración de guardarraíles, los seis flujos de trabajo paralelos',
+                aoPhase2Detail: 'Ciclos de validación e iteración con el Equipo de Implementación',
+                aoPhase3Detail: 'Lidera las tres oleadas de pruebas, coordina el lanzamiento a producción',
+                aoPhase4Detail: 'Ciclo de retroalimentación, detección de brechas, comunicar mejoras a usuarios',
+                aoPhase5Detail: 'Comprensión de base de usuarios, eliminación de barreras, promoción, red de campeones',
+                aoCoreResp1Title: 'Impulsar Mejora',
+                aoCoreResp1Desc: 'Recopilar retroalimentación, detectar brechas y mejorar continuamente el comportamiento del agente',
+                aoCoreResp2Title: 'Impulsar Adopción',
+                aoCoreResp2Desc: 'Entender usuarios, abordar barreras, promocionar capacidades, construir red de campeones',
+                aoCoreResp3Title: 'Cerrar Ciclo de Retroalimentación',
+                aoCoreResp3Desc: 'Comunicar mejoras a usuarios y generar confianza a través de la transparencia',
+                aoCoreResp4Title: 'Escalar Bloqueadores',
+                aoCoreResp4Desc: 'Identificar problemas que requieren intervención del Dueño del Negocio y escalar apropiadamente',
+                // Implementation Team Modal
+                itRoleDefinition: 'Construye y mantiene el agente técnicamente. Colabora con el Dueño del Agente a lo largo del ciclo de vida. Responsable de traducir requisitos en capacidades funcionales del agente.',
+                itPhase1Detail: 'Reimaginación de procesos, evaluación del panorama de datos, exploración de guardarraíles',
+                itPhase2Detail: 'Creación del primer borrador, ciclos de validación e iteración',
+                itPhase3Detail: 'Pruebas iniciales, soporte técnico para pruebas más amplias',
+                itPhase4Detail: 'Detectar y abordar brechas, limpiar datos, ajustar comportamiento',
+                itPhase5Detail: 'Soporte técnico para escalamiento y expansión de capacidades',
+                itResp1: 'Arquitectura y desarrollo del agente',
+                itResp2: 'Integración de datos e implementación RAG',
+                itResp3: 'Iteración técnica basada en retroalimentación',
+                itResp4: 'Optimización de rendimiento',
+                itResp5: 'Despliegue y mantenimiento en producción',
+                // Business Team Modal
+                btRoleDefinition: 'Expertos de dominio que proveen requisitos, validan comportamiento y prueban el agente. Trabaja junto al Dueño del Agente para asegurar que el agente cumpla las necesidades reales del negocio.',
+                btPhase1Detail: 'Propuesta de valor al usuario, mapeo de procesos, mapeo de capacidades, exploración de guardarraíles, planificación de adopción',
+                btPhase2Detail: 'Validación e iteración, proveyendo experiencia de dominio',
+                btPhase3Detail: 'Pruebas ampliadas a través de roles y personas',
+                btPhase4Detail: 'Proveer retroalimentación explícita e insights de uso',
+                btPhase5Detail: 'Los usuarios avanzados se convierten en defensores internos que apoyan a compañeros',
+                btResp1: 'Definir requisitos de negocio y criterios de éxito',
+                btResp2: 'Validar comportamiento del agente contra flujos de trabajo reales',
+                btResp3: 'Participar en oleadas de pruebas',
+                btResp4: 'Proveer retroalimentación continua',
+                btResp5: 'Promover adopción entre compañeros',
+                // Modal subtitles
+                boSubtitle: 'Líder senior responsable del portafolio de agentes',
+                aoSubtitle: 'Responsable del éxito y evolución del agente individual',
+                itSubtitle: 'Constructores técnicos y mantenedores del agente',
+                btSubtitle: 'Expertos de dominio y usuarios finales del agente'
+            }
+        };
+
+        // Function to update static text
+        function updateStaticText(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Function to update CSS pseudo-element content
+        function updateCSSPseudoContent(lang) {
+            const styleId = 'dynamic-i18n-styles';
+            let styleEl = document.getElementById(styleId);
+            if (!styleEl) {
+                styleEl = document.createElement('style');
+                styleEl.id = styleId;
+                document.head.appendChild(styleEl);
+            }
+            styleEl.textContent = `
+                .step-group-optional::before {
+                    content: '${uiStringsI18n[lang].skipIfHaveUseCase}';
+                }
+            `;
+        }
+
+        // Update role modals with translated content
+        function updateRoleModals(lang) {
+            const ui = uiStringsI18n[lang];
+            const rm = roleMapI18n[lang];
+
+            // Business Owner Modal
+            const boModal = document.getElementById('businessOwnerModal');
+            if (boModal) {
+                boModal.querySelector('.role-modal-title').textContent = rm['BO'].name;
+                boModal.querySelector('.role-modal-subtitle').textContent = ui.boSubtitle;
+                const sections = boModal.querySelectorAll('.role-modal-section');
+                if (sections[0]) {
+                    sections[0].querySelector('.role-modal-section-title').textContent = ui.roleDefinition;
+                    sections[0].querySelector('.role-modal-description').textContent = ui.boRoleDefinition;
+                }
+                if (sections[1]) {
+                    sections[1].querySelector('.role-modal-section-title').textContent = ui.phaseInvolvement;
+                    const items = sections[1].querySelectorAll('.phase-involvement-item');
+                    const phaseNames = [
+                        phaseDataI18n[lang][1].title,
+                        phaseDataI18n[lang][2].title,
+                        phaseDataI18n[lang][3].title,
+                        phaseDataI18n[lang][4].title,
+                        phaseDataI18n[lang][5].title
+                    ];
+                    const levels = [ui.active, ui.monitors, ui.goNoGo, ui.monitors, ui.escalations];
+                    const details = [ui.boPhase1Detail, ui.boPhase2Detail, ui.boPhase3Detail, ui.boPhase4Detail, ui.boPhase5Detail];
+                    items.forEach((item, i) => {
+                        item.querySelector('.phase-involvement-name').textContent = phaseNames[i];
+                        item.querySelector('.phase-involvement-level').textContent = levels[i];
+                        item.querySelector('.phase-involvement-detail').textContent = details[i];
+                    });
+                }
+                if (sections[2]) {
+                    sections[2].querySelector('.role-modal-section-title').textContent = ui.keyResponsibilities;
+                    const items = sections[2].querySelectorAll('.involvement-item');
+                    const resps = [ui.boResp1, ui.boResp2, ui.boResp3, ui.boResp4, ui.boResp5];
+                    items.forEach((item, i) => {
+                        if (resps[i]) item.textContent = resps[i];
+                    });
+                }
+            }
+
+            // Agent Owner Modal
+            const aoModal = document.getElementById('agentOwnerModal');
+            if (aoModal) {
+                aoModal.querySelector('.role-modal-title').textContent = rm['AO'].name;
+                aoModal.querySelector('.role-modal-subtitle').textContent = ui.aoSubtitle;
+                const sections = aoModal.querySelectorAll('.role-modal-section');
+                if (sections[0]) {
+                    sections[0].querySelector('.role-modal-section-title').textContent = ui.roleDefinition;
+                    sections[0].querySelector('.role-modal-description').textContent = ui.aoRoleDefinition;
+                }
+                if (sections[1]) {
+                    sections[1].querySelector('.role-modal-section-title').textContent = ui.phaseInvolvement;
+                    const items = sections[1].querySelectorAll('.phase-involvement-item');
+                    const phaseNames = [
+                        phaseDataI18n[lang][1].title,
+                        phaseDataI18n[lang][2].title,
+                        phaseDataI18n[lang][3].title,
+                        phaseDataI18n[lang][4].title,
+                        phaseDataI18n[lang][5].title
+                    ];
+                    const levels = [ui.active, ui.active, ui.active, ui.active, ui.active];
+                    const details = [ui.aoPhase1Detail, ui.aoPhase2Detail, ui.aoPhase3Detail, ui.aoPhase4Detail, ui.aoPhase5Detail];
+                    items.forEach((item, i) => {
+                        item.querySelector('.phase-involvement-name').textContent = phaseNames[i];
+                        item.querySelector('.phase-involvement-level').textContent = levels[i];
+                        item.querySelector('.phase-involvement-detail').textContent = details[i];
+                    });
+                }
+                if (sections[2]) {
+                    sections[2].querySelector('.role-modal-section-title').textContent = ui.coreResponsibilities;
+                    const cards = sections[2].querySelectorAll('.essential-card');
+                    const titles = [ui.aoCoreResp1Title, ui.aoCoreResp2Title, ui.aoCoreResp3Title, ui.aoCoreResp4Title];
+                    const descs = [ui.aoCoreResp1Desc, ui.aoCoreResp2Desc, ui.aoCoreResp3Desc, ui.aoCoreResp4Desc];
+                    cards.forEach((card, i) => {
+                        if (titles[i]) card.querySelector('.essential-name').textContent = titles[i];
+                        if (descs[i]) card.querySelector('.essential-description').textContent = descs[i];
+                    });
+                }
+            }
+
+            // Implementation Team Modal
+            const itModal = document.getElementById('implementationTeamModal');
+            if (itModal) {
+                itModal.querySelector('.role-modal-title').textContent = rm['IT'].name;
+                itModal.querySelector('.role-modal-subtitle').textContent = ui.itSubtitle;
+                const sections = itModal.querySelectorAll('.role-modal-section');
+                if (sections[0]) {
+                    sections[0].querySelector('.role-modal-section-title').textContent = ui.roleDefinition;
+                    sections[0].querySelector('.role-modal-description').textContent = ui.itRoleDefinition;
+                }
+                if (sections[1]) {
+                    sections[1].querySelector('.role-modal-section-title').textContent = ui.phaseInvolvement;
+                    const items = sections[1].querySelectorAll('.phase-involvement-item');
+                    const phaseNames = [
+                        phaseDataI18n[lang][1].title,
+                        phaseDataI18n[lang][2].title,
+                        phaseDataI18n[lang][3].title,
+                        phaseDataI18n[lang][4].title,
+                        phaseDataI18n[lang][5].title
+                    ];
+                    const levels = [ui.active, ui.active, ui.active, ui.active, ui.support];
+                    const details = [ui.itPhase1Detail, ui.itPhase2Detail, ui.itPhase3Detail, ui.itPhase4Detail, ui.itPhase5Detail];
+                    items.forEach((item, i) => {
+                        item.querySelector('.phase-involvement-name').textContent = phaseNames[i];
+                        item.querySelector('.phase-involvement-level').textContent = levels[i];
+                        item.querySelector('.phase-involvement-detail').textContent = details[i];
+                    });
+                }
+                if (sections[2]) {
+                    sections[2].querySelector('.role-modal-section-title').textContent = ui.keyResponsibilities;
+                    const items = sections[2].querySelectorAll('.involvement-item');
+                    const resps = [ui.itResp1, ui.itResp2, ui.itResp3, ui.itResp4, ui.itResp5];
+                    items.forEach((item, i) => {
+                        if (resps[i]) item.textContent = resps[i];
+                    });
+                }
+            }
+
+            // Business Team Modal
+            const btModal = document.getElementById('businessTeamModal');
+            if (btModal) {
+                btModal.querySelector('.role-modal-title').textContent = rm['BT'].name;
+                btModal.querySelector('.role-modal-subtitle').textContent = ui.btSubtitle;
+                const sections = btModal.querySelectorAll('.role-modal-section');
+                if (sections[0]) {
+                    sections[0].querySelector('.role-modal-section-title').textContent = ui.roleDefinition;
+                    sections[0].querySelector('.role-modal-description').textContent = ui.btRoleDefinition;
+                }
+                if (sections[1]) {
+                    sections[1].querySelector('.role-modal-section-title').textContent = ui.phaseInvolvement;
+                    const items = sections[1].querySelectorAll('.phase-involvement-item');
+                    const phaseNames = [
+                        phaseDataI18n[lang][1].title,
+                        phaseDataI18n[lang][2].title,
+                        phaseDataI18n[lang][3].title,
+                        phaseDataI18n[lang][4].title,
+                        phaseDataI18n[lang][5].title
+                    ];
+                    const levels = [ui.active, ui.active, ui.active, ui.feedback, ui.champions];
+                    const details = [ui.btPhase1Detail, ui.btPhase2Detail, ui.btPhase3Detail, ui.btPhase4Detail, ui.btPhase5Detail];
+                    items.forEach((item, i) => {
+                        item.querySelector('.phase-involvement-name').textContent = phaseNames[i];
+                        item.querySelector('.phase-involvement-level').textContent = levels[i];
+                        item.querySelector('.phase-involvement-detail').textContent = details[i];
+                    });
+                }
+                if (sections[2]) {
+                    sections[2].querySelector('.role-modal-section-title').textContent = ui.keyResponsibilities;
+                    const items = sections[2].querySelectorAll('.involvement-item');
+                    const resps = [ui.btResp1, ui.btResp2, ui.btResp3, ui.btResp4, ui.btResp5];
+                    items.forEach((item, i) => {
+                        if (resps[i]) item.textContent = resps[i];
+                    });
+                }
+            }
+        }
+
+        // Function to get current phase data based on language
+        function getPhaseData() {
+            return phaseDataI18n[currentLanguage];
+        }
+
+        // Function to get current role map based on language
+        function getRoleMap() {
+            return roleMapI18n[currentLanguage];
+        }
+
+        // Function to get step descriptions based on language
+        function getStepDescriptions() {
+            return stepDescriptionsI18n[currentLanguage];
+        }
+
+        // Override the showPhaseDetail function to use i18n data
+        const originalShowPhaseDetail = showPhaseDetail;
+        showPhaseDetail = function(phaseNum) {
+            const data = getPhaseData()[phaseNum];
+            const currentRoleMap = getRoleMap();
+            const ui = uiStringsI18n[currentLanguage];
+            if (!data) return;
+
+            // Build pages array - each section becomes a page
+            const pages = [];
+
+            // Group entry points A and B together on one page
+            let entryPointsPage = '';
+            let regularSections = [];
+
+            data.sections.forEach((section, index) => {
+                if (section.entryPoint) {
+                    if (section.entryPoint === 'B') {
+                        entryPointsPage += `
+                            <div class="entry-point-divider">
+                                <div class="divider-line"></div>
+                                <div class="divider-text">${ui.or}</div>
+                                <div class="divider-line"></div>
+                            </div>
+                        `;
+                    }
+                    const isOptional = section.optional;
+                    entryPointsPage += buildSectionHTMLI18n(section, isOptional, currentRoleMap, ui);
+                } else {
+                    regularSections.push(section);
+                }
+            });
+
+            // Add entry points as first page if exists
+            if (entryPointsPage) {
+                pages.push({ title: currentLanguage === 'es' ? 'Puntos de Entrada' : 'Entry Points', content: entryPointsPage });
+            }
+
+            // Add regular sections as separate pages
+            regularSections.forEach(section => {
+                pages.push({ title: section.title, content: buildSectionHTMLI18n(section, false, currentRoleMap, ui) });
+            });
+
+            // Add Parallel Exploration as its own page
+            if (data.parallelExploration) {
+                pages.push({
+                    title: data.parallelExploration.title,
+                    content: `
+                        <div class="step-group">
+                            <div class="step-group-title">${data.parallelExploration.title}</div>
+                            <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${data.parallelExploration.description}</p>
+                            <div class="parallel-grid">
+                                ${data.parallelExploration.items.map(item => `
+                                    <div class="parallel-item" onclick="this.classList.toggle('expanded')">
+                                        <div class="parallel-header">
+                                            <div class="parallel-icon"><i class="ph ${item.icon}"></i></div>
+                                            <div class="parallel-title">${item.title}</div>
+                                            ${getStepDescriptions()[item.title] ? `<button class="step-info-btn" onclick="event.stopPropagation(); showStepDescriptionI18n('${item.title}')" title="${currentLanguage === 'es' ? 'Más información' : 'Learn more'}"><i class="ph ph-info"></i></button>` : ''}
+                                        </div>
+                                        <div class="parallel-roles">
+                                            ${item.roles.map(role => `<span class="role-tag ${currentRoleMap[role].class}">${currentRoleMap[role].name}</span>`).join('')}
+                                        </div>
+                                        <div class="parallel-description">${item.description}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `
+                });
+            }
+
+            // Add continuous loop as its own page for phases 4 and 5
+            if (phaseNum === '4' || phaseNum === '5' || phaseNum === 4 || phaseNum === 5) {
+                pages.push({
+                    title: ui.continuousLoop,
+                    content: `
+                        <div class="loop-explanation-inline">
+                            <div class="loop-explanation-header">
+                                <div class="loop-explanation-icon">
+                                    <i class="ph ph-arrows-clockwise"></i>
+                                </div>
+                                <div>
+                                    <h3 class="loop-explanation-title">${ui.continuousLoop}</h3>
+                                    <p class="loop-explanation-subtitle">${ui.continuousLoopSubtitle}</p>
+                                </div>
+                            </div>
+                            <div class="loop-points">
+                                <div class="loop-point">
+                                    <span class="loop-point-icon" style="color: var(--color-accent);"><i class="ph ph-trend-up"></i></span>
+                                    <div class="loop-point-text"><strong>${ui.improvementDrivesAdoption}</strong> ${ui.betterAgentsAttract}</div>
+                                </div>
+                                <div class="loop-point">
+                                    <span class="loop-point-icon" style="color: var(--color-success);"><i class="ph ph-chat-centered-text"></i></span>
+                                    <div class="loop-point-text"><strong>${ui.adoptionGeneratesFeedback}</strong> ${ui.moreUsersReveal}</div>
+                                </div>
+                                <div class="loop-point">
+                                    <span class="loop-point-icon" style="color: var(--color-primary);"><i class="ph ph-wrench"></i></span>
+                                    <div class="loop-point-text"><strong>${ui.feedbackDrivesImprovement}</strong> ${ui.gapsBecomeAddressable}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                });
+            }
+
+            const phaseModalHeader = document.getElementById('phaseModalHeader');
+            const phaseModalContent = document.getElementById('phaseModalContent');
+
+            const phaseLabel = currentLanguage === 'es' ? 'Fase' : 'Phase';
+            phaseModalHeader.innerHTML = `
+                <div class="role-modal-icon" style="background: ${data.color};">
+                    <i class="ph ${data.icon}"></i>
+                </div>
+                <div>
+                    <div class="role-modal-title">${phaseLabel} ${phaseNum}: ${data.title}</div>
+                    <div class="role-modal-subtitle">${data.subtitle}</div>
+                </div>
+                <button class="role-modal-close" onclick="closeModal('phaseDetailModal')">
+                    <i class="ph ph-x"></i>
+                </button>
+            `;
+
+            // Generate paginated content
+            const pagesHTML = pages.map((page, i) => `
+                <div class="modal-page" data-page="${i}">
+                    <div class="steps-container">${page.content}</div>
+                </div>
+            `).join('');
+
+            const dotsHTML = pages.map((_, i) => `
+                <div class="pagination-dot ${i === 0 ? 'active' : ''}" data-page="${i}"></div>
+            `).join('');
+
+            phaseModalContent.innerHTML = `
+                <div class="modal-pages-container">
+                    <button class="pagination-arrow prev" id="phasePrevBtn" disabled>
+                        <i class="ph ph-caret-left"></i>
+                    </button>
+                    <div class="modal-pages" id="phaseModalPages" style="transform: translateX(0%);">
+                        ${pagesHTML}
+                    </div>
+                    <button class="pagination-arrow next" id="phaseNextBtn" ${pages.length <= 1 ? 'disabled' : ''}>
+                        <i class="ph ph-caret-right"></i>
+                    </button>
+                </div>
+                <div class="modal-pagination">
+                    <div class="pagination-dots" id="phasePageDots">
+                        ${dotsHTML}
+                    </div>
+                    <span class="pagination-label" id="phasePageLabel">1 / ${pages.length}</span>
+                </div>
+            `;
+
+            // Initialize pagination
+            initModalPagination('phaseDetailModal', pages.length);
+            openModal('phaseDetailModal');
+        };
+
+        // Helper function to build section HTML with i18n
+        function buildSectionHTMLI18n(section, isOptional, currentRoleMap, ui) {
+            const isEntryPoint = section.entryPoint;
+            return `
+                <div class="step-group ${isOptional ? 'step-group-optional' : ''} ${isEntryPoint ? 'step-group-entry-point' : ''}">
+                    <div class="step-group-header">
+                        <div class="step-group-title">
+                            ${isEntryPoint ? `<span class="entry-point-badge">${section.entryPoint}</span>` : ''}
+                            ${section.title}
+                        </div>
+                        ${isOptional ? `<span class="optional-badge">${ui.optional}</span>` : ''}
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">${section.description}</p>
+                    ${section.steps.map(step => `
+                        <div class="step-item">
+                            <div class="step-header" onclick="this.parentElement.classList.toggle('expanded')">
+                                <div class="step-number">${step.number}</div>
+                                <div class="step-title">${step.title}</div>
+                                <div class="step-roles">
+                                    ${step.roles.map(role => `<span class="role-tag ${currentRoleMap[role].class}">${currentRoleMap[role].name}</span>`).join('')}
+                                </div>
+                                <i class="ph ph-caret-down step-expand-icon"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-description">
+                                    <div class="step-description-row">
+                                        <span class="step-description-text">${step.description}</span>
+                                        ${getStepDescriptions()[step.number] ? `<button class="step-info-btn" onclick="event.stopPropagation(); showStepDescriptionI18n('${step.number}')" title="${currentLanguage === 'es' ? 'Más información' : 'Learn more'}"><i class="ph ph-info"></i></button>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // I18n version of showStepDescription
+        function showStepDescriptionI18n(stepId) {
+            const stepData = getStepDescriptions()[stepId];
+            const currentRoleMap = getRoleMap();
+            if (!stepData) return;
+
+            document.getElementById('stepDescNumber').textContent = stepId;
+            document.getElementById('stepDescTitle').textContent = stepData.title;
+            document.getElementById('stepDescRoles').innerHTML = stepData.roles
+                .map(role => `<span class="role-tag ${currentRoleMap[role].class}">${currentRoleMap[role].name}</span>`)
+                .join('');
+            document.getElementById('stepDescBody').innerHTML = stepData.content;
+
+            const modal = document.getElementById('stepDescModal');
+            modal.classList.add('visible');
+        }
+
+        // Main language switch function
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+
+            // Update toggle buttons
+            document.querySelectorAll('.language-option').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update static text
+            updateStaticText(lang);
+
+            // Update CSS pseudo-element content
+            updateCSSPseudoContent(lang);
+
+            // Update role modals
+            updateRoleModals(lang);
+
+            // Update page title
+            document.title = lang === 'es' ? 'El Marco de Transformación Agéntica' : 'The Agentic Transformation Framework';
+        }
+
+        // Initialize language toggle listeners
+        document.querySelectorAll('.language-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Initialize with English
+        updateCSSPseudoContent('en');
     </script>
 </body>
 </html>
