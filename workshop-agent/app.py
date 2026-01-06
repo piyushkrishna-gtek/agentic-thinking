@@ -14,8 +14,10 @@ from agents.analyzer import AnalyzerAgent
 # Load environment variables
 load_dotenv()
 
-# Get API key from environment or use the provided one
-API_KEY = os.getenv("GOOGLE_API_KEY", "AIzaSyBtGIarSfQpjtDX_1oionzaM1P5q2Pk39Y")
+# Get API key from environment (required)
+API_KEY = os.getenv("GOOGLE_API_KEY")
+if not API_KEY:
+    raise ValueError("GOOGLE_API_KEY environment variable is required. Set it in a .env file or environment.")
 
 # Initialize agents
 stakeholder_agent = StakeholderAgent(API_KEY)
@@ -65,7 +67,8 @@ def generate_new_use_case(role: str):
     </div>
 </div>
 '''
-    return use_case_html, gr.update(interactive=True)
+    # Show start button (visible and interactive)
+    return use_case_html, gr.update(interactive=True, visible=True)
 
 
 def get_score_html(score: int) -> str:
@@ -206,10 +209,12 @@ def start_session(role: str):
 </div>
 ''',
             f'''<div style="text-align: center; padding: 30px; color: {COLORS["text_light"]};">No session active</div>''',
-            gr.update(interactive=False),
-            gr.update(interactive=False),
-            gr.update(interactive=False),
             "",
+            # Keep sections hidden
+            gr.update(visible=False),  # conversation_section
+            gr.update(visible=False),  # feedback_column
+            gr.update(visible=False),  # summary_section
+            gr.update(visible=False),  # tips_section
         )
 
     # Start session with the generated use case
@@ -246,10 +251,12 @@ def start_session(role: str):
         chat_history,
         initial_feedback,
         coverage_html,
-        gr.update(interactive=True),
-        gr.update(interactive=True),
-        gr.update(interactive=True),
         "",
+        # Show all sections progressively
+        gr.update(visible=True),   # conversation_section
+        gr.update(visible=True),   # feedback_column
+        gr.update(visible=True),   # summary_section
+        gr.update(visible=True),   # tips_section
     )
 
 
@@ -338,6 +345,7 @@ with gr.Blocks(
 
     with gr.Row():
         with gr.Column(scale=3):
+            # Phase 1: Setup (always visible)
             with gr.Group():
                 gr.Markdown("### Setup Your Session")
                 with gr.Row():
@@ -363,26 +371,31 @@ with gr.Blocks(
                     label="Generated Use Case"
                 )
 
-                start_btn = gr.Button("🚀 Start Session", variant="primary", size="lg", interactive=False)
+                start_btn = gr.Button("🚀 Start Session", variant="primary", size="lg", interactive=False, visible=False)
 
-            chatbot = gr.Chatbot(
-                label="Discovery Conversation",
-                height=450,
-                show_copy_button=True,
-                type="messages"
-            )
-
-            with gr.Row():
-                question_input = gr.Textbox(
-                    placeholder="Ask a discovery question... (Press Enter to submit)",
-                    label="Your Question",
-                    scale=5,
-                    interactive=False,
-                    lines=1
+            # Phase 2: Conversation (hidden until session starts)
+            conversation_section = gr.Column(visible=False)
+            with conversation_section:
+                chatbot = gr.Chatbot(
+                    label="Discovery Conversation",
+                    height=450,
+                    show_copy_button=True,
+                    type="messages"
                 )
-                submit_btn = gr.Button("Ask", variant="primary", scale=1, interactive=False)
 
-        with gr.Column(scale=2):
+                with gr.Row():
+                    question_input = gr.Textbox(
+                        placeholder="Ask a discovery question... (Press Enter to submit)",
+                        label="Your Question",
+                        scale=5,
+                        interactive=True,
+                        lines=1
+                    )
+                    submit_btn = gr.Button("Ask", variant="primary", scale=1, interactive=True)
+
+        # Phase 2: Right sidebar (hidden until session starts)
+        feedback_column = gr.Column(scale=2, visible=False)
+        with feedback_column:
             stats_output = gr.HTML(value="")
 
             gr.Markdown("### 📊 Question Feedback")
@@ -390,7 +403,7 @@ with gr.Blocks(
                 value=f'''
 <div style="text-align: center; padding: 50px 20px; color: {COLORS["text_light"]}; font-family: system-ui, sans-serif;">
     <div style="font-size: 3em; margin-bottom: 16px;">🎯</div>
-    <div style="font-size: 1.1em;">Select a role and use case, then click <strong style="color: {COLORS["primary"]};">Start Session</strong></div>
+    <div style="font-size: 1.1em;">Ask your first question to get feedback!</div>
 </div>
 '''
             )
@@ -404,14 +417,17 @@ with gr.Blocks(
 '''
             )
 
-            summary_btn = gr.Button("📋 Get Session Summary", variant="secondary", interactive=False)
+            summary_btn = gr.Button("📋 Get Session Summary", variant="secondary", interactive=True)
 
-    with gr.Accordion("📝 Session Summary", open=False):
+    # Phase 3: Summary section (hidden until session starts)
+    summary_section = gr.Accordion("📝 Session Summary", open=False, visible=False)
+    with summary_section:
         summary_output = gr.Markdown(
             value="Complete a session and click 'Get Session Summary' to see your results."
         )
 
-    gr.Markdown("""
+    # Tips section (hidden until session starts)
+    tips_section = gr.Markdown(visible=False, value="""
     ---
     ### 💡 Tips for Better Questions
 
@@ -439,10 +455,11 @@ with gr.Blocks(
             chatbot,
             feedback_output,
             coverage_output,
-            question_input,
-            submit_btn,
-            summary_btn,
-            stats_output
+            stats_output,
+            conversation_section,
+            feedback_column,
+            summary_section,
+            tips_section
         ]
     )
 
