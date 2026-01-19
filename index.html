@@ -2197,9 +2197,9 @@
                         { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Define success metrics, baselines, targets, and ROI calculation methodology.', roles: ['AO', 'BO'] },
                         { icon: 'ph-users', title: 'Adoption', description: 'Identify user personas, surface adoption barriers, define success indicators.', roles: ['AO', 'BT'] },
                         { icon: 'ph-database', title: 'Data', description: 'Deep dive into specific data sources. Assess quality. Begin RAG experimentation.', roles: ['AO', 'IT'] },
-                        { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.', roles: ['AO', 'BT'] },
+                        { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.', roles: ['BO', 'AO', 'BT'] },
                         { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] },
-                        { icon: 'ph-user-circle-check', title: 'Human in the Loop', description: 'Define when and how humans intervene: approvals, escalations, handoffs. Identify who the human(s) will be.', roles: ['BO', 'AO', 'IT'] }
+                        { icon: 'ph-user-circle-check', title: 'Human in the Loop', description: 'Define when and how humans intervene: approvals, escalations, handoffs. Identify who the human(s) will be.', roles: ['AO', 'IT'] }
                     ]
                 }
             },
@@ -2393,7 +2393,7 @@
             },
             'Roll Out Strategy': {
                 title: 'Roll Out Strategy Workstream',
-                roles: ['AO', 'BT'],
+                roles: ['BO', 'AO', 'BT'],
                 content: `<p>The Roll Out Strategy Workstream plans how the agent will reach users.</p>
                 <p>The team defines first users—the initial group who will use the agent. These should be carefully selected: supportive enough to provide constructive feedback, representative enough to surface real issues.</p>
                 <p>Starting location determines where the agent launches first. Which department, team, or market? Starting narrow allows for controlled learning before broader rollout.</p>
@@ -2413,7 +2413,7 @@
             },
             'Human in the Loop': {
                 title: 'Human in the Loop Workstream',
-                roles: ['BO', 'AO', 'IT'],
+                roles: ['AO', 'IT'],
                 content: `<p>The Human in the Loop Workstream defines when and how humans intervene in the agent's operations. Not all decisions should be fully automated—this workstream establishes the boundaries.</p>
                 <p><strong>Approval-Based Intervention:</strong> Some actions require human approval before the agent proceeds. What decisions need sign-off? Who has authority to approve? What's the turnaround expectation? This is common for high-stakes or irreversible actions.</p>
                 <p><strong>Escalation-Based Intervention:</strong> The agent handles routine cases but escalates when it encounters uncertainty, edge cases, or situations outside its training. Define escalation triggers: confidence thresholds, specific keywords, unusual patterns, or explicit user requests.</p>
@@ -3067,9 +3067,9 @@
                             { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Define success metrics, baselines, targets, and ROI calculation methodology.', roles: ['AO', 'BO'] },
                             { icon: 'ph-users', title: 'Adoption', description: 'Identify user personas, surface adoption barriers, define success indicators.', roles: ['AO', 'BT'] },
                             { icon: 'ph-database', title: 'Data', description: 'Deep dive into specific data sources. Assess quality. Begin RAG experimentation.', roles: ['AO', 'IT'] },
-                            { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.', roles: ['AO', 'BT'] },
+                            { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.', roles: ['BO', 'AO', 'BT'] },
                             { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] },
-                            { icon: 'ph-user-circle-check', title: 'Human in the Loop', description: 'Define when and how humans intervene: approvals, escalations, handoffs. Identify who the human(s) will be.', roles: ['BO', 'AO', 'IT'] }
+                            { icon: 'ph-user-circle-check', title: 'Human in the Loop', description: 'Define when and how humans intervene: approvals, escalations, handoffs. Identify who the human(s) will be.', roles: ['AO', 'IT'] }
                         ]
                     }
                 },
@@ -3395,7 +3395,7 @@
                 },
                 'Roll Out Strategy': {
                     title: 'Flujo de Trabajo de Estrategia de Despliegue',
-                    roles: ['AO', 'BT'],
+                    roles: ['BO', 'AO', 'BT'],
                     content: `<p>El Flujo de Trabajo de Estrategia de Despliegue planifica cómo el agente llegará a los usuarios.</p>
                     <p>El equipo define los primeros usuarios—el grupo inicial que usará el agente. Estos deben seleccionarse cuidadosamente: lo suficientemente receptivos para proporcionar retroalimentación constructiva, lo suficientemente representativos para revelar problemas reales.</p>
                     <p>La ubicación inicial determina dónde se lanza primero el agente. ¿Qué departamento, equipo o mercado? Comenzar de manera estrecha permite un aprendizaje controlado antes del despliegue más amplio.</p>
@@ -3415,7 +3415,7 @@
                 },
                 'Human in the Loop': {
                     title: 'Flujo de Trabajo de Humano en el Ciclo',
-                    roles: ['BO', 'AO', 'IT'],
+                    roles: ['AO', 'IT'],
                     content: `<p>El Flujo de Trabajo de Humano en el Ciclo define cuándo y cómo los humanos intervienen en las operaciones del agente. No todas las decisiones deben ser completamente automatizadas—este flujo de trabajo establece los límites.</p>
                     <p><strong>Intervención Basada en Aprobación:</strong> Algunas acciones requieren aprobación humana antes de que el agente proceda. ¿Qué decisiones necesitan autorización? ¿Quién tiene autoridad para aprobar? ¿Cuál es la expectativa de tiempo de respuesta? Esto es común para acciones de alto riesgo o irreversibles.</p>
                     <p><strong>Intervención Basada en Escalación:</strong> El agente maneja casos rutinarios pero escala cuando encuentra incertidumbre, casos extremos o situaciones fuera de su entrenamiento. Defina disparadores de escalación: umbrales de confianza, palabras clave específicas, patrones inusuales o solicitudes explícitas del usuario.</p>
