@@ -200,6 +200,20 @@ Define first users—the initial group who will use the agent. These should be c
 
 Establish evaluation criteria defining what "good" looks like. Quality metrics translate criteria into measurable indicators for the feedback loop in Phase 4. Design the testing approach: which test cases matter most, how to cover edge cases, how to detect regression.
 
+#### Human in the Loop Workstream
+
+Define when and how humans intervene in the agent's operations. Not all decisions should be fully automated—this workstream establishes the boundaries.
+
+**Approval-Based Intervention:** Some actions require human approval before the agent proceeds. What decisions need sign-off? Who has authority to approve? What's the turnaround expectation? This is common for high-stakes or irreversible actions.
+
+**Escalation-Based Intervention:** The agent handles routine cases but escalates when it encounters uncertainty, edge cases, or situations outside its training. Define escalation triggers: confidence thresholds, specific keywords, unusual patterns, or explicit user requests.
+
+**Topic-Based Handoff:** Certain topics transfer control entirely to a human. The agent recognizes it cannot or should not handle the situation and hands off completely. What topics require full handoff? Legal advice? Complaints? Sensitive personal matters?
+
+**Identifying the Human(s):** Who will the human be? This could be a single designated person, a rotating team, specialists for different domains, or a tiered structure where simple escalations go to one group and complex ones to another. Consider availability, expertise, and response time requirements.
+
+**Multiple Humans:** Some scenarios may require multiple humans—one for technical review, another for business approval, or a committee for significant decisions. Define the workflow: sequential or parallel? Who has final authority?
+
 #### Agent Owner Workstream
 
 Formalize the Agent Owner's role for this specific agent. Define responsibilities in detail: what they're accountable for, what decisions they can make autonomously, what requires Business Owner approval. Establish ownership expectations for the entire lifecycle.

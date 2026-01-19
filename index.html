@@ -2192,13 +2192,14 @@
                 ],
                 parallelExploration: {
                     title: 'Parallel Exploration',
-                    description: 'Five workstreams run in parallel following the Discovery Workshop.',
+                    description: 'Six workstreams run in parallel following the Discovery Workshop.',
                     items: [
                         { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Define success metrics, baselines, targets, and ROI calculation methodology.', roles: ['AO', 'BO'] },
                         { icon: 'ph-users', title: 'Adoption', description: 'Identify user personas, surface adoption barriers, define success indicators.', roles: ['AO', 'BT'] },
                         { icon: 'ph-database', title: 'Data', description: 'Deep dive into specific data sources. Assess quality. Begin RAG experimentation.', roles: ['AO', 'IT'] },
                         { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.', roles: ['AO', 'BT'] },
-                        { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] }
+                        { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] },
+                        { icon: 'ph-user-circle-check', title: 'Human in the Loop', description: 'Define when and how humans intervene: approvals, escalations, handoffs. Identify who the human(s) will be.', roles: ['BO', 'AO', 'IT'] }
                     ]
                 }
             },
@@ -2409,6 +2410,17 @@
                 <p>Quality metrics translate criteria into measurable indicators. These metrics will power the feedback loop in Phase 4, enabling the team to detect when the agent is underperforming.</p>
                 <p>Testing approach designs how the agent will be validated before and after launch. What test cases matter most? How will edge cases be covered? How will regression be detected?</p>
                 <p>This workstream ensures the team can objectively assess agent performance, not just hope it's working.</p>`
+            },
+            'Human in the Loop': {
+                title: 'Human in the Loop Workstream',
+                roles: ['BO', 'AO', 'IT'],
+                content: `<p>The Human in the Loop Workstream defines when and how humans intervene in the agent's operations. Not all decisions should be fully automated—this workstream establishes the boundaries.</p>
+                <p><strong>Approval-Based Intervention:</strong> Some actions require human approval before the agent proceeds. What decisions need sign-off? Who has authority to approve? What's the turnaround expectation? This is common for high-stakes or irreversible actions.</p>
+                <p><strong>Escalation-Based Intervention:</strong> The agent handles routine cases but escalates when it encounters uncertainty, edge cases, or situations outside its training. Define escalation triggers: confidence thresholds, specific keywords, unusual patterns, or explicit user requests.</p>
+                <p><strong>Topic-Based Handoff:</strong> Certain topics transfer control entirely to a human. The agent recognizes it cannot or should not handle the situation and hands off completely. What topics require full handoff? Legal advice? Complaints? Sensitive personal matters?</p>
+                <p><strong>Identifying the Human(s):</strong> Who will the human be? This could be a single designated person, a rotating team, specialists for different domains, or a tiered structure where simple escalations go to one group and complex ones to another. Consider availability, expertise, and response time requirements.</p>
+                <p><strong>Multiple Humans:</strong> Some scenarios may require multiple humans—one for technical review, another for business approval, or a committee for significant decisions. Define the workflow: sequential or parallel? Who has final authority?</p>
+                <p>This workstream ensures the agent operates within appropriate boundaries while maintaining efficiency and user trust.</p>`
             },
             '2.1': {
                 title: 'First Draft Creation',
@@ -3050,13 +3062,14 @@
                     ],
                     parallelExploration: {
                         title: 'Parallel Exploration',
-                        description: 'Five workstreams run in parallel following the Discovery Workshop.',
+                        description: 'Six workstreams run in parallel following the Discovery Workshop.',
                         items: [
                             { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Define success metrics, baselines, targets, and ROI calculation methodology.', roles: ['AO', 'BO'] },
                             { icon: 'ph-users', title: 'Adoption', description: 'Identify user personas, surface adoption barriers, define success indicators.', roles: ['AO', 'BT'] },
                             { icon: 'ph-database', title: 'Data', description: 'Deep dive into specific data sources. Assess quality. Begin RAG experimentation.', roles: ['AO', 'IT'] },
                             { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.', roles: ['AO', 'BT'] },
-                            { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] }
+                            { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] },
+                            { icon: 'ph-user-circle-check', title: 'Human in the Loop', description: 'Define when and how humans intervene: approvals, escalations, handoffs. Identify who the human(s) will be.', roles: ['BO', 'AO', 'IT'] }
                         ]
                     }
                 },
@@ -3399,6 +3412,17 @@
                     <p>Las métricas de calidad traducen criterios en indicadores medibles. Estas métricas impulsarán el ciclo de retroalimentación en la Fase 4, permitiendo al equipo detectar cuando el agente está rindiendo por debajo de lo esperado.</p>
                     <p>El enfoque de pruebas diseña cómo se validará el agente antes y después del lanzamiento. ¿Qué casos de prueba importan más? ¿Cómo se cubrirán los casos extremos? ¿Cómo se detectará la regresión?</p>
                     <p>Este flujo de trabajo asegura que el equipo pueda evaluar objetivamente el rendimiento del agente, no solo esperar que esté funcionando.</p>`
+                },
+                'Human in the Loop': {
+                    title: 'Flujo de Trabajo de Humano en el Ciclo',
+                    roles: ['BO', 'AO', 'IT'],
+                    content: `<p>El Flujo de Trabajo de Humano en el Ciclo define cuándo y cómo los humanos intervienen en las operaciones del agente. No todas las decisiones deben ser completamente automatizadas—este flujo de trabajo establece los límites.</p>
+                    <p><strong>Intervención Basada en Aprobación:</strong> Algunas acciones requieren aprobación humana antes de que el agente proceda. ¿Qué decisiones necesitan autorización? ¿Quién tiene autoridad para aprobar? ¿Cuál es la expectativa de tiempo de respuesta? Esto es común para acciones de alto riesgo o irreversibles.</p>
+                    <p><strong>Intervención Basada en Escalación:</strong> El agente maneja casos rutinarios pero escala cuando encuentra incertidumbre, casos extremos o situaciones fuera de su entrenamiento. Defina disparadores de escalación: umbrales de confianza, palabras clave específicas, patrones inusuales o solicitudes explícitas del usuario.</p>
+                    <p><strong>Traspaso Basado en Tema:</strong> Ciertos temas transfieren el control completamente a un humano. El agente reconoce que no puede o no debe manejar la situación y hace un traspaso completo. ¿Qué temas requieren traspaso completo? ¿Asesoría legal? ¿Quejas? ¿Asuntos personales sensibles?</p>
+                    <p><strong>Identificando al Humano(s):</strong> ¿Quién será el humano? Podría ser una persona designada, un equipo rotativo, especialistas para diferentes dominios, o una estructura escalonada donde las escalaciones simples van a un grupo y las complejas a otro. Considere disponibilidad, experiencia y requisitos de tiempo de respuesta.</p>
+                    <p><strong>Múltiples Humanos:</strong> Algunos escenarios pueden requerir múltiples humanos—uno para revisión técnica, otro para aprobación de negocio, o un comité para decisiones significativas. Defina el flujo de trabajo: ¿secuencial o paralelo? ¿Quién tiene la autoridad final?</p>
+                    <p>Este flujo de trabajo asegura que el agente opere dentro de límites apropiados mientras mantiene eficiencia y confianza del usuario.</p>`
                 },
                 '2.1': {
                     title: 'Creación del Primer Borrador',
