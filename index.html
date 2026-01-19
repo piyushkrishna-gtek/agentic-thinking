@@ -2705,7 +2705,7 @@
                                     <div class="parallel-item" onclick="this.classList.toggle('expanded')">
                                         <div class="parallel-header">
                                             <div class="parallel-icon"><i class="ph ${item.icon}"></i></div>
-                                            <div class="parallel-title">${item.title}</div>
+                                            <div class="parallel-title">${item.displayTitle || item.title}</div>
                                             ${stepDescriptions[item.title] ? `<button class="step-info-btn" onclick="event.stopPropagation(); showStepDescription('${item.title}')" title="Learn more"><i class="ph ph-info"></i></button>` : ''}
                                         </div>
                                         <div class="parallel-roles">
@@ -3185,12 +3185,12 @@
                         title: 'Exploración Paralela',
                         description: 'Seis flujos de trabajo se ejecutan en paralelo después del Taller de Descubrimiento.',
                         items: [
-                            { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Definir métricas de éxito, líneas base, objetivos y metodología de cálculo de ROI.', roles: ['AO', 'BO'] },
-                            { icon: 'ph-users', title: 'Adoption', description: 'Identificar personas de usuario, detectar barreras de adopción, definir indicadores de éxito.', roles: ['AO', 'BT'] },
-                            { icon: 'ph-database', title: 'Data', description: 'Análisis profundo de fuentes de datos específicas. Evaluar calidad. Comenzar experimentación RAG.', roles: ['AO', 'IT'] },
-                            { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Definir primeros usuarios, ubicación inicial, estrategia de despliegue por etapas. Planificar progresión de controlado a autónomo, y de bajo riesgo a alto riesgo.', roles: ['BO', 'AO', 'BT'] },
-                            { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Definir criterios de evaluación, métricas de calidad, enfoque de pruebas.', roles: ['AO', 'IT'] },
-                            { icon: 'ph-user-circle-check', title: 'Human in the Loop', description: 'Definir cuándo y cómo intervienen los humanos: aprobaciones, escalaciones, traspasos. Identificar quién(es) serán los humanos.', roles: ['AO', 'IT'] }
+                            { icon: 'ph-currency-circle-dollar', title: 'ROI', displayTitle: 'ROI', description: 'Definir métricas de éxito, líneas base, objetivos y metodología de cálculo de ROI.', roles: ['AO', 'BO'] },
+                            { icon: 'ph-users', title: 'Adoption', displayTitle: 'Adopción', description: 'Identificar personas de usuario, detectar barreras de adopción, definir indicadores de éxito.', roles: ['AO', 'BT'] },
+                            { icon: 'ph-database', title: 'Data', displayTitle: 'Datos', description: 'Análisis profundo de fuentes de datos específicas. Evaluar calidad. Comenzar experimentación RAG.', roles: ['AO', 'IT'] },
+                            { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', displayTitle: 'Estrategia de Despliegue', description: 'Definir primeros usuarios, ubicación inicial, estrategia de despliegue por etapas. Planificar progresión de controlado a autónomo, y de bajo riesgo a alto riesgo.', roles: ['BO', 'AO', 'BT'] },
+                            { icon: 'ph-clipboard-text', title: 'Evaluation', displayTitle: 'Evaluación', description: 'Definir criterios de evaluación, métricas de calidad, enfoque de pruebas.', roles: ['AO', 'IT'] },
+                            { icon: 'ph-user-circle-check', title: 'Human in the Loop', displayTitle: 'Humano en el Ciclo', description: 'Definir cuándo y cómo intervienen los humanos: aprobaciones, escalaciones, traspasos. Identificar quién(es) serán los humanos.', roles: ['AO', 'IT'] }
                         ]
                     }
                 },
@@ -3958,7 +3958,7 @@
                                     <div class="parallel-item" onclick="this.classList.toggle('expanded')">
                                         <div class="parallel-header">
                                             <div class="parallel-icon"><i class="ph ${item.icon}"></i></div>
-                                            <div class="parallel-title">${item.title}</div>
+                                            <div class="parallel-title">${item.displayTitle || item.title}</div>
                                             ${getStepDescriptions()[item.title] ? `<button class="step-info-btn" onclick="event.stopPropagation(); showStepDescriptionI18n('${item.title}')" title="${currentLanguage === 'es' ? 'Más información' : 'Learn more'}"><i class="ph ph-info"></i></button>` : ''}
                                         </div>
                                         <div class="parallel-roles">
