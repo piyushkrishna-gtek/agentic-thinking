@@ -2197,7 +2197,7 @@
                         { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Define success metrics, baselines, targets, and ROI calculation methodology.', roles: ['AO', 'BO'] },
                         { icon: 'ph-users', title: 'Adoption', description: 'Identify user personas, surface adoption barriers, define success indicators.', roles: ['AO', 'BT'] },
                         { icon: 'ph-database', title: 'Data', description: 'Deep dive into specific data sources. Assess quality. Begin RAG experimentation.', roles: ['AO', 'IT'] },
-                        { icon: 'ph-rocket-launch', title: 'Deployment', description: 'Define first users, starting location, staged rollout strategy.', roles: ['AO', 'BT'] },
+                        { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.', roles: ['AO', 'BT'] },
                         { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] }
                     ]
                 }
@@ -2390,14 +2390,16 @@
                 <p>For agents using unstructured data, RAG experimentation begins. Early experiments with retrieval-augmented generation reveal what's possible with the available documents and surface patterns that inform development.</p>
                 <p>This workstream ensures the data foundation is solid before building begins.</p>`
             },
-            'Deployment': {
-                title: 'Deployment Workstream',
+            'Roll Out Strategy': {
+                title: 'Roll Out Strategy Workstream',
                 roles: ['AO', 'BT'],
-                content: `<p>The Deployment Workstream plans how the agent will reach users.</p>
+                content: `<p>The Roll Out Strategy Workstream plans how the agent will reach users.</p>
                 <p>The team defines first users—the initial group who will use the agent. These should be carefully selected: supportive enough to provide constructive feedback, representative enough to surface real issues.</p>
                 <p>Starting location determines where the agent launches first. Which department, team, or market? Starting narrow allows for controlled learning before broader rollout.</p>
+                <p><strong>Control vs Autonomy:</strong> The rollout strategy should be viewed through the lens of control versus autonomy. Initially, always start with a controlled rollout where the agent has limited autonomy to make decisions. As trust builds and the agent proves reliable, gradually cede control and move toward a more autonomous agent.</p>
+                <p><strong>Risk-Based Progression:</strong> The rollout should also be viewed through the lens of risk. Initially, the agent should handle low-risk items only. As the agent earns trust through consistent performance, gradually expand its scope to include higher-risk items.</p>
                 <p>Staged rollout strategy plans the expansion from first users to full deployment. What triggers expansion to the next stage? What metrics indicate readiness? What support is needed at each stage?</p>
-                <p>This workstream ensures deployment is deliberate, not chaotic.</p>`
+                <p>This workstream ensures rollout is deliberate, not chaotic.</p>`
             },
             'Evaluation': {
                 title: 'Evaluation Workstream',
@@ -2429,7 +2431,7 @@
                 title: 'Initial Testing',
                 roles: ['AO', 'IT'],
                 content: `<p>Initial Testing puts the agent in front of real users for the first time—but in a controlled way.</p>
-                <p>A small, focused group tests the agent. These are typically the "first users" identified in the Deployment Workstream: supportive, representative, and willing to provide candid feedback.</p>
+                <p>A small, focused group tests the agent. These are typically the "first users" identified in the Roll Out Strategy Workstream: supportive, representative, and willing to provide candid feedback.</p>
                 <p>The goal is fast feedback and rapid iteration. Issues discovered here are fixed quickly while the user base is small. The agent's personality, tone, and behavior are fine-tuned based on how real users actually interact with it.</p>
                 <p>The Agent Owner gathers feedback systematically and works with the Implementation Team to address issues. Speed matters—this phase should move quickly to maintain momentum and tester engagement.</p>`
             },
@@ -3053,7 +3055,7 @@
                             { icon: 'ph-currency-circle-dollar', title: 'ROI', description: 'Define success metrics, baselines, targets, and ROI calculation methodology.', roles: ['AO', 'BO'] },
                             { icon: 'ph-users', title: 'Adoption', description: 'Identify user personas, surface adoption barriers, define success indicators.', roles: ['AO', 'BT'] },
                             { icon: 'ph-database', title: 'Data', description: 'Deep dive into specific data sources. Assess quality. Begin RAG experimentation.', roles: ['AO', 'IT'] },
-                            { icon: 'ph-rocket-launch', title: 'Deployment', description: 'Define first users, starting location, staged rollout strategy.', roles: ['AO', 'BT'] },
+                            { icon: 'ph-rocket-launch', title: 'Roll Out Strategy', description: 'Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.', roles: ['AO', 'BT'] },
                             { icon: 'ph-clipboard-text', title: 'Evaluation', description: 'Define evaluation criteria, quality metrics, testing approach.', roles: ['AO', 'IT'] }
                         ]
                     }
@@ -3378,12 +3380,14 @@
                     <p>Para agentes que usan datos no estructurados, comienza la experimentación RAG. Los experimentos tempranos con generación aumentada por recuperación revelan qué es posible con los documentos disponibles y revelan patrones que informan el desarrollo.</p>
                     <p>Este flujo de trabajo asegura que la base de datos sea sólida antes de que comience la construcción.</p>`
                 },
-                'Deployment': {
-                    title: 'Flujo de Trabajo de Despliegue',
+                'Roll Out Strategy': {
+                    title: 'Flujo de Trabajo de Estrategia de Despliegue',
                     roles: ['AO', 'BT'],
-                    content: `<p>El Flujo de Trabajo de Despliegue planifica cómo el agente llegará a los usuarios.</p>
+                    content: `<p>El Flujo de Trabajo de Estrategia de Despliegue planifica cómo el agente llegará a los usuarios.</p>
                     <p>El equipo define los primeros usuarios—el grupo inicial que usará el agente. Estos deben seleccionarse cuidadosamente: lo suficientemente receptivos para proporcionar retroalimentación constructiva, lo suficientemente representativos para revelar problemas reales.</p>
                     <p>La ubicación inicial determina dónde se lanza primero el agente. ¿Qué departamento, equipo o mercado? Comenzar de manera estrecha permite un aprendizaje controlado antes del despliegue más amplio.</p>
+                    <p><strong>Control vs Autonomía:</strong> La estrategia de despliegue debe verse a través del lente de control versus autonomía. Inicialmente, siempre comience con un despliegue controlado donde el agente tiene autonomía limitada para tomar decisiones. A medida que se construye la confianza y el agente demuestra ser confiable, gradualmente ceda el control y avance hacia un agente más autónomo.</p>
+                    <p><strong>Progresión Basada en Riesgo:</strong> El despliegue también debe verse a través del lente del riesgo. Inicialmente, el agente debe manejar solo elementos de bajo riesgo. A medida que el agente gana confianza a través de un rendimiento consistente, gradualmente expanda su alcance para incluir elementos de mayor riesgo.</p>
                     <p>La estrategia de despliegue por etapas planifica la expansión desde los primeros usuarios hasta el despliegue completo. ¿Qué desencadena la expansión a la siguiente etapa? ¿Qué métricas indican preparación? ¿Qué apoyo se necesita en cada etapa?</p>
                     <p>Este flujo de trabajo asegura que el despliegue sea deliberado, no caótico.</p>`
                 },

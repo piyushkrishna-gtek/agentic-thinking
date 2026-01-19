@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 1: Discovery | Agentic Transformation Framework</title>
+    <meta name="description" content="Establish the foundation through structured exploration. Learn how to identify AI agent use cases, map processes, define capabilities, and prepare for development.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://piyushkrishna-gtek.github.io/agentic-thinking/framework/phases/discovery.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Phase 1: Discovery | Agentic Transformation Framework">
+    <meta property="og:description" content="Establish the foundation for AI agent implementation through structured exploration and use case identification.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://piyushkrishna-gtek.github.io/agentic-thinking/framework/phases/discovery.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Phase 1: Discovery | Agentic Transformation">
+    <meta name="twitter:description" content="Establish the foundation for AI agent implementation through structured exploration.">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Phase 1: Discovery",
+        "description": "Establish the foundation through structured exploration",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Process Reimagination",
+                "text": "Apply AI-first design thinking. Ask 'if we redesigned this process assuming AI capabilities, what would it look like?'"
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "High-Level Strategy",
+                "text": "Ensure strategic alignment with organizational priorities."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "High-Level Data Landscape",
+                "text": "Overview of available data sources and their interconnections."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 4,
+                "name": "Decompose and Prioritize",
+                "text": "Identify buildable increments. Evaluate value versus effort. Select highest-priority use case."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 5,
+                "name": "Focus on High-Priority Use Case",
+                "text": "Confirm the specific use case to pursue. Assign the Agent Owner."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 6,
+                "name": "Process Mapping",
+                "text": "Map current process for the specific use case. Draft the 'Process Reimagined' state."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 7,
+                "name": "User Value Proposition",
+                "text": "Define how the agent will support end users. Articulate why they will return to use it repeatedly."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 8,
+                "name": "Capability Mapping",
+                "text": "Define capability statements and prioritize must-haves."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 9,
+                "name": "Guardrails Exploration",
+                "text": "Define boundaries, safety requirements, compliance constraints, and escalation paths."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 10,
+                "name": "High-Level Data Mapping",
+                "text": "Identify relevant data sources with initial structure review and availability check."
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="site-header-inner">
+            <a href="../index.html" class="site-logo">Agentic Transformation</a>
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="../index.html">Overview</a>
+                <a href="discovery.html" class="active">Discovery</a>
+                <a href="development.html">Development</a>
+                <a href="testing.html">Testing</a>
+                <a href="improvement.html">Improvement</a>
+                <a href="adoption.html">Adoption</a>
+                <a href="../roles/">Roles</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content-area">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="../index.html">Framework</a>
+            <span>/</span>
+            <a href="../index.html">Phases</a>
+            <span>/</span>
+            <span aria-current="page">Discovery</span>
+        </nav>
+
+        <!-- Phase Hero -->
+        <section class="phase-hero">
+            <div class="phase-hero-icon" style="background: var(--phase-1); box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);">
+                <i class="ph ph-magnifying-glass"></i>
+            </div>
+            <div class="phase-hero-content">
+                <h1>Phase 1: Discovery</h1>
+                <p class="lead">Establish the foundation through structured exploration</p>
+            </div>
+        </section>
+
+        <!-- Entry Point A -->
+        <article class="step-group step-group-entry-point step-group-optional" id="entry-point-a">
+            <div class="step-group-header">
+                <h2 class="step-group-title">
+                    <span class="entry-point-badge">A</span>
+                    Entry Point A: High-Level Strategy
+                </h2>
+                <span class="optional-badge">OPTIONAL</span>
+            </div>
+            <p class="step-group-description">For organizations that have not yet identified their priority use case. Skip this section if you already know which use case to pursue.</p>
+
+            <!-- Step 1.1 -->
+            <div class="step-item" id="step-1-1">
+                <div class="step-header">
+                    <div class="step-number">1.1</div>
+                    <h3 class="step-title">Process Reimagination</h3>
+                    <div class="step-roles">
+                        <a href="../roles/business-owner.html" class="role-tag bo">Business Owner</a>
+                        <a href="../roles/implementation-team.html" class="role-tag it">Implementation Team</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>Process Reimagination is the starting point for organizations that haven't yet identified their priority use case. Rather than asking "where can we add an agent?", the Business Owner asks a more powerful question: "If we redesigned this process assuming AI capabilities, what would it look like?"</p>
+                        <p>This shift in perspective is critical. Looking for places to insert AI into existing workflows yields incremental improvements at best. Reimagining processes with AI as a foundational capability surfaces transformational opportunities that would otherwise remain invisible.</p>
+                        <p>The Business Owner leads this exercise, bringing strategic context about which processes matter most to the business unit. The Implementation Team supports by providing perspective on what AI can realistically accomplish—helping distinguish between genuinely high-value opportunities and ideas that sound impressive but lack technical feasibility.</p>
+                        <p>The output of this step is not a list of "AI use cases" but a reimagined view of how work could flow differently. This becomes the raw material for identifying high-value items in subsequent steps.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.2 -->
+            <div class="step-item" id="step-1-2">
+                <div class="step-header">
+                    <div class="step-number">1.2</div>
+                    <h3 class="step-title">High-Level Strategy</h3>
+                    <div class="step-roles">
+                        <a href="../roles/business-owner.html" class="role-tag bo">Business Owner</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>High-Level Strategy ensures that any AI initiative connects to what actually matters for the business unit. The reimagined processes from Step 1.1 may surface many possibilities, but not all of them align with current organizational priorities.</p>
+                        <p>This step filters opportunities through strategic relevance—ensuring that effort goes toward initiatives that leadership will support and fund. Which opportunities align with the business unit's goals? Which have executive sponsorship? Which fit the current investment appetite?</p>
+                        <p>The Business Owner owns this step entirely. No technical input is required yet. The goal is clarity on strategic direction before resources are committed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.3 -->
+            <div class="step-item" id="step-1-3">
+                <div class="step-header">
+                    <div class="step-number">1.3</div>
+                    <h3 class="step-title">High-Level Data Landscape</h3>
+                    <div class="step-roles">
+                        <a href="../roles/business-owner.html" class="role-tag bo">Business Owner</a>
+                        <a href="../roles/implementation-team.html" class="role-tag it">Implementation Team</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>Before committing to a use case, the team needs a realistic view of what data exists to support it. This step creates an overview—not a detailed audit—of available data sources and how they interconnect.</p>
+                        <p>The Business Owner brings knowledge of what data the business unit generates and uses. The Implementation Team assesses whether that data is accessible, structured, and likely to support AI capabilities.</p>
+                        <p>Key questions at this stage: What is described in each source? Which use cases could each support? How are sources interconnected? Are there obvious gaps or quality concerns?</p>
+                        <p>This is a feasibility check. A compelling reimagined process means nothing if the data to power it doesn't exist or can't be accessed. Surfacing data constraints early prevents wasted effort on use cases that will stall during implementation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.4 -->
+            <div class="step-item" id="step-1-4">
+                <div class="step-header">
+                    <div class="step-number">1.4</div>
+                    <h3 class="step-title">Decompose and Prioritize</h3>
+                    <div class="step-roles">
+                        <a href="../roles/business-owner.html" class="role-tag bo">Business Owner</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>With reimagined processes, strategic alignment, and data landscape understood, the Business Owner now breaks down opportunities into buildable increments and selects where to start.</p>
+                        <p>Decomposition means identifying the smaller pieces within a large opportunity. A fully reimagined process might require multiple agents, integrations, and workflow changes. Breaking it into increments allows the team to deliver value sooner and learn faster.</p>
+                        <p>Prioritization evaluates each increment on value versus effort. Which pieces deliver the most impact for the least investment? Which have data readily available? Which align most closely with immediate business needs?</p>
+                        <p>The output is a selected high-priority use case—the specific opportunity that will move forward into the Discovery Workshop. This decision belongs to the Business Owner, informed by everything learned in Steps 1.1–1.3.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Divider -->
+        <div class="entry-point-divider">
+            <div class="divider-line"></div>
+            <div class="divider-text">OR</div>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- Entry Point B -->
+        <article class="step-group step-group-entry-point" id="entry-point-b">
+            <div class="step-group-header">
+                <h2 class="step-group-title">
+                    <span class="entry-point-badge">B</span>
+                    Entry Point B: Known Use Case
+                </h2>
+            </div>
+            <p class="step-group-description">Start here if you already know which use case to pursue.</p>
+
+            <!-- Step 1.5 -->
+            <div class="step-item" id="step-1-5">
+                <div class="step-header">
+                    <div class="step-number">1.5</div>
+                    <h3 class="step-title">Focus on High-Priority Use Case</h3>
+                    <div class="step-roles">
+                        <a href="../roles/business-owner.html" class="role-tag bo">Business Owner</a>
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>This step marks the transition from strategic exploration to focused execution. Whether the use case emerged from Steps 1.1–1.4 or was known from the start (Entry Point B), this is where it becomes official.</p>
+                        <p>The Business Owner confirms the specific use case to pursue. Equally important, this is when the Agent Owner is assigned. The Agent Owner will take responsibility for this agent's success through development, testing, improvement, and adoption.</p>
+                        <p>The assignment is formal. The Agent Owner needs clear mandate and accountability from this point forward. The Business Owner remains involved but shifts from driving to overseeing.</p>
+                        <p>From here, the Discovery Workshop begins.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Discovery Workshop -->
+        <article class="step-group" id="discovery-workshop">
+            <div class="step-group-header">
+                <h2 class="step-group-title">Discovery Workshop: Agentic Thinking</h2>
+            </div>
+            <p class="step-group-description">The workshop translates the chosen use case into actionable foundations for development.</p>
+
+            <!-- Step 1.6 -->
+            <div class="step-item" id="step-1-6">
+                <div class="step-header">
+                    <div class="step-number">1.6</div>
+                    <h3 class="step-title">Process Mapping</h3>
+                    <div class="step-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/business-team.html" class="role-tag bt">Business Team</a>
+                        <a href="../roles/implementation-team.html" class="role-tag it">Implementation Team</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>Process Mapping is the first step of the Discovery Workshop. The Agent Owner leads the team in documenting the current process for the specific use case selected in Step 1.5.</p>
+                        <p>This is detailed work. The team maps how work actually flows today—not the idealized version, but reality. Where does work originate? What steps does it pass through? Where do delays occur? Where is human judgment most heavily applied?</p>
+                        <p>With the current state documented, the team drafts the "Process Reimagined" state. This is the target: how the process would work with an agent in place. What steps does the agent handle? Where does human oversight remain? How does the workflow change?</p>
+                        <p>The gap between current and reimagined states defines what the agent must accomplish.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.7 -->
+            <div class="step-item" id="step-1-7">
+                <div class="step-header">
+                    <div class="step-number">1.7</div>
+                    <h3 class="step-title">User Value Proposition</h3>
+                    <div class="step-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/business-team.html" class="role-tag bt">Business Team</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>User Value Proposition defines why users will actually use this agent. Without a clear answer to this question, even a technically excellent agent will fail to gain adoption.</p>
+                        <p>The Agent Owner leads the team in articulating how the agent will support end users. What problem does it solve for them? What friction does it remove? What capability does it provide that they don't have today?</p>
+                        <p>Equally important: Why will users come back to use it repeatedly? A one-time novelty isn't valuable. The agent must deliver ongoing value that makes it part of users' regular workflow.</p>
+                        <p>This step connects directly to adoption. The higher the genuine value to users, the higher the adoption. The higher the adoption, the higher the ROI. A weak value proposition identified now can be strengthened before development begins.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.8 -->
+            <div class="step-item" id="step-1-8">
+                <div class="step-header">
+                    <div class="step-number">1.8</div>
+                    <h3 class="step-title">Capability Mapping</h3>
+                    <div class="step-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/business-team.html" class="role-tag bt">Business Team</a>
+                        <a href="../roles/business-owner.html" class="role-tag bo">Business Owner</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>Capability Mapping translates the reimagined process into specific agent capabilities. The team creates a list of capability statements, each framed as: "This agent should be capable of..."</p>
+                        <p>The Business Team provides domain expertise on what capabilities would genuinely help users. The Agent Owner facilitates and documents. The Business Owner provides input on which capabilities matter most for ROI—ensuring the team doesn't build impressive features that don't drive value.</p>
+                        <p>Not all capabilities are equal. The team prioritizes must-haves versus nice-to-haves. Must-haves are essential for the agent to deliver its core value proposition. Nice-to-haves can wait for future iterations.</p>
+                        <p>This prioritization is crucial. Scope creep kills AI projects. A focused agent that does a few things well will succeed where an ambitious agent that tries to do everything will fail.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.9 -->
+            <div class="step-item" id="step-1-9">
+                <div class="step-header">
+                    <div class="step-number">1.9</div>
+                    <h3 class="step-title">Guardrails Exploration</h3>
+                    <div class="step-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/business-team.html" class="role-tag bt">Business Team</a>
+                        <a href="../roles/implementation-team.html" class="role-tag it">Implementation Team</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>Guardrails define what the agent should not do. This step establishes boundaries, safety requirements, compliance constraints, and escalation paths.</p>
+                        <p>The Business Team identifies situations where the agent must defer to humans. Sensitive decisions, edge cases, and high-risk scenarios need clear escalation paths. The Implementation Team advises on what's technically feasible to enforce.</p>
+                        <p>Compliance constraints come from regulatory requirements, company policies, or industry standards. These are non-negotiable boundaries the agent must respect.</p>
+                        <p>Safety requirements address potential harms. What could go wrong if the agent behaves unexpectedly? How can those risks be mitigated?</p>
+                        <p>Guardrails aren't limitations on value—they're prerequisites for trust. An agent without clear boundaries won't be adopted because users won't trust it. Defining guardrails early ensures they're built in, not bolted on.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.10 -->
+            <div class="step-item" id="step-1-10">
+                <div class="step-header">
+                    <div class="step-number">1.10</div>
+                    <h3 class="step-title">High-Level Data Mapping</h3>
+                    <div class="step-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/implementation-team.html" class="role-tag it">Implementation Team</a>
+                    </div>
+                    <i class="ph ph-caret-down step-expand-icon"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-description">
+                        <p>High-Level Data Mapping focuses on the specific data sources required for the selected use case. Unlike the broad overview in Step 1.3, this step identifies exactly which data the agent will need to access.</p>
+                        <p>The Agent Owner and Implementation Team review each capability from Step 1.8 and map it to data requirements. What data does the agent need to perform this capability? Where does that data live? What format is it in?</p>
+                        <p>Initial structure review examines whether the data is organized in ways the agent can use. A basic availability check confirms the data can actually be accessed—permissions, APIs, and integrations may all be factors.</p>
+                        <p>This step surfaces data gaps early. If a critical capability requires data that doesn't exist or can't be accessed, the team learns now rather than during development.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Parallel Exploration -->
+        <article class="step-group" id="parallel-exploration">
+            <div class="step-group-header">
+                <h2 class="step-group-title">Parallel Exploration</h2>
+            </div>
+            <p class="step-group-description">Six workstreams run in parallel following the Discovery Workshop, each addressing a critical aspect of agent success.</p>
+
+            <div class="parallel-grid">
+                <!-- ROI -->
+                <div class="parallel-item" id="workstream-roi">
+                    <div class="parallel-header">
+                        <div class="parallel-icon"><i class="ph ph-currency-circle-dollar"></i></div>
+                        <h3 class="parallel-title">ROI</h3>
+                    </div>
+                    <div class="parallel-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/business-owner.html" class="role-tag bo">Business Owner</a>
+                    </div>
+                    <p class="parallel-description">The Agent Owner and Business Owner work together to define success metrics—the specific measurements that will indicate whether the agent is delivering value. Baselines capture the current state. Targets define what success looks like. The team agrees on ROI calculation methodology to prevent disputes later about whether the agent is actually working.</p>
+                </div>
+
+                <!-- Adoption -->
+                <div class="parallel-item" id="workstream-adoption">
+                    <div class="parallel-header">
+                        <div class="parallel-icon"><i class="ph ph-users"></i></div>
+                        <h3 class="parallel-title">Adoption</h3>
+                    </div>
+                    <div class="parallel-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/business-team.html" class="role-tag bt">Business Team</a>
+                    </div>
+                    <p class="parallel-description">Identify user personas—the different types of people who will interact with the agent. Surface adoption barriers: skepticism about AI, competing priorities, fear of job displacement. Define success indicators: active users, frequency of use, task completion rates. This workstream ensures the team thinks about adoption before launch.</p>
+                </div>
+
+                <!-- Data -->
+                <div class="parallel-item" id="workstream-data">
+                    <div class="parallel-header">
+                        <div class="parallel-icon"><i class="ph ph-database"></i></div>
+                        <h3 class="parallel-title">Data</h3>
+                    </div>
+                    <div class="parallel-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/implementation-team.html" class="role-tag it">Implementation Team</a>
+                    </div>
+                    <p class="parallel-description">Deep dive into each specific data source required for the agent's capabilities. Assess data quality: inconsistencies, gaps, outdated records, formatting problems. For agents using unstructured data, RAG experimentation begins. This workstream ensures the data foundation is solid before building begins.</p>
+                </div>
+
+                <!-- Roll Out Strategy -->
+                <div class="parallel-item" id="workstream-rollout">
+                    <div class="parallel-header">
+                        <div class="parallel-icon"><i class="ph ph-rocket-launch"></i></div>
+                        <h3 class="parallel-title">Roll Out Strategy</h3>
+                    </div>
+                    <div class="parallel-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/business-team.html" class="role-tag bt">Business Team</a>
+                    </div>
+                    <p class="parallel-description">Define first users—the initial group who will use the agent. These should be carefully selected: supportive enough to provide constructive feedback, representative enough to surface real issues. Plan the staged rollout strategy from first users to full deployment.</p>
+                    <p class="parallel-description"><strong>Control vs Autonomy:</strong> View the rollout through the lens of control versus autonomy. Initially, always start with a controlled rollout where the agent has limited autonomy to make decisions. As trust builds and the agent proves reliable, gradually cede control and move toward a more autonomous agent.</p>
+                    <p class="parallel-description"><strong>Risk-Based Progression:</strong> Also view the rollout through the lens of risk. Initially, the agent should handle low-risk items only. As the agent earns trust through consistent performance, gradually expand its scope to include higher-risk items.</p>
+                </div>
+
+                <!-- Evaluation -->
+                <div class="parallel-item" id="workstream-evaluation">
+                    <div class="parallel-header">
+                        <div class="parallel-icon"><i class="ph ph-clipboard-text"></i></div>
+                        <h3 class="parallel-title">Evaluation</h3>
+                    </div>
+                    <div class="parallel-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/implementation-team.html" class="role-tag it">Implementation Team</a>
+                    </div>
+                    <p class="parallel-description">Establish evaluation criteria defining what "good" looks like. Quality metrics translate criteria into measurable indicators for the feedback loop in Phase 4. Design the testing approach: which test cases matter most, how to cover edge cases, how to detect regression.</p>
+                </div>
+
+                <!-- Agent Owner -->
+                <div class="parallel-item" id="workstream-agent-owner">
+                    <div class="parallel-header">
+                        <div class="parallel-icon"><i class="ph ph-robot"></i></div>
+                        <h3 class="parallel-title">Agent Owner</h3>
+                    </div>
+                    <div class="parallel-roles">
+                        <a href="../roles/agent-owner.html" class="role-tag ao">Agent Owner</a>
+                        <a href="../roles/business-owner.html" class="role-tag bo">Business Owner</a>
+                    </div>
+                    <p class="parallel-description">Formalize the Agent Owner's role for this specific agent. Define responsibilities in detail: what they're accountable for, what decisions they can make autonomously, what requires Business Owner approval. Establish ownership expectations for the entire lifecycle.</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Phase Navigation -->
+        <nav class="phase-nav" aria-label="Phase navigation">
+            <div class="phase-nav-link disabled">
+                <i class="ph ph-arrow-left"></i>
+                <div>
+                    <div class="phase-nav-label">Previous</div>
+                    <div class="phase-nav-title">—</div>
+                </div>
+            </div>
+            <a href="development.html" class="phase-nav-link">
+                <div style="text-align: right;">
+                    <div class="phase-nav-label">Next Phase</div>
+                    <div class="phase-nav-title">Development</div>
+                </div>
+                <i class="ph ph-arrow-right"></i>
+            </a>
+        </nav>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Phases</h4>
+                    <ul>
+                        <li><a href="discovery.html">Phase 1: Discovery</a></li>
+                        <li><a href="development.html">Phase 2: Development</a></li>
+                        <li><a href="testing.html">Phase 3: Testing & Production</a></li>
+                        <li><a href="improvement.html">Phase 4: Improvement</a></li>
+                        <li><a href="adoption.html">Phase 5: Adoption</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Roles</h4>
+                    <ul>
+                        <li><a href="../roles/business-owner.html">Business Owner</a></li>
+                        <li><a href="../roles/agent-owner.html">Agent Owner</a></li>
+                        <li><a href="../roles/implementation-team.html">Implementation Team</a></li>
+                        <li><a href="../roles/business-team.html">Business Team</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../index.html">Interactive Version</a></li>
+                        <li><a href="../index.html">Framework Overview</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Agentic Transformation Framework</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

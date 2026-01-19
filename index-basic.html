@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Agentic Transformation Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .philosophy {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .philosophy-text {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .tab-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .tab-btn.active {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Phase Cards */
+        .phase-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .phase-header {
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid;
+        }
+
+        .phase-header:hover {
+            background: #f9f9f9;
+        }
+
+        .phase-1a .phase-header, .phase-1b .phase-header { border-left-color: #0099cc; }
+        .phase-2 .phase-header { border-left-color: #6600cc; }
+        .phase-3 .phase-header { border-left-color: #9933ff; }
+        .phase-4 .phase-header { border-left-color: #ff9900; }
+        .phase-5 .phase-header { border-left-color: #10b981; }
+
+        .phase-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .phase-subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .phase-toggle {
+            font-size: 1.25rem;
+            color: #999;
+            transition: transform 0.2s;
+        }
+
+        .phase-content {
+            display: none;
+            padding: 1.25rem;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        .phase-card.expanded .phase-content {
+            display: block;
+        }
+
+        .phase-card.expanded .phase-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Section Groups */
+        .section-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .section-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Steps */
+        .step {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-header {
+            padding: 0.875rem 1rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            cursor: pointer;
+        }
+
+        .step-header:hover {
+            background: #f9f9f9;
+        }
+
+        .step-number {
+            background: #333;
+            color: white;
+            min-width: 42px;
+            height: 24px;
+            padding: 0 8px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-info {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-description {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .step-roles {
+            display: flex;
+            gap: 0.375rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .role-tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .role-tag.bo { background: #e0f2fe; color: #0369a1; }
+        .role-tag.ao { background: #f3e8ff; color: #7c3aed; }
+        .role-tag.it { background: #fef3c7; color: #d97706; }
+        .role-tag.bt { background: #d1fae5; color: #059669; }
+
+        .step-toggle {
+            color: #999;
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+
+        .step-details {
+            display: none;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .step-details p {
+            margin-bottom: 0.75rem;
+        }
+
+        .step-details p:last-child {
+            margin-bottom: 0;
+        }
+
+        .step.expanded .step-details {
+            display: block;
+        }
+
+        .step.expanded .step-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Parallel Exploration Grid */
+        .parallel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .parallel-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+
+        .parallel-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.375rem;
+        }
+
+        .parallel-description {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Continuous Loop */
+        .loop-section {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .loop-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .loop-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .loop-point {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .loop-point:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Roles */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .role-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .role-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .role-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .role-definition {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .role-card h4 {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .role-card ul {
+            font-size: 0.875rem;
+            color: #555;
+            margin-left: 1.25rem;
+        }
+
+        .role-card li {
+            margin-bottom: 0.375rem;
+        }
+
+        .phase-involvement {
+            margin-top: 1rem;
+        }
+
+        .phase-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.85rem;
+        }
+
+        .phase-row:last-child {
+            border-bottom: none;
+        }
+
+        .phase-badge {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .phase-badge.p1 { background: #0099cc; }
+        .phase-badge.p2 { background: #6600cc; }
+        .phase-badge.p3 { background: #9933ff; }
+        .phase-badge.p4 { background: #ff9900; }
+        .phase-badge.p5 { background: #10b981; }
+
+        .phase-name {
+            font-weight: 500;
+            min-width: 140px;
+        }
+
+        .phase-level {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            background: #e5e7eb;
+            color: #374151;
+            flex-shrink: 0;
+        }
+
+        .phase-detail {
+            color: #666;
+            flex: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .phase-row {
+                flex-wrap: wrap;
+            }
+
+            .phase-detail {
+                width: 100%;
+                margin-top: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>The Agentic Transformation Framework</h1>
+            <p class="philosophy">"Think big, start small, improve & adopt."</p>
+            <p class="philosophy-text">
+                AI agents are products, not projects. Success is not a perfect launch—success is going to production with something that works, then improving constantly based on what real data reveals.
+            </p>
+        </header>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('process')">Transformation Process</button>
+            <button class="tab-btn" onclick="showTab('roles')">Supporting Roles</button>
+        </div>
+
+        <!-- Process Tab -->
+        <div class="tab-content active" id="process">
+
+            <!-- Phase 1A -->
+            <div class="phase-card phase-1a">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div>
+                        <div class="phase-title">Phase 1A: Discovery - High-Level Strategy</div>
+                        <div class="phase-subtitle">Optional entry point for organizations without a priority use case</div>
+                    </div>
+                    <span class="phase-toggle">&#9662;</span>
+                </div>
+                <div class="phase-content">
+                    <div class="section-group">
+                        <div class="section-title">Strategic Discovery</div>
+                        <div class="section-description">For organizations that have not yet identified their priority use case. Complete these steps, then proceed to Phase 1B.</div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.a.1</span>
+                                <div class="step-info">
+                                    <div class="step-title">Process Reimagination</div>
+                                    <div class="step-description">Apply AI-first design thinking. Ask "if we redesigned this process assuming AI capabilities, what would it look like?"</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag bo">Business Owner</span>
+                                        <span class="role-tag it">Implementation Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Process Reimagination is the starting point for organizations that haven't yet identified their priority use case. Rather than asking "where can we add an agent?", the Business Owner asks a more powerful question: "If we redesigned this process assuming AI capabilities, what would it look like?"</p>
+                                <p>This shift in perspective is critical. Looking for places to insert AI into existing workflows yields incremental improvements at best. Reimagining processes with AI as a foundational capability surfaces transformational opportunities that would otherwise remain invisible.</p>
+                                <p>The Business Owner leads this exercise, bringing strategic context about which processes matter most to the business unit. The Implementation Team supports by providing perspective on what AI can realistically accomplish—helping distinguish between genuinely high-value opportunities and ideas that sound impressive but lack technical feasibility.</p>
+                                <p>The output of this step is not a list of "AI use cases" but a reimagined view of how work could flow differently. This becomes the raw material for identifying high-value items in subsequent steps.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.a.2</span>
+                                <div class="step-info">
+                                    <div class="step-title">High-Level Strategy</div>
+                                    <div class="step-description">Ensure strategic alignment with organizational priorities.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag bo">Business Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>High-Level Strategy ensures that any AI initiative connects to what actually matters for the business unit. The reimagined processes from Step 1.a.1 may surface many possibilities, but not all of them align with current organizational priorities.</p>
+                                <p>This step filters opportunities through strategic relevance—ensuring that effort goes toward initiatives that leadership will support and fund. Which opportunities align with the business unit's goals? Which have executive sponsorship? Which fit the current investment appetite?</p>
+                                <p>The Business Owner owns this step entirely. No technical input is required yet. The goal is clarity on strategic direction before resources are committed.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.a.3</span>
+                                <div class="step-info">
+                                    <div class="step-title">High-Level Data Landscape</div>
+                                    <div class="step-description">Overview of available data sources and their interconnections.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag bo">Business Owner</span>
+                                        <span class="role-tag it">Implementation Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Before committing to a use case, the team needs a realistic view of what data exists to support it. This step creates an overview—not a detailed audit—of available data sources and how they interconnect.</p>
+                                <p>The Business Owner brings knowledge of what data the business unit generates and uses. The Implementation Team assesses whether that data is accessible, structured, and likely to support AI capabilities.</p>
+                                <p>Key questions at this stage: What is described in each source? Which use cases could each support? How are sources interconnected? Are there obvious gaps or quality concerns?</p>
+                                <p>This is a feasibility check. A compelling reimagined process means nothing if the data to power it doesn't exist or can't be accessed. Surfacing data constraints early prevents wasted effort on use cases that will stall during implementation.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.a.4</span>
+                                <div class="step-info">
+                                    <div class="step-title">Decompose and Prioritize</div>
+                                    <div class="step-description">Identify buildable increments. Evaluate value versus effort. Select highest-priority use case.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag bo">Business Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>With reimagined processes, strategic alignment, and data landscape understood, the Business Owner now breaks down opportunities into buildable increments and selects where to start.</p>
+                                <p>Decomposition means identifying the smaller pieces within a large opportunity. A fully reimagined process might require multiple agents, integrations, and workflow changes. Breaking it into increments allows the team to deliver value sooner and learn faster.</p>
+                                <p>Prioritization evaluates each increment on value versus effort. Which pieces deliver the most impact for the least investment? Which have data readily available? Which align most closely with immediate business needs?</p>
+                                <p>The output is a selected high-priority use case—the specific opportunity that will move forward into the Discovery Workshop. This decision belongs to the Business Owner, informed by everything learned in Steps 1.a.1–1.a.3.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 1B -->
+            <div class="phase-card phase-1b">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div>
+                        <div class="phase-title">Phase 1B: Discovery - Use Case Focus</div>
+                        <div class="phase-subtitle">Agentic Thinking Workshop + Parallel Exploration</div>
+                    </div>
+                    <span class="phase-toggle">&#9662;</span>
+                </div>
+                <div class="phase-content">
+                    <div class="section-group">
+                        <div class="section-title">Discovery Workshop: Agentic Thinking</div>
+                        <div class="section-description">Start here if you already know which use case to pursue, or after completing Phase 1A. The workshop translates the chosen use case into actionable foundations for development.</div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.b.1</span>
+                                <div class="step-info">
+                                    <div class="step-title">Focus on High-Priority Use Case</div>
+                                    <div class="step-description">Confirm the specific use case to pursue. Assign the Agent Owner.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag bo">Business Owner</span>
+                                        <span class="role-tag ao">Agent Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>This step marks the transition from strategic exploration to focused execution. Whether the use case emerged from Steps 1.a.1–1.a.4 or was known from the start (Entry Point B), this is where it becomes official.</p>
+                                <p>The Business Owner confirms the specific use case to pursue. Equally important, this is when the Agent Owner is assigned. The Agent Owner will take responsibility for this agent's success through development, testing, improvement, and adoption.</p>
+                                <p><strong>Formalizing the Agent Owner Role:</strong> The assignment is concrete with clear expectations. Responsibilities are defined in detail—what exactly is the Agent Owner accountable for? What decisions can they make autonomously? What requires Business Owner approval?</p>
+                                <p>Ownership expectations establish the long-term relationship. The Agent Owner isn't just responsible for launch—they own the agent's entire lifecycle through improvement and adoption. This ensures the Agent Owner has clear mandate and the Business Owner has clear expectations.</p>
+                                <p>From here, the Discovery Workshop begins.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.b.2</span>
+                                <div class="step-info">
+                                    <div class="step-title">Process Mapping</div>
+                                    <div class="step-description">Map current process for the specific use case. Draft the "Process Reimagined" state.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bt">Business Team</span>
+                                        <span class="role-tag it">Implementation Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Process Mapping is the first step of the Discovery Workshop. The Agent Owner leads the team in documenting the current process for the specific use case selected in Step 1.b.1.</p>
+                                <p>This is detailed work. The team maps how work actually flows today—not the idealized version, but reality. Where does work originate? What steps does it pass through? Where do delays occur? Where is human judgment most heavily applied?</p>
+                                <p>With the current state documented, the team drafts the "Process Reimagined" state. This is the target: how the process would work with an agent in place. What steps does the agent handle? Where does human oversight remain? How does the workflow change?</p>
+                                <p>The gap between current and reimagined states defines what the agent must accomplish.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.b.3</span>
+                                <div class="step-info">
+                                    <div class="step-title">User Value Proposition</div>
+                                    <div class="step-description">Define how the agent will support end users. Articulate why they will return to use it repeatedly.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bt">Business Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>User Value Proposition defines why users will actually use this agent. Without a clear answer to this question, even a technically excellent agent will fail to gain adoption.</p>
+                                <p>The Agent Owner leads the team in articulating how the agent will support end users. What problem does it solve for them? What friction does it remove? What capability does it provide that they don't have today?</p>
+                                <p>Equally important: Why will users come back to use it repeatedly? A one-time novelty isn't valuable. The agent must deliver ongoing value that makes it part of users' regular workflow.</p>
+                                <p>This step connects directly to adoption. The higher the genuine value to users, the higher the adoption. The higher the adoption, the higher the ROI. A weak value proposition identified now can be strengthened before development begins.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.b.4</span>
+                                <div class="step-info">
+                                    <div class="step-title">Capability Mapping</div>
+                                    <div class="step-description">Define capability statements: "This agent should be capable of..." Prioritize must-haves.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bt">Business Team</span>
+                                        <span class="role-tag bo">Business Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Capability Mapping translates the reimagined process into specific agent capabilities. The team creates a list of capability statements, each framed as: "This agent should be capable of..."</p>
+                                <p>The Business Team provides domain expertise on what capabilities would genuinely help users. The Agent Owner facilitates and documents. The Business Owner provides input on which capabilities matter most for ROI—ensuring the team doesn't build impressive features that don't drive value.</p>
+                                <p>Not all capabilities are equal. The team prioritizes must-haves versus nice-to-haves. Must-haves are essential for the agent to deliver its core value proposition. Nice-to-haves can wait for future iterations.</p>
+                                <p>This prioritization is crucial. Scope creep kills AI projects. A focused agent that does a few things well will succeed where an ambitious agent that tries to do everything will fail.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.b.5</span>
+                                <div class="step-info">
+                                    <div class="step-title">Guardrails Exploration</div>
+                                    <div class="step-description">Define boundaries, safety requirements, compliance constraints, and escalation paths.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bt">Business Team</span>
+                                        <span class="role-tag it">Implementation Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Guardrails define what the agent should not do. This step establishes boundaries, safety requirements, compliance constraints, and escalation paths.</p>
+                                <p>The Business Team identifies situations where the agent must defer to humans. Sensitive decisions, edge cases, and high-risk scenarios need clear escalation paths. The Implementation Team advises on what's technically feasible to enforce.</p>
+                                <p>Compliance constraints come from regulatory requirements, company policies, or industry standards. These are non-negotiable boundaries the agent must respect.</p>
+                                <p>Safety requirements address potential harms. What could go wrong if the agent behaves unexpectedly? How can those risks be mitigated?</p>
+                                <p>Guardrails aren't limitations on value—they're prerequisites for trust. An agent without clear boundaries won't be adopted because users won't trust it. Defining guardrails early ensures they're built in, not bolted on.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">1.b.6</span>
+                                <div class="step-info">
+                                    <div class="step-title">High-Level Data Mapping</div>
+                                    <div class="step-description">Identify relevant data sources. Initial structure review. Basic availability check.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag it">Implementation Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>High-Level Data Mapping focuses on the specific data sources required for the selected use case. Unlike the broad overview in Step 1.a.3, this step identifies exactly which data the agent will need to access.</p>
+                                <p>The Agent Owner and Implementation Team review each capability from Step 1.b.4 and map it to data requirements. What data does the agent need to perform this capability? Where does that data live? What format is it in?</p>
+                                <p>Initial structure review examines whether the data is organized in ways the agent can use. A basic availability check confirms the data can actually be accessed—permissions, APIs, and integrations may all be factors.</p>
+                                <p>This step surfaces data gaps early. If a critical capability requires data that doesn't exist or can't be accessed, the team learns now rather than during development.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-group">
+                        <div class="section-title">Parallel Exploration</div>
+                        <div class="section-description">Five workstreams run in parallel following the Discovery Workshop.</div>
+
+                        <div class="parallel-grid">
+                            <div class="parallel-item">
+                                <div class="parallel-title">ROI</div>
+                                <div class="parallel-description">Define success metrics, baselines, targets, and ROI calculation methodology.</div>
+                                <div class="step-roles">
+                                    <span class="role-tag ao">Agent Owner</span>
+                                    <span class="role-tag bo">Business Owner</span>
+                                </div>
+                            </div>
+                            <div class="parallel-item">
+                                <div class="parallel-title">Adoption</div>
+                                <div class="parallel-description">Identify user personas, surface adoption barriers, define success indicators.</div>
+                                <div class="step-roles">
+                                    <span class="role-tag ao">Agent Owner</span>
+                                    <span class="role-tag bt">Business Team</span>
+                                </div>
+                            </div>
+                            <div class="parallel-item">
+                                <div class="parallel-title">Data</div>
+                                <div class="parallel-description">Deep dive into specific data sources. Assess quality. Begin RAG experimentation.</div>
+                                <div class="step-roles">
+                                    <span class="role-tag ao">Agent Owner</span>
+                                    <span class="role-tag it">Implementation Team</span>
+                                </div>
+                            </div>
+                            <div class="parallel-item">
+                                <div class="parallel-title">Roll Out Strategy</div>
+                                <div class="parallel-description">Define first users, starting location, staged rollout. Plan progression from controlled to autonomous, and from low-risk to high-risk.</div>
+                                <div class="step-roles">
+                                    <span class="role-tag ao">Agent Owner</span>
+                                    <span class="role-tag bt">Business Team</span>
+                                </div>
+                            </div>
+                            <div class="parallel-item">
+                                <div class="parallel-title">Evaluation</div>
+                                <div class="parallel-description">Define evaluation criteria, quality metrics, testing approach.</div>
+                                <div class="step-roles">
+                                    <span class="role-tag ao">Agent Owner</span>
+                                    <span class="role-tag it">Implementation Team</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase-card phase-2">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div>
+                        <div class="phase-title">Phase 2: Development</div>
+                        <div class="phase-subtitle">Translate discovery outputs into a working agent</div>
+                    </div>
+                    <span class="phase-toggle">&#9662;</span>
+                </div>
+                <div class="phase-content">
+                    <div class="section-group">
+                        <div class="section-title">Build Phase</div>
+                        <div class="section-description">Development translates discovery outputs into a working agent.</div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">2.1</span>
+                                <div class="step-info">
+                                    <div class="step-title">First Draft Creation</div>
+                                    <div class="step-description">Build the first draft based on Discovery Workshop outcomes and Parallel Exploration inputs.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag it">Implementation Team</span>
+                                        <span class="role-tag ao">Agent Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>First Draft Creation is where the agent begins to exist. The Implementation Team builds the first working version based on everything learned in Discovery and Parallel Exploration.</p>
+                                <p>The Discovery Workshop outcomes—process mapping, capability mapping, guardrails, and data mapping—provide the blueprint. Parallel Exploration inputs refine the approach with ROI targets, deployment plans, and evaluation criteria.</p>
+                                <p>This is not the final agent. It's a first draft—functional enough to test, incomplete enough to require iteration. The goal is to create something concrete that the team can react to and refine.</p>
+                                <p>The Agent Owner coordinates closely with the Implementation Team, ensuring the build stays aligned with business intent while remaining technically feasible.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">2.2</span>
+                                <div class="step-info">
+                                    <div class="step-title">Validation and Iteration</div>
+                                    <div class="step-description">Test the draft. Multiple refinement cycles shape the agent toward intended behavior.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bt">Business Team</span>
+                                        <span class="role-tag it">Implementation Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Validation and Iteration is where the first draft becomes a working agent through cycles of testing and refinement.</p>
+                                <p>The Business Team tests the draft against real scenarios. Does the agent handle the expected cases? How does it respond to edge cases? Where does it fall short?</p>
+                                <p>Multiple refinement cycles shape the agent toward intended behavior. Each cycle surfaces issues, the Implementation Team addresses them, and the next round of testing reveals what's improved and what remains.</p>
+                                <p>The Agent Owner orchestrates this process, prioritizing which issues to address and ensuring cycles move efficiently. Not every issue needs to be fixed before moving forward—the goal is an agent good enough for testing with real users.</p>
+                                <p>This step may take multiple iterations. Rushing through it creates problems that are harder to fix after launch.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase-card phase-3">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div>
+                        <div class="phase-title">Phase 3: Testing and Route to Production</div>
+                        <div class="phase-subtitle">Testing happens in three waves</div>
+                    </div>
+                    <span class="phase-toggle">&#9662;</span>
+                </div>
+                <div class="phase-content">
+                    <div class="section-group">
+                        <div class="section-title">Testing Waves</div>
+                        <div class="section-description">Progressive testing from focused groups to production launch.</div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">3.1</span>
+                                <div class="step-info">
+                                    <div class="step-title">Initial Testing</div>
+                                    <div class="step-description">Small, focused group tests for fast feedback and rapid iteration.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag it">Implementation Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Initial Testing puts the agent in front of real users for the first time—but in a controlled way.</p>
+                                <p>A small, focused group tests the agent. These are typically the "first users" identified in the Roll Out Strategy Workstream: supportive, representative, and willing to provide candid feedback.</p>
+                                <p>The goal is fast feedback and rapid iteration. Issues discovered here are fixed quickly while the user base is small. The agent's personality, tone, and behavior are fine-tuned based on how real users actually interact with it.</p>
+                                <p>The Agent Owner gathers feedback systematically and works with the Implementation Team to address issues. Speed matters—this phase should move quickly to maintain momentum and tester engagement.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">3.2</span>
+                                <div class="step-info">
+                                    <div class="step-title">Broader Testing</div>
+                                    <div class="step-description">Expand to cover different roles and personas. Discover actual needs versus assumptions.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bt">Business Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Broader Testing expands the user base to cover different roles and personas identified during Parallel Exploration.</p>
+                                <p>This phase reveals what people really want versus what was assumed. Different user types interact with the agent differently. Some find it intuitive; others struggle. Some use it for expected purposes; others discover unexpected applications.</p>
+                                <p>The Agent Owner and Business Team work together to understand these patterns. What works? What doesn't? Where are the gaps between design assumptions and actual needs?</p>
+                                <p>Findings from this phase inform final refinements before production. Some issues may require fixes; others may become known limitations to address post-launch.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">3.3</span>
+                                <div class="step-info">
+                                    <div class="step-title">Production Launch</div>
+                                    <div class="step-description">Launch when core functionalities are satisfactory. Early launch expected—real data drives improvement.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bo">Business Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Production Launch is when the agent becomes real. It moves from testing to actual use by the intended user base.</p>
+                                <p>Launch happens when core functionalities are satisfactory. This doesn't mean perfect—early launch is expected and encouraged. An agent that works well enough to generate real data will improve faster than an agent stuck in endless testing.</p>
+                                <p>The Business Owner makes the go/no-go decision. This is a gate: Does the agent meet the minimum criteria established in the Evaluation Workstream? Is it ready for production?</p>
+                                <p>Once launched, the agent enters the continuous loop of Improvement and Adoption. Real data drives improvement. The Agent Owner's focus shifts from building to evolving.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase-card phase-4">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div>
+                        <div class="phase-title">Phase 4: Improvement</div>
+                        <div class="phase-subtitle">The agent gets better based on real-world performance</div>
+                    </div>
+                    <span class="phase-toggle">&#9662;</span>
+                </div>
+                <div class="phase-content">
+                    <div class="section-group">
+                        <div class="section-title">Continuous Improvement</div>
+                        <div class="section-description">Improvement is ongoing—the agent gets better based on real-world performance.</div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">4.1</span>
+                                <div class="step-info">
+                                    <div class="step-title">Feedback Loop</div>
+                                    <div class="step-description">Collect implicit feedback (evaluations, usage patterns) and explicit feedback (direct user input).</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>The Feedback Loop is the engine of continuous improvement. The Agent Owner collects both types of feedback that reveal how the agent is performing.</p>
+                                <p>Implicit feedback comes from evaluations and usage patterns. Low evaluation scores indicate quality problems. Usage patterns reveal what users actually do—where they succeed, where they drop off, what they ignore.</p>
+                                <p>Explicit feedback comes directly from users. Comments, ratings, complaints, and requests all provide insight into user experience and unmet needs.</p>
+                                <p>Both types of feedback are essential. Implicit feedback catches issues users don't bother to report. Explicit feedback captures context and nuance that metrics miss.</p>
+                                <p>The Agent Owner monitors this feedback continuously, looking for patterns that indicate where the agent needs improvement.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">4.2</span>
+                                <div class="step-info">
+                                    <div class="step-title">Detect and Address Gaps</div>
+                                    <div class="step-description">Clean data inconsistencies. Fill knowledge gaps. Adjust behavior for edge cases.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag it">Implementation Team</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Detect and Address Gaps is where feedback becomes action. The Agent Owner identifies specific issues and works with the Implementation Team to resolve them.</p>
+                                <p>Data inconsistencies are common early on. The agent may encounter conflicting information, outdated records, or formatting problems that cause incorrect responses. Cleaning this data improves performance.</p>
+                                <p>Knowledge gaps appear when users ask questions the agent can't answer. Filling these gaps—adding documents, expanding instructions, improving retrieval—extends the agent's capabilities.</p>
+                                <p>Edge cases emerge as more users interact with the agent. Behavior that worked in testing may fail in unexpected real-world scenarios. Adjusting agent behavior for these cases improves reliability.</p>
+                                <p>This is ongoing work, not a one-time effort. The agent continuously improves based on what real usage reveals.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">4.3</span>
+                                <div class="step-info">
+                                    <div class="step-title">Communicate Improvements</div>
+                                    <div class="step-description">Notify users when fixes are applied. Close the feedback loop to build trust.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Communicate Improvements closes the feedback loop with users. When fixes are applied, users should know.</p>
+                                <p>Notification matters because it builds trust. Users who reported problems see that their feedback led to action. Users who encountered issues learn that those issues are resolved.</p>
+                                <p>This communication doesn't need to be elaborate. A simple notification that a previously unanswerable question now has an answer, or that a known bug is fixed, is enough.</p>
+                                <p>The Agent Owner owns this communication. It's not just about informing users—it's about demonstrating that the agent is actively maintained and improving. This visibility encourages continued engagement and additional feedback.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="loop-section">
+                        <div class="loop-title">The Continuous Loop</div>
+                        <div class="loop-subtitle">Phases 4 & 5 run in parallel, feeding each other continuously</div>
+                        <div class="loop-point"><strong>Improvement drives adoption:</strong> Better agents attract more users</div>
+                        <div class="loop-point"><strong>Adoption generates feedback:</strong> More users reveal more gaps</div>
+                        <div class="loop-point"><strong>Feedback drives improvement:</strong> Gaps become addressable</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="phase-card phase-5">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div>
+                        <div class="phase-title">Phase 5: Adoption</div>
+                        <div class="phase-subtitle">Runs in parallel with improvement—they feed each other continuously</div>
+                    </div>
+                    <span class="phase-toggle">&#9662;</span>
+                </div>
+                <div class="phase-content">
+                    <div class="section-group">
+                        <div class="section-title">Adoption Strategy</div>
+                        <div class="section-description">Adoption runs in parallel with improvement—they feed each other continuously.</div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">5.1</span>
+                                <div class="step-info">
+                                    <div class="step-title">Understand User Base</div>
+                                    <div class="step-description">Adapt strategy based on real user behavior. Close gap between assumed and actual needs.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Understand User Base is about closing the gap between assumptions and reality. What users actually do with the agent often differs from what was expected.</p>
+                                <p>The Agent Owner adapts strategy based on real user behavior. Which personas use the agent most? Which ignore it? What do heavy users do differently from light users?</p>
+                                <p>This understanding informs every other adoption activity. Promotion efforts can target underutilizing segments. Champion recruitment can focus on where momentum already exists. Barrier removal can prioritize what actually blocks people.</p>
+                                <p>Adoption strategy should evolve continuously based on what the data reveals about how users actually engage with the agent.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">5.2</span>
+                                <div class="step-info">
+                                    <div class="step-title">Address Adoption Barriers</div>
+                                    <div class="step-description">Systematically work through barriers: skeptical managers, competing priorities, resistance patterns, and organizational dynamics. Escalate blockers that require Business Owner intervention.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bo">Business Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Address Adoption Barriers is systematic work to remove what prevents users from adopting the agent.</p>
+                                <p>Skeptical managers may block their teams from using the agent. The Agent Owner addresses this through evidence, demonstration, and relationship-building.</p>
+                                <p>Competing priorities mean users feel "too busy" for adoption. The Agent Owner reframes the agent as helping with priorities rather than competing with them.</p>
+                                <p>Resistance patterns emerge from various sources—fear of change, distrust of AI, past negative experiences. Each pattern needs a tailored response.</p>
+                                <p>Organizational dynamics may create blockers the Agent Owner can't resolve alone. When barriers require authority or resources beyond the Agent Owner's reach, escalation to the Business Owner is appropriate.</p>
+                                <p>This step acknowledges that adoption is often blocked by people problems, not product problems.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">5.3</span>
+                                <div class="step-info">
+                                    <div class="step-title">Promote the Agent</div>
+                                    <div class="step-description">Showcase capabilities. Identify power users as they emerge.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Promote the Agent is about making value visible. Users who don't know what the agent can do won't use it.</p>
+                                <p>Showcasing capabilities means demonstrating what's possible. Real examples, success stories, and use cases help potential users understand how the agent could help them.</p>
+                                <p>Power users emerge naturally as some users engage more deeply than others. The Agent Owner identifies these power users and engages with them—understanding their needs, helping them do more, and learning from their usage patterns.</p>
+                                <p>Promotion isn't marketing. It's helping users understand the art of the possible so they can make informed decisions about whether to engage.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">5.4</span>
+                                <div class="step-info">
+                                    <div class="step-title">Champion Network</div>
+                                    <div class="step-description">Cultivate early adopters into internal advocates who support teammates.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Champion Network multiplies the Agent Owner's impact. Early adopters who believe in the agent become internal advocates.</p>
+                                <p>Cultivating champions means identifying users who are both enthusiastic and influential. These individuals promote usage within their teams, answer questions from peers, and provide social proof that the agent works.</p>
+                                <p>Champions support teammates in ways the Agent Owner cannot. They're present in meetings, available for quick questions, and trusted by their colleagues. Their endorsement carries weight that official communications don't.</p>
+                                <p>The Agent Owner supports champions with information, recognition, and access. A healthy champion network scales adoption beyond what the Agent Owner could achieve alone.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" onclick="toggleStep(this)">
+                            <div class="step-header">
+                                <span class="step-number">5.5</span>
+                                <div class="step-info">
+                                    <div class="step-title">Expand Capabilities</div>
+                                    <div class="step-description">Identify multi-agent opportunities. Formalize patterns users discover.</div>
+                                    <div class="step-roles">
+                                        <span class="role-tag ao">Agent Owner</span>
+                                        <span class="role-tag bo">Business Owner</span>
+                                    </div>
+                                </div>
+                                <span class="step-toggle">&#9662;</span>
+                            </div>
+                            <div class="step-details">
+                                <p>Expand Capabilities is about growth—both in what the agent can do and in how widely it's used.</p>
+                                <p>As the agent matures, opportunities emerge for capability expansion. Users request new features. Adjacent use cases become visible. Multi-agent opportunities surface where agents could work together.</p>
+                                <p>The Agent Owner identifies these opportunities and presents them to the Business Owner for scale decisions. Which expansions justify investment? Which align with strategic priorities?</p>
+                                <p>This step also formalizes patterns users discover. When users find creative applications for the agent, those patterns can become supported capabilities rather than workarounds.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="loop-section">
+                        <div class="loop-title">The Continuous Loop</div>
+                        <div class="loop-subtitle">Phases 4 & 5 run in parallel, feeding each other continuously</div>
+                        <div class="loop-point"><strong>Improvement drives adoption:</strong> Better agents attract more users</div>
+                        <div class="loop-point"><strong>Adoption generates feedback:</strong> More users reveal more gaps</div>
+                        <div class="loop-point"><strong>Feedback drives improvement:</strong> Gaps become addressable</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roles Tab -->
+        <div class="tab-content" id="roles">
+            <div class="roles-grid">
+                <div class="role-card">
+                    <h3>Business Owner</h3>
+                    <div class="role-subtitle">Senior leader accountable for the agent portfolio</div>
+                    <div class="role-definition">
+                        Senior leader responsible for a business unit or function. Owns a portfolio of agents. Accountable for ROI. Makes Scale, Fix, or Kill decisions.
+                    </div>
+
+                    <h4>Phase Involvement</h4>
+                    <div class="phase-involvement">
+                        <div class="phase-row">
+                            <span class="phase-badge p1">1</span>
+                            <span class="phase-name">Discovery</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Drives use case selection, capability mapping, ROI methodology</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p2">2</span>
+                            <span class="phase-name">Development</span>
+                            <span class="phase-level">Monitors</span>
+                            <span class="phase-detail">Agent Owner operates with autonomy</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p3">3</span>
+                            <span class="phase-name">Testing & Production</span>
+                            <span class="phase-level">Go/No-Go</span>
+                            <span class="phase-detail">Makes production launch decision</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p4">4</span>
+                            <span class="phase-name">Improvement</span>
+                            <span class="phase-level">Monitors</span>
+                            <span class="phase-detail">Receives updates via alerts and dashboards</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p5">5</span>
+                            <span class="phase-name">Adoption</span>
+                            <span class="phase-level">Escalations</span>
+                            <span class="phase-detail">Handles blockers requiring senior intervention, scale decisions</span>
+                        </div>
+                    </div>
+
+                    <h4>Key Responsibilities</h4>
+                    <ul>
+                        <li>Use case selection and prioritization</li>
+                        <li>ROI accountability and methodology</li>
+                        <li>Production launch approval</li>
+                        <li>Scale, Fix, or Kill decisions</li>
+                        <li>Escalation handling</li>
+                    </ul>
+                </div>
+
+                <div class="role-card">
+                    <h3>Agent Owner</h3>
+                    <div class="role-subtitle">Responsible for individual agent success and evolution</div>
+                    <div class="role-definition">
+                        Responsible for the success and evolution of an individual agent. Owns improvement and adoption. Reports to the Business Owner. Single point of accountability for their agent's success.
+                    </div>
+
+                    <h4>Phase Involvement</h4>
+                    <div class="phase-involvement">
+                        <div class="phase-row">
+                            <span class="phase-badge p1">1</span>
+                            <span class="phase-name">Discovery</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">User value proposition, process & capability mapping, guardrails exploration, all five parallel workstreams</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p2">2</span>
+                            <span class="phase-name">Development</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Validation and iteration cycles with Implementation Team</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p3">3</span>
+                            <span class="phase-name">Testing & Production</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Leads all three testing waves, coordinates production launch</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p4">4</span>
+                            <span class="phase-name">Improvement</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Feedback loop, gap detection, communicate improvements to users</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p5">5</span>
+                            <span class="phase-name">Adoption</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">User base understanding, barrier removal, promotion, champion network</span>
+                        </div>
+                    </div>
+
+                    <h4>Core Responsibilities</h4>
+                    <ul>
+                        <li><strong>Drive Improvement:</strong> Collect feedback, detect gaps, and continuously enhance agent behavior</li>
+                        <li><strong>Drive Adoption:</strong> Understand users, address barriers, promote capabilities, build champion network</li>
+                        <li><strong>Close Feedback Loop:</strong> Communicate improvements to users and build trust through transparency</li>
+                        <li><strong>Escalate Blockers:</strong> Identify issues requiring Business Owner intervention and escalate appropriately</li>
+                    </ul>
+                </div>
+
+                <div class="role-card">
+                    <h3>Implementation Team</h3>
+                    <div class="role-subtitle">Technical builders and maintainers of the agent</div>
+                    <div class="role-definition">
+                        Builds and maintains the agent technically. Partners with the Agent Owner throughout the lifecycle. Responsible for translating requirements into working agent capabilities.
+                    </div>
+
+                    <h4>Phase Involvement</h4>
+                    <div class="phase-involvement">
+                        <div class="phase-row">
+                            <span class="phase-badge p1">1</span>
+                            <span class="phase-name">Discovery</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Process reimagination, data landscape assessment, guardrails exploration</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p2">2</span>
+                            <span class="phase-name">Development</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">First draft creation, validation and iteration cycles</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p3">3</span>
+                            <span class="phase-name">Testing & Production</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Initial testing, technical support for broader testing</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p4">4</span>
+                            <span class="phase-name">Improvement</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Detect and address gaps, clean data, adjust behavior</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p5">5</span>
+                            <span class="phase-name">Adoption</span>
+                            <span class="phase-level">Support</span>
+                            <span class="phase-detail">Technical support for scaling and capability expansion</span>
+                        </div>
+                    </div>
+
+                    <h4>Key Responsibilities</h4>
+                    <ul>
+                        <li>Agent architecture and development</li>
+                        <li>Data integration and RAG implementation</li>
+                        <li>Technical iteration based on feedback</li>
+                        <li>Performance optimization</li>
+                        <li>Production deployment and maintenance</li>
+                    </ul>
+                </div>
+
+                <div class="role-card">
+                    <h3>Business Team</h3>
+                    <div class="role-subtitle">Domain experts and end users of the agent</div>
+                    <div class="role-definition">
+                        Domain experts who provide requirements, validate behavior, and test the agent. Works alongside the Agent Owner to ensure the agent meets real business needs.
+                    </div>
+
+                    <h4>Phase Involvement</h4>
+                    <div class="phase-involvement">
+                        <div class="phase-row">
+                            <span class="phase-badge p1">1</span>
+                            <span class="phase-name">Discovery</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">User value proposition, process mapping, capability mapping, guardrails exploration, adoption planning</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p2">2</span>
+                            <span class="phase-name">Development</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Validation and iteration, providing domain expertise</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p3">3</span>
+                            <span class="phase-name">Testing & Production</span>
+                            <span class="phase-level">Active</span>
+                            <span class="phase-detail">Broader testing across roles and personas</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p4">4</span>
+                            <span class="phase-name">Improvement</span>
+                            <span class="phase-level">Feedback</span>
+                            <span class="phase-detail">Provide explicit feedback and usage insights</span>
+                        </div>
+                        <div class="phase-row">
+                            <span class="phase-badge p5">5</span>
+                            <span class="phase-name">Adoption</span>
+                            <span class="phase-level">Champions</span>
+                            <span class="phase-detail">Power users become internal advocates supporting teammates</span>
+                        </div>
+                    </div>
+
+                    <h4>Key Responsibilities</h4>
+                    <ul>
+                        <li>Define business requirements and success criteria</li>
+                        <li>Validate agent behavior against real workflows</li>
+                        <li>Participate in testing waves</li>
+                        <li>Provide ongoing feedback</li>
+                        <li>Champion adoption among peers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function togglePhase(header) {
+            const card = header.parentElement;
+            card.classList.toggle('expanded');
+        }
+
+        function toggleStep(step) {
+            if (event.target.closest('.step-header')) {
+                step.classList.toggle('expanded');
+            }
+        }
+    </script>
+</body>
+</html>
